@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import Login from "./components/Login";
-import useLinking from "./navigation/useLinking";
+import Login from "./Login/LoginHandler";
+import useLinking from "./Navigation/useLinking";
 
 const Stack = createStackNavigator();
 
