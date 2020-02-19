@@ -1,11 +1,17 @@
 import { useLinking } from "@react-navigation/native";
+import { Linking } from "expo";
 
-const useLinking = () => {
-  return (
-    <View>
-      <Text></Text>
-    </View>
-  );
-};
-
-export default useLinking;
+export default function(containerRef) {
+  return useLinking(containerRef, {
+    prefixes: [Linking.makeUrl("/")],
+    config: {
+      Root: {
+        path: "root",
+        screens: {
+          Home: "home",
+          Login: "login"
+        }
+      }
+    }
+  });
+}
