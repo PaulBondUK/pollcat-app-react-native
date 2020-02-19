@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button, View, Text } from "react-native";
 
-export default function LoginOrCreate(props) {
+export default function LoginOrCreate({ navigation }) {
   return (
     <View
       style={{
@@ -11,8 +11,11 @@ export default function LoginOrCreate(props) {
       }}
     >
       <Text>Login to Pollcat</Text>
-      <Button title="login">Login</Button>
-      <Button title="create account">Create Account</Button>
+      <Button
+        title="Login"
+        onPress={() => navigation.navigate("LoginHandler")}
+      />
+      <Button title="Create Account" />
     </View>
   );
 }
