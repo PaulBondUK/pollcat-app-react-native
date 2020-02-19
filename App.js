@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginOrCreate from "./Login/LoginOrCreate";
+import LoginHandler from "./Login/LoginHandler";
 
 // function Login() {
 //   return (
@@ -19,6 +20,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="LoginOrCreate" component={LoginOrCreate} />
+        <Stack.Screen name="LoginHandler" component={LoginHandler} />
       </Stack.Navigator>
     </NavigationContainer>
   );
