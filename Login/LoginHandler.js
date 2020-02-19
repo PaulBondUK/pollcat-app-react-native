@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Text, View } from "react-native";
+import { Button, Text, TextInput, View, StyleSheet } from "react-native";
 
 export default class LoginHandler extends Component {
   state = {
@@ -8,6 +8,7 @@ export default class LoginHandler extends Component {
   };
 
   render() {
+    console.log(this.state.emailAddress);
     return (
       <View
         style={{
@@ -16,7 +17,6 @@ export default class LoginHandler extends Component {
           justifyContent: "center"
         }}
       >
-        <Text>Login</Text>
         <Text>Email Address</Text>
         <TextInput
           style={styles.input}
@@ -33,9 +33,25 @@ export default class LoginHandler extends Component {
           onChangeText={text => this.setState({ password: text })}
           value={this.state.password}
         ></TextInput>
-        <Button title="login">Login</Button>
-        <Button title="create account">Create Account</Button>
+        <Button title="Login"></Button>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  input: {
+    width: 200,
+    borderColor: "gray",
+    borderWidth: 1,
+    height: 40,
+    padding: 10,
+    margin: 10
+  }
+});
