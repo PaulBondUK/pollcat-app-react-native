@@ -1,5 +1,5 @@
-import { useLinking } from "@react-navigation/native";
-import { Linking } from "expo";
+import { useLinking } from "./node_modules/@react-navigation/native";
+import { Linking } from "./node_modules/expo";
 
 export default function(containerRef) {
   return useLinking(containerRef, {
