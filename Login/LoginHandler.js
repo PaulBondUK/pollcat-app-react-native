@@ -3,12 +3,13 @@ import { Button, Text, TextInput, View, StyleSheet } from "react-native";
 
 export default class LoginHandler extends Component {
   state = {
-    emailAddress: null,
-    password: null
+    email: null,
+    password: null,
+    err: null
   };
 
   render() {
-    console.log(this.state.emailAddress);
+    console.log(this.state.email);
     return (
       <View
         style={{
@@ -22,8 +23,9 @@ export default class LoginHandler extends Component {
           style={styles.input}
           title="email"
           placeholder="Email Address"
-          onChangeText={text => this.setState({ emailAddress: text })}
-          value={this.state.emailAddress}
+          onChangeText={text => this.setState({ email: text })}
+          value={this.state.email}
+          keyboardType="email-address"
         ></TextInput>
         <Text>Password</Text>
         <TextInput
@@ -33,9 +35,31 @@ export default class LoginHandler extends Component {
           onChangeText={text => this.setState({ password: text })}
           value={this.state.password}
         ></TextInput>
-        <Button title="Login"></Button>
+        <Button
+          title="Login"
+          onPress={() => {
+            const { email, password } = this.state;
+            this.firebaseLoginHandler(email, password);
+          }}
+        ></Button>
+        {this.state.error && (
+          <Text>{`${this.state.error.code} ${this.state.error.message}`}</Text>
+        )}
       </View>
     );
+  }
+
+  firebaseLoginHandler(email, password) {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch(function(error) {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ...
+        this.setState({ error });
+      });
   }
 }
 
@@ -47,9 +71,10 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   input: {
-    width: 200,
+    width: 300,
     borderColor: "gray",
     borderWidth: 1,
+    borderRadius: 6,
     height: 40,
     padding: 10,
     margin: 10
