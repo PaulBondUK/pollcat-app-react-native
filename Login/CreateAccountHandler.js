@@ -121,6 +121,7 @@ export default class CreateAccountHandler extends Component {
         .catch(error => {
           this.setState({ error });
         });
+      navigation.navigate("LoginHandler");
     }
   }
 }
