@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginOrCreate from "./Login/LoginOrCreate";
 import LoginHandler from "./Login/LoginHandler";
+import CreateAccountHandler from "./Login/CreateAccountHandler";
 
 // function Login() {
 //   return (
@@ -21,6 +22,10 @@ function App() {
       <Stack.Navigator>
         <Stack.Screen name="LoginOrCreate" component={LoginOrCreate} />
         <Stack.Screen name="LoginHandler" component={LoginHandler} />
+        <Stack.Screen
+          name="CreateAccountHandler"
+          component={CreateAccountHandler}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
