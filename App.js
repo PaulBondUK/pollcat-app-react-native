@@ -19,7 +19,7 @@ const Stack = createStackNavigator();
 
 // const UserContext = React.createContext()
 
-class App extends React.Component {
+export default class App extends React.Component {
   state = {
     userData: null
   };
@@ -48,5 +48,3 @@ class App extends React.Component {
     this.setState({ userData });
   }
 }
-
-export default App;
