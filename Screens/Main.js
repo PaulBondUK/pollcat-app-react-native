@@ -7,6 +7,7 @@ import {
   StyleSheet,
   AsyncStorage
 } from "react-native";
+import firebase from "../Auth/Firebase";
 
 export default class Main extends Component {
   state = {
@@ -26,8 +27,19 @@ export default class Main extends Component {
     );
   }
 
+  firebaseUserCheck = () => {
+    const user = firebase.auth().currentUser;
+
+    if (user) {
+      console.log("user is logged in");
+    } else {
+      console.log("user is not logged in");
+    }
+  };
+
   componentDidMount() {
     const userData = JSON.parse(this.props.route.params);
     this.setState({ userData });
+    this.firebaseUserCheck();
   }
 }
