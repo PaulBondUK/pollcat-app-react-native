@@ -16,19 +16,33 @@ import CreateAccountHandler from "./Login/CreateAccountHandler";
 
 const Stack = createStackNavigator();
 
-function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="LoginOrCreate" component={LoginOrCreate} />
-        <Stack.Screen name="LoginHandler" component={LoginHandler} />
-        <Stack.Screen
-          name="CreateAccountHandler"
-          component={CreateAccountHandler}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+class App extends React.Component {
+  state = {
+    userData: null
+  };
+
+  render() {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="LoginOrCreate" component={LoginOrCreate} />
+          <Stack.Screen
+            params={this.addUserData}
+            name="LoginHandler"
+            component={LoginHandler}
+          />
+          <Stack.Screen
+            name="CreateAccountHandler"
+            component={CreateAccountHandler}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
+
+  addUserData(userData) {
+    this.setState({ userData });
+  }
 }
 
 export default App;
