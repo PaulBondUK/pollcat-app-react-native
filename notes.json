@@ -1,0 +1,44 @@
+Running application on Paul.
+
+Object {
+  "additionalUserInfo": ig {
+    "isNewUser": false,
+    "providerId": "password",
+  },
+  "credential": null,
+  "operationType": "signIn",
+  "user": Object {
+    "apiKey": "AIzaSyDodWam9q0q8rZRkfxbTS8TXJrGYPx627o",
+    "appName": "[DEFAULT]",
+    "authDomain": "pollcat-app.firebaseapp.com",
+    "createdAt": "1582108965222",
+    "displayName": null,
+    "email": "paulandrewbond@outlook.com",
+    "emailVerified": false,
+    "isAnonymous": false,
+    "lastLoginAt": "1582196164950",
+    "phoneNumber": null,
+    "photoURL": null,
+    "providerData": Array [
+      Object {
+        "displayName": null,
+        "email": "paulandrewbond@outlook.com",
+        "phoneNumber": null,
+        "photoURL": null,
+        "providerId": "password",
+        "uid": "paulandrewbond@outlook.com",
+      },
+    ],
+    "redirectEventId": null,
+    "stsTokenManager": Object {
+      "accessToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImNiOGUwZDk3Mjg2MWIwNGJlN2RjNzVhMWIzYmUzYjIyOWIyNWYyMDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcG9sbGNhdC1hcHAiLCJhdWQiOiJwb2xsY2F0LWFwcCIsImF1dGhfdGltZSI6MTU4MjE5NjE2NSwidXNlcl9pZCI6IkNLTDA4Y3ZjQ29jMzdwREM3SUdrdEFraXpmMDIiLCJzdWIiOiJDS0wwOGN2Y0NvYzM3cERDN0lHa3RBa2l6ZjAyIiwiaWF0IjoxNTgyMTk2MTY1LCJleHAiOjE1ODIxOTk3NjUsImVtYWlsIjoicGF1bGFuZHJld2JvbmRAb3V0bG9vay5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsicGF1bGFuZHJld2JvbmRAb3V0bG9vay5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.GPZLZm_6qPyOrailrfem7Ovo-KHipsDneakbuw_3zfsFs6h4TV3TQoP3GKVpkOF2rhQ-HoVj3_DCPRbh8WhFcW4ZYDwyPLaYafU3WxxH0jGeg4CnzsoAq8fU6aKfFW1SemgkniQehYEgwqF6sXLeCCF_Z4z7qHLJeQyIi72i9fEJCQwAI0x1d3wWY-e8Ax7xPJFm5hWpRffp58IdXCMDhQU-Iis3hKwTJjdGuqJY1Lfw6o9A7P8rzcrBQ5E87cWwqnPSXoA2xI6p_-Pb7BmFQ92LyGITaOS3gYXmMG61H0hwDi1sV1SblBlSXsdRj5juoO_hTc05yV-SDNT9I--QQg",
+      "apiKey": "AIzaSyDodWam9q0q8rZRkfxbTS8TXJrGYPx627o",
+      "expirationTime": 1582199765188,
+      "refreshToken": "AEu4IL385kRpCRo_RNHiRKrgCdGNjc3BSDaUnrhgqc3xmpQQWf-OYa_5ofZkfhu4icvKymukJeQIcNPtWgxElWBITylv7xAih-YPua07mAZWLkEvR7fd0swl7k8WJKZeEfy21JvufhzcCEjB91VMdse5jdmjft0KT6_-4h9rgTTGVuauj-eUO6L5RXF1s5lmGkF92rEI0YlTx65qG-1k_puZ1wwqBUZzIg",
+    },
+    "tenantId": null,
+    "uid": "CKL08cvcCoc37pDC7IGktAkizf02",
+  },
+} 
+
+(login check)
