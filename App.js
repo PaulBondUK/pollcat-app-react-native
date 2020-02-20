@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LoginOrCreate from "./Login/LoginOrCreate";
 import LoginHandler from "./Login/LoginHandler";
 import CreateAccountHandler from "./Login/CreateAccountHandler";
+import CreateUsername from "./Login/CreateUsername";
 import Main from "./Screens/Main";
 
 // function Login() {
@@ -27,18 +28,32 @@ export default class App extends React.Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="LoginOrCreate" component={LoginOrCreate} />
+        <Stack.Navigator initialRouteName="LoginOrCreate">
           <Stack.Screen
-            params={this.addUserData}
+            name="LoginOrCreate"
+            component={LoginOrCreate}
+            options={{ title: "Pollcat" }}
+          />
+          <Stack.Screen
             name="LoginHandler"
             component={LoginHandler}
+            options={{ title: "Login" }}
           />
           <Stack.Screen
             name="CreateAccountHandler"
             component={CreateAccountHandler}
+            options={{ title: "Create Account" }}
           />
-          <Stack.Screen name="Main" component={Main} />
+          <Stack.Screen
+            name="CreateUsername"
+            component={CreateUsername}
+            options={{ title: "Create Username" }}
+          />
+          <Stack.Screen
+            name="Main"
+            component={Main}
+            options={{ title: "Pollcat" }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );
