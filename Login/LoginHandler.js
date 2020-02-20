@@ -1,12 +1,20 @@
 import React, { Component } from "react";
-import { Button, Text, TextInput, View, StyleSheet } from "react-native";
+import {
+  Button,
+  Text,
+  TextInput,
+  View,
+  StyleSheet,
+  AsyncStorage
+} from "react-native";
 import firebase from "../Auth/Firebase";
 
 export default class LoginHandler extends Component {
   state = {
     email: null,
     password: null,
-    error: null
+    error: null,
+    userData: null
   };
 
   render() {
@@ -73,6 +81,10 @@ export default class LoginHandler extends Component {
 
     // console.log(this.props);
     //this.props.addUserData(await userData);
+    this.setState({ userData });
+    AsyncStorage.setItem("userData", JSON.stringify(userData), () => {
+      this.props.navigation.navigate("Main");
+    });
   }
 }
 
