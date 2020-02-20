@@ -15,7 +15,10 @@ export default function LoginOrCreate({ navigation }) {
         title="Login"
         onPress={() => navigation.navigate("LoginHandler")}
       />
-      <Button title="Create Account" />
+      <Button
+        title="Create Account"
+        onPress={() => navigation.navigate("CreateAccountHandler")}
+      />
     </View>
   );
 }
