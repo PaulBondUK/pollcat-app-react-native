@@ -1,15 +1,21 @@
 import React, { Component } from "react";
 import { Button, Text, TextInput, View, StyleSheet } from "react-native";
+import firebase from "../Auth/Firebase";
 
 export default class LoginHandler extends Component {
   state = {
     email: null,
     password: null,
-    err: null
+    error: null
   };
 
   render() {
-    console.log(this.state.email);
+    const errorHandler = {
+      "auth/user-not-found": "User not found",
+      "auth/invalid-email": "Invalid email address",
+      "auth/wrong-password": "Wrong password",
+      "auth/user-disabled": "Account disabled"
+    };
     return (
       <View
         style={{
@@ -18,22 +24,33 @@ export default class LoginHandler extends Component {
           justifyContent: "center"
         }}
       >
+        {this.state.error && (
+          <Text>
+            {errorHandler[this.state.error.code]
+              ? errorHandler[this.state.error.code]
+              : this.state.error.message}
+          </Text>
+        )}
         <Text>Email Address</Text>
         <TextInput
           style={styles.input}
           title="email"
           placeholder="Email Address"
-          onChangeText={text => this.setState({ email: text })}
+          onChangeText={text => this.setState({ email: text, error: null })}
           value={this.state.email}
           keyboardType="email-address"
+          returnKeyType="next"
+          textContentType="emailAddress"
         ></TextInput>
         <Text>Password</Text>
         <TextInput
           style={styles.input}
           title="password"
           placeholder="Password"
-          onChangeText={text => this.setState({ password: text })}
+          onChangeText={text => this.setState({ password: text, error: null })}
           value={this.state.password}
+          secureTextEntry={true}
+          textContentType="password"
         ></TextInput>
         <Button
           title="Login"
@@ -42,24 +59,18 @@ export default class LoginHandler extends Component {
             this.firebaseLoginHandler(email, password);
           }}
         ></Button>
-        {this.state.error && (
-          <Text>{`${this.state.error.code} ${this.state.error.message}`}</Text>
-        )}
       </View>
     );
   }
 
-  firebaseLoginHandler(email, password) {
-    firebase
+  async firebaseLoginHandler(email, password) {
+    const loginCheck = await firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .catch(function(error) {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ...
+      .catch(error => {
         this.setState({ error });
       });
+    console.log(loginCheck);
   }
 }
 
