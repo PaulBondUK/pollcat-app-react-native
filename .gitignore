@@ -11,5 +11,9 @@ web-build/
 web-report/
 auth/*
 
+notes
+
 # macOS
 .DS_Store
+
+
