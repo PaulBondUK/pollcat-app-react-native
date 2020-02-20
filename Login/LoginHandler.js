@@ -14,7 +14,7 @@ export default class LoginHandler extends Component {
     email: null,
     password: null,
     error: null,
-    userData: null
+    accountCreated: null
   };
 
   render() {
@@ -39,6 +39,11 @@ export default class LoginHandler extends Component {
               : this.state.error.message}
           </Text>
         )}
+
+        {this.state.accountCreated && (
+          <Text>Account created. Please login to continue!</Text>
+        )}
+
         <Text>Email Address</Text>
         <TextInput
           style={styles.input}
@@ -86,6 +91,14 @@ export default class LoginHandler extends Component {
       const userDataString = JSON.stringify(userData);
       this.props.navigation.navigate("Main", userDataString);
     });
+  }
+
+  componentDidMount() {
+    const { params } = this.props.route;
+    if (params) {
+      const email = JSON.parse(params);
+      this.setState({ email, accountCreated: true });
+    }
   }
 }
 
