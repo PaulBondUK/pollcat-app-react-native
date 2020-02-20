@@ -107,7 +107,9 @@ export default class CreateAccountHandler extends Component {
     repeatPassword
   ) {
     if (password !== repeatPassword) {
-      this.setState({ error: { message: "Passwords do not match" } });
+      this.setState({
+        error: { message: "Passwords do not match" }
+      });
     } else {
       const createCheck = await firebase
         .auth()
@@ -121,7 +123,8 @@ export default class CreateAccountHandler extends Component {
         .catch(error => {
           this.setState({ error });
         });
-      navigation.navigate("LoginHandler");
+      const emailString = JSON.stringify(email);
+      this.props.navigation.navigate("LoginHandler", emailString);
     }
   }
 }
