@@ -27,9 +27,7 @@ export default class Main extends Component {
   }
 
   componentDidMount() {
-    AsyncStorage.getItem("userData").then(data => {
-      const userData = JSON.parse(data);
-      this.setState({ userData });
-    });
+    const userData = JSON.parse(this.props.route.params);
+    this.setState({ userData });
   }
 }
