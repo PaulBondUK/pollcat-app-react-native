@@ -7,6 +7,7 @@ import LoginHandler from "./Login/LoginHandler";
 import CreateAccountHandler from "./Login/CreateAccountHandler";
 import CreateUsername from "./Login/CreateUsername";
 import Main from "./Screens/Main";
+import Loading from "./Screens/Loading";
 
 // function Login() {
 //   return (
@@ -22,17 +23,23 @@ const Stack = createStackNavigator();
 
 export default class App extends React.Component {
   state = {
-    userData: null
+    userData: null,
+    initialRouteName: "Loading"
   };
 
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="LoginOrCreate">
+        <Stack.Navigator initialRouteName="Loading">
+          <Stack.Screen
+            name="Loading"
+            component={Loading}
+            options={{ title: "Pollcat" }}
+          />
           <Stack.Screen
             name="LoginOrCreate"
             component={LoginOrCreate}
-            options={{ title: "Pollcat" }}
+            options={{ title: "Welcome to Pollcat" }}
           />
           <Stack.Screen
             name="LoginHandler"
