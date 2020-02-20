@@ -111,18 +111,13 @@ export default class CreateAccountHandler extends Component {
         error: { message: "Passwords do not match" }
       });
     } else {
-      const createCheck = await firebase
+      await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
-        // .then(success => {
-        //   console.log(success);
-        //   success.updateProfile({
-        //     displayName
-        //   });
-        // })
         .catch(error => {
           this.setState({ error });
         });
+
       const emailString = JSON.stringify(email);
       this.props.navigation.navigate("LoginHandler", emailString);
     }
