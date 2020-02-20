@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LoginOrCreate from "./Login/LoginOrCreate";
 import LoginHandler from "./Login/LoginHandler";
 import CreateAccountHandler from "./Login/CreateAccountHandler";
+import Main from "./Screens/Main";
 
 // function Login() {
 //   return (
@@ -15,6 +16,8 @@ import CreateAccountHandler from "./Login/CreateAccountHandler";
 // }
 
 const Stack = createStackNavigator();
+
+// const UserContext = React.createContext()
 
 class App extends React.Component {
   state = {
@@ -35,6 +38,7 @@ class App extends React.Component {
             name="CreateAccountHandler"
             component={CreateAccountHandler}
           />
+          <Stack.Screen name="Main" component={Main} />
         </Stack.Navigator>
       </NavigationContainer>
     );
