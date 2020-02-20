@@ -10,7 +10,6 @@ export default function LoginOrCreate({ navigation }) {
         justifyContent: "center"
       }}
     >
-      <Text>Login to Pollcat</Text>
       <Button
         title="Login"
         onPress={() => navigation.navigate("LoginHandler")}
