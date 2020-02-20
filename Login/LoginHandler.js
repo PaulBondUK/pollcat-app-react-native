@@ -64,13 +64,15 @@ export default class LoginHandler extends Component {
   }
 
   async firebaseLoginHandler(email, password) {
-    const loginCheck = await firebase
+    const userData = await firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .catch(error => {
         this.setState({ error });
       });
-    console.log(loginCheck);
+
+    // console.log(this.props);
+    //this.props.addUserData(await userData);
   }
 }
 
