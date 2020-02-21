@@ -25,4 +25,22 @@ export default class LoginOrCreate extends React.Component {
       </View>
     );
   }
+
+  async componentDidMount() {
+    if (await user) {
+      console.log("user is logged in");
+      console.log(await user.email);
+    } else {
+      console.log("user is not logged in");
+    }
+  }
+
+  async componentDidUpdate() {
+    if (await user) {
+      console.log("user is logged in");
+      console.log(await user.email);
+    } else {
+      console.log("user is not logged in");
+    }
+  }
 }
