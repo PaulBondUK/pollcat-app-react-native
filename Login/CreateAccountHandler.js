@@ -37,7 +37,6 @@ export default class CreateAccountHandler extends Component {
       "auth/wrong-password": "Wrong password",
       "auth/user-disabled": "Account disabled"
     };
-    console.log(this.state.error);
     return (
       <Container style={styles.container}>
         <Content>
