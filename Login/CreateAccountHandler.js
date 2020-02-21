@@ -37,6 +37,7 @@ export default class CreateAccountHandler extends Component {
       "auth/wrong-password": "Wrong password",
       "auth/user-disabled": "Account disabled"
     };
+    console.log(this.state.error);
     return (
       <Container style={styles.container}>
         <Content>
@@ -114,6 +115,13 @@ export default class CreateAccountHandler extends Component {
               <Text style={styles.buttonText}>Sign Up</Text>
             </Button>
           </Form>
+          {this.state.error && (
+            <Text style={styles.error}>
+              {errorHandler[this.state.error.code]
+                ? errorHandler[this.state.error.code]
+                : this.state.error.message}
+            </Text>
+          )}
         </Content>
       </Container>
     );
@@ -216,15 +224,16 @@ export default class CreateAccountHandler extends Component {
         error: { message: "Passwords do not match" }
       });
     } else {
-      await firebase
+      const newUser = await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .catch(error => {
           this.setState({ error });
         });
 
-      const emailString = JSON.stringify(email);
-      this.props.navigation.navigate("CreateDisplayName", emailString);
+      if (await newUser) {
+        this.props.navigation.navigate("CreateDisplayName");
+      }
     }
   }
 }
@@ -240,11 +249,12 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   button: {
-    marginTop: 50
+    marginTop: 20,
+    height: 70
   },
   buttonText: {
     color: "white",
-    fontSize: 20
+    fontSize: 18
   },
   error: {
     color: "red",
