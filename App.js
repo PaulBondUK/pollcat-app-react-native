@@ -1,13 +1,16 @@
 import * as React from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { AppLoading } from "expo";
+import { Container, Text } from "native-base";
+import * as Font from "expo-font";
+import { Ionicons } from "@expo/vector-icons";
 import LoginOrCreate from "./Login/LoginOrCreate";
 import LoginHandler from "./Login/LoginHandler";
 import CreateAccountHandler from "./Login/CreateAccountHandler";
 import CreateUsername from "./Login/CreateUsername";
 import Main from "./Screens/Main";
-import Loading from "./Screens/Loading";
 
 // function Login() {
 //   return (
@@ -24,18 +27,26 @@ const Stack = createStackNavigator();
 export default class App extends React.Component {
   state = {
     userData: null,
-    initialRouteName: "Loading"
+    isReady: false
   };
 
+  async componentDidMount() {
+    await Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      ...Ionicons.font
+    });
+    this.setState({ isReady: true });
+  }
+
   render() {
+    if (!this.state.isReady) {
+      return <AppLoading />;
+    }
+
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="LoginOrCreate">
-          <Stack.Screen
-            name="Loading"
-            component={Loading}
-            options={{ title: "Pollcat" }}
-          />
           <Stack.Screen
             name="LoginOrCreate"
             component={LoginOrCreate}
