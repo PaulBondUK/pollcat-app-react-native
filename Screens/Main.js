@@ -21,7 +21,7 @@ export default class Main extends Component {
         <Text>
           {" "}
           {this.state.userData
-            ? `Welcome back ${this.state.userData.email}`
+            ? `Welcome back ${this.state.userData.displayName}`
             : "Loading"}{" "}
         </Text>
       </View>
