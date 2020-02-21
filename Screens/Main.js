@@ -11,17 +11,20 @@ import firebase from "../Auth/Firebase";
 
 export default class Main extends Component {
   state = {
-    userData: null
+    user: null
   };
 
   render() {
-    console.log(this.state.userData, "userData");
+    if (this.state.user && !this.state.user.displayName) {
+      this.props.navigation.navigate("CreateDisplayName");
+    }
+    console.log(this.state.user, "userData");
     return (
       <View>
         <Text>
           {" "}
-          {this.state.userData
-            ? `Welcome back ${this.state.userData.displayName}`
+          {this.state.user
+            ? `Welcome back ${this.state.user.displayName}`
             : "Loading"}{" "}
         </Text>
       </View>
@@ -39,17 +42,16 @@ export default class Main extends Component {
     }
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     // const userData = JSON.parse(this.props.route.params);
     // this.setState({ userData });
     //this.firebaseUserCheck();
-    const user = await firebase.auth().currentUser;
-
-    if (await user) {
-      console.log("user is logged in");
-      this.setState({ userData: user });
-    } else {
-      console.log("user is not logged in");
-    }
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({ user });
+      } else {
+        this.props.navigation.navigate("LoginOrCreate");
+      }
+    });
   }
 }
