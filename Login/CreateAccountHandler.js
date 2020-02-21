@@ -130,7 +130,7 @@ export default class CreateAccountHandler extends Component {
         });
 
       const emailString = JSON.stringify(email);
-      this.props.navigation.navigate("LoginHandler", emailString);
+      this.props.navigation.navigate("CreateDisplayName", emailString);
     }
   }
 }
