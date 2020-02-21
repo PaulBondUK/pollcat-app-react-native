@@ -9,7 +9,7 @@ import { Ionicons } from "@expo/vector-icons";
 import LoginOrCreate from "./Login/LoginOrCreate";
 import LoginHandler from "./Login/LoginHandler";
 import CreateAccountHandler from "./Login/CreateAccountHandler";
-import CreateUsername from "./Login/CreateUsername";
+import CreateDisplayName from "./Login/CreateDisplayName";
 import Main from "./Screens/Main";
 
 // function Login() {
@@ -63,9 +63,9 @@ export default class App extends React.Component {
             options={{ title: "Create Account" }}
           />
           <Stack.Screen
-            name="CreateUsername"
-            component={CreateUsername}
-            options={{ title: "Create Username" }}
+            name="CreateDisplayName"
+            component={CreateDisplayName}
+            options={{ title: "Create Display Name" }}
           />
           <Stack.Screen
             name="Main"
