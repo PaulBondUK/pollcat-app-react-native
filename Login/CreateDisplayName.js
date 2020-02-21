@@ -32,6 +32,7 @@ export default class CreateDisplayName extends Component {
             <Item floatingLabel>
               <Label>Display Name</Label>
               <Input
+                style={styles.input}
                 title="displayName"
                 placeholder="display name"
                 onChangeText={text => this.setState({ displayName: text })}
@@ -86,20 +87,15 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   input: {
-    width: 300,
-    borderColor: "gray",
-    borderWidth: 1,
-    borderRadius: 6,
-    height: 40,
-    padding: 10,
-    margin: 10
+    marginTop: 10
   },
   button: {
-    marginTop: 50
+    marginTop: 20,
+    height: 70
   },
   buttonText: {
     color: "white",
-    fontSize: 20
+    fontSize: 18
   },
   error: {
     color: "red",
