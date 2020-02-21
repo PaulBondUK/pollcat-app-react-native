@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import {
+  SafeAreaView,
+  KeyboardAvoidingView,
   Button,
   Text,
   TextInput,
@@ -25,54 +27,59 @@ export default class LoginHandler extends Component {
       "auth/user-disabled": "Account disabled"
     };
     return (
-      <View
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : null}
         style={{
           flex: 1,
           alignItems: "center",
           justifyContent: "center"
         }}
       >
-        {this.state.error && (
-          <Text>
-            {errorHandler[this.state.error.code]
-              ? errorHandler[this.state.error.code]
-              : this.state.error.message}
-          </Text>
-        )}
+        <SafeAreaView>
+          {this.state.error && (
+            <Text>
+              {errorHandler[this.state.error.code]
+                ? errorHandler[this.state.error.code]
+                : this.state.error.message}
+            </Text>
+          )}
 
-        {this.state.accountCreated && (
-          <Text>Account created. Please login to continue!</Text>
-        )}
+          {this.state.accountCreated && (
+            <Text>Account created. Please login to continue!</Text>
+          )}
 
-        <Text>Email Address</Text>
-        <TextInput
-          style={styles.input}
-          title="email"
-          placeholder="Email Address"
-          onChangeText={text => this.setState({ email: text, error: null })}
-          value={this.state.email}
-          keyboardType="email-address"
-          returnKeyType="next"
-          textContentType="emailAddress"
-        ></TextInput>
-        <Text>Password</Text>
-        <TextInput
-          style={styles.input}
-          title="password"
-          placeholder="Password"
-          onChangeText={text => this.setState({ password: text, error: null })}
-          value={this.state.password}
-          secureTextEntry={true}
-          textContentType="password"
-        ></TextInput>
-        <Button
-          title="Login"
-          onPress={() => {
-            const { email, password } = this.state;
-            this.firebaseLoginHandler(email, password);
-          }}
-        ></Button>
-      </View>
+          <Text>Email Address</Text>
+          <TextInput
+            style={styles.input}
+            title="email"
+            placeholder="Email Address"
+            onChangeText={text => this.setState({ email: text, error: null })}
+            value={this.state.email}
+            keyboardType="email-address"
+            returnKeyType="next"
+            textContentType="emailAddress"
+          ></TextInput>
+          <Text>Password</Text>
+          <TextInput
+            style={styles.input}
+            title="password"
+            placeholder="Password"
+            onChangeText={text =>
+              this.setState({ password: text, error: null })
+            }
+            value={this.state.password}
+            secureTextEntry={true}
+            textContentType="password"
+          ></TextInput>
+          <Button
+            title="Login"
+            onPress={() => {
+              const { email, password } = this.state;
+              this.firebaseLoginHandler(email, password);
+            }}
+          ></Button>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
     );
   }
 
