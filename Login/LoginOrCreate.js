@@ -37,6 +37,7 @@ export default class LoginOrCreate extends React.Component {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         console.log("user is logged in", user);
+        this.props.navigation.navigate("Main");
       } else {
         console.log("user is not logged in");
       }
