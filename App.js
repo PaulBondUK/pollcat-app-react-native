@@ -30,7 +30,7 @@ export default class App extends React.Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Loading">
+        <Stack.Navigator initialRouteName="LoginOrCreate">
           <Stack.Screen
             name="Loading"
             component={Loading}
