@@ -15,12 +15,13 @@ export default class Main extends Component {
   };
 
   render() {
+    console.log(this.state.userData, "userData");
     return (
       <View>
         <Text>
           {" "}
           {this.state.userData
-            ? `Welcome back ${this.state.userData.user.email}`
+            ? `Welcome back ${this.state.userData.email}`
             : "Loading"}{" "}
         </Text>
       </View>
@@ -31,15 +32,24 @@ export default class Main extends Component {
     const user = firebase.auth().currentUser;
 
     if (user) {
-      console.log("user is logged in");
+      console.log(user, "user is logged in");
     } else {
       console.log("user is not logged in");
+      this.props.navigation.navigate("LoginOrCreate");
     }
   };
 
-  componentDidMount() {
-    const userData = JSON.parse(this.props.route.params);
-    this.setState({ userData });
-    this.firebaseUserCheck();
+  async componentDidMount() {
+    // const userData = JSON.parse(this.props.route.params);
+    // this.setState({ userData });
+    //this.firebaseUserCheck();
+    const user = await firebase.auth().currentUser;
+
+    if (await user) {
+      console.log("user is logged in");
+      this.setState({ userData: user });
+    } else {
+      console.log("user is not logged in");
+    }
   }
 }
