@@ -2,8 +2,6 @@ import * as React from "react";
 import { Button, View, Text } from "react-native";
 import firebase from "../Auth/Firebase";
 
-const user = firebase.auth().currentUser;
-
 export default class LoginOrCreate extends React.Component {
   render() {
     return (
@@ -26,21 +24,31 @@ export default class LoginOrCreate extends React.Component {
     );
   }
 
-  async componentDidMount() {
-    if (await user) {
-      console.log("user is logged in");
-      console.log(await user.email);
-    } else {
-      console.log("user is not logged in");
-    }
+  // async componentDidMount() {
+  //   const user = await firebase.auth().currentUser;
+  //   if (await user) {
+  //     console.log("user is logged in", user);
+  //   } else {
+  //     console.log("user is not logged in");
+  //   }
+  // }
+
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        console.log("user is logged in", user);
+      } else {
+        console.log("user is not logged in");
+      }
+    });
   }
 
-  async componentDidUpdate() {
-    if (await user) {
-      console.log("user is logged in");
-      console.log(await user.email);
-    } else {
-      console.log("user is not logged in");
-    }
-  }
+  // async componentDidMount() {
+  //   const user = await firebase.auth().currentUser;
+  //   if (await user) {
+  //     console.log("user is logged in", user);
+  //   } else {
+  //     console.log("user is not logged in");
+  //   }
+  // }
 }
