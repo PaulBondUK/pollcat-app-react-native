@@ -6,7 +6,7 @@ import {
   TextInput,
   View,
   StyleSheet,
-  TouchableOpacity
+  Platform
 } from "react-native";
 import firebase from "../Auth/Firebase";
 
@@ -27,11 +27,11 @@ export default class CreateAccountHandler extends Component {
       "auth/user-disabled": "Account disabled"
     };
     return (
-      <View
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : null}
         style={{
           flex: 1,
-          alignItems: "center",
-          justifyContent: "center"
+          alignItems: "center"
         }}
       >
         {this.state.error && (
@@ -85,7 +85,7 @@ export default class CreateAccountHandler extends Component {
           secureTextEntry={true}
         ></TextInput>
         <Button
-          title="Create Account"
+          title="Sign Up"
           onPress={() => {
             const { email, displayName, password, repeatPassword } = this.state;
             this.firebaseCreateAccountHandler(
@@ -96,7 +96,7 @@ export default class CreateAccountHandler extends Component {
             );
           }}
         ></Button>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 
