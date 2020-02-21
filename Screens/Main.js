@@ -1,12 +1,19 @@
 import React, { Component } from "react";
+import { TextInput, View, StyleSheet, AsyncStorage } from "react-native";
 import {
-  Button,
+  Container,
+  Header,
+  Content,
+  Footer,
+  FooterTab,
+  Icon,
   Text,
-  TextInput,
-  View,
-  StyleSheet,
-  AsyncStorage
-} from "react-native";
+  Form,
+  Item,
+  Input,
+  Label,
+  Button
+} from "native-base";
 import firebase from "../Auth/Firebase";
 
 export default class Main extends Component {
@@ -20,14 +27,27 @@ export default class Main extends Component {
     }
     console.log(this.state.user, "userData");
     return (
-      <View>
-        <Text>
-          {" "}
-          {this.state.user
-            ? `Welcome back ${this.state.user.displayName}`
-            : "Loading"}{" "}
-        </Text>
-      </View>
+      <Container>
+        <Header />
+        <Content>
+          <Footer>
+            <FooterTab>
+              <Button vertical>
+                <Icon name="ios-today" />
+                <Text>Today's Poll</Text>
+              </Button>
+              <Button vertical>
+                <Icon name="" />
+                <Text></Text>
+              </Button>
+              <Button vertical>
+                <Icon name="" />
+                <Text></Text>
+              </Button>
+            </FooterTab>
+          </Footer>
+        </Content>
+      </Container>
     );
   }
 
