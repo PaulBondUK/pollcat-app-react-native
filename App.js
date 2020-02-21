@@ -70,7 +70,7 @@ export default class App extends React.Component {
           <Stack.Screen
             name="Main"
             component={Main}
-            options={{ title: "Pollcat" }}
+            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>
