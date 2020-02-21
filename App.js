@@ -21,12 +21,12 @@ import Main from "./Screens/Main";
 // }
 
 const Stack = createStackNavigator();
+const initialRouteName = "Main";
 
 // const UserContext = React.createContext()
 
 export default class App extends React.Component {
   state = {
-    userData: null,
     isReady: false
   };
 
@@ -75,9 +75,5 @@ export default class App extends React.Component {
         </Stack.Navigator>
       </NavigationContainer>
     );
-  }
-
-  addUserData(userData) {
-    this.setState({ userData });
   }
 }
