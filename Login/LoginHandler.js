@@ -182,8 +182,10 @@ export default class LoginHandler extends Component {
       // this.setState({ userData });
 
       // AsyncStorage.setItem("userData", JSON.stringify(userData), () => {
-      const userDataString = JSON.stringify(userData);
-      this.props.navigation.navigate("Main", userDataString);
+      if (userData) {
+        const userDataString = JSON.stringify(userData);
+        this.props.navigation.navigate("Main", userDataString);
+      }
       // });
     }
   }
