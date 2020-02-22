@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import firebase from "../Auth/Firebase";
 import {
   Container,
@@ -19,34 +19,43 @@ import {
 
 export default class LoginOrCreate extends React.Component {
   render() {
-    console.log(styles);
+    // const { height: screenHeight } = Dimensions.get("window");
     return (
       <Container
-        style={styles.container}
-        // style={{
-        //   flex: 1,
-        //   alignItems: "center",
-        //   justifyContent: "center"
-        // }}
+
+      // style={styles.container}
+      // style={{
+      //   flex: 1,
+      //   alignItems: "center",
+      //   justifyContent: "center"
+      // }}
       >
-        <Content>
-          <Button
-            style={styles.button}
-            block
-            onPress={() => this.props.navigation.navigate("LoginHandler")}
+        <Content style={{ flex: 1 }} contentContainerStyle={{ flex: 1 }}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "flex-end",
+              marginBottom: 100
+            }}
           >
-            <Text style={styles.buttonText}>Login</Text>
-          </Button>
-          <Button
-            style={styles.button}
-            block
-            bordered
-            onPress={() =>
-              this.props.navigation.navigate("CreateAccountHandler")
-            }
-          >
-            <Text style={styles.borderedButtonText}>Sign Up</Text>
-          </Button>
+            <Button
+              style={styles.button}
+              block
+              onPress={() => this.props.navigation.navigate("LoginHandler")}
+            >
+              <Text style={styles.buttonText}>Login</Text>
+            </Button>
+            <Button
+              style={styles.button}
+              block
+              bordered
+              onPress={() =>
+                this.props.navigation.navigate("CreateAccountHandler")
+              }
+            >
+              <Text style={styles.borderedButtonText}>Sign Up</Text>
+            </Button>
+          </View>
         </Content>
       </Container>
     );
@@ -85,8 +94,10 @@ export default class LoginOrCreate extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // flexDirection: "column-reverse",
     // backgroundColor: "#fff",
     justifyContent: "center"
+    // alignContent: "flex-end"
   },
   input: {
     marginTop: 10
