@@ -2,7 +2,7 @@ import * as React from "react";
 import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { AppLoading } from "expo";
+import { AppLoading, SplashScreen } from "expo";
 import { Container, Text } from "native-base";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
@@ -10,7 +10,7 @@ import LoginOrCreate from "./src/LoginScreen/LoginOrCreate";
 import LoginHandler from "./src/LoginScreen/LoginHandler";
 import CreateAccountHandler from "./src/LoginScreen/CreateAccountHandler";
 import CreateDisplayName from "./src/LoginScreen/CreateDisplayName";
-import Main from "./Screens/Main";
+import HomeScreen from "./src/HomeScreen/HomeScreen";
 
 // function Login() {
 //   return (
@@ -68,8 +68,8 @@ export default class App extends React.Component {
             options={{ title: "Create Display Name" }}
           />
           <Stack.Screen
-            name="Main"
-            component={Main}
+            name="HomeScreen"
+            component={HomeScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

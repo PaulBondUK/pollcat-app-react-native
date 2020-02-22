@@ -19,7 +19,7 @@ import {
   Button,
   Icon
 } from "native-base";
-import firebase from "../../Auth/Firebase";
+import firebase from "../Auth/Firebase";
 
 export default class CreateAccountHandler extends Component {
   state = {

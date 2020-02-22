@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, View } from "react-native";
-import firebase from "../../Auth/Firebase";
+import firebase from "../Auth/Firebase";
 import {
   Container,
   Header,
@@ -65,7 +65,7 @@ export default class LoginOrCreate extends React.Component {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         console.log("user is logged in", user);
-        this.props.navigation.navigate("Main");
+        this.props.navigation.navigate("HomeScreen");
       } else {
         console.log("user is not logged in");
       }

@@ -20,7 +20,7 @@ import CityProfile from "./CityProfile/CityProfile";
 import History from "./History/History";
 import TodaysPoll from "./TodaysPoll/TodaysPoll";
 
-export default class Main extends Component {
+export default class HomeScreen extends Component {
   state = {
     user: null,
     activePage: "TodaysPoll"

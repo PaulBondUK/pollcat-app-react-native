@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet } from "react-native";
-import firebase from "../../Auth/Firebase";
+import firebase from "../Auth/Firebase";
 import {
   Container,
   Header,
@@ -74,7 +74,7 @@ export default class CreateDisplayName extends Component {
       const user = await firebase.auth().currentUser;
       const displayNameData = await user.updateProfile({ displayName });
       console.log(displayNameData);
-      this.props.navigation.navigate("Main");
+      this.props.navigation.navigate("HomeScreen");
     }
   }
 }

@@ -18,7 +18,7 @@ import {
   Label,
   Button
 } from "native-base";
-import firebase from "../../Auth/Firebase";
+import firebase from "../Auth/Firebase";
 
 export default class LoginHandler extends Component {
   state = {
@@ -189,7 +189,7 @@ export default class LoginHandler extends Component {
       // AsyncStorage.setItem("userData", JSON.stringify(userData), () => {
       if (userData) {
         const userDataString = JSON.stringify(userData);
-        this.props.navigation.navigate("Main", userDataString);
+        this.props.navigation.navigate("HomeScreen", userDataString);
       }
       // });
     }
