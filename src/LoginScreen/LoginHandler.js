@@ -177,29 +177,21 @@ export default class LoginHandler extends Component {
   //   );
   // }
 
-  async firebaseLoginHandler(email, password) {
+  firebaseLoginHandler(email, password) {
     if (!email || !password) {
       this.setState({
         error: { message: "Please enter a valid email address and password" }
       });
     } else {
-      const userData = await firebase
+      firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
+        .then(() => {
+          this.props.navigation.navigate("HomeScreen");
+        })
         .catch(error => {
           this.setState({ error });
         });
-
-      // console.log(this.props);
-      //this.props.addUserData(await userData);
-      // this.setState({ userData });
-
-      // AsyncStorage.setItem("userData", JSON.stringify(userData), () => {
-      if (userData) {
-        const userDataString = JSON.stringify(userData);
-        this.props.navigation.navigate("HomeScreen", userDataString);
-      }
-      // });
     }
   }
 
