@@ -51,21 +51,25 @@ export default class App extends React.Component {
             name="LoginOrCreate"
             component={LoginOrCreate}
             options={{ title: "Welcome to Pollcat" }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="LoginHandler"
             component={LoginHandler}
             options={{ title: "Login" }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="CreateAccountHandler"
             component={CreateAccountHandler}
             options={{ title: "Create Account" }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="CreateDisplayName"
             component={CreateDisplayName}
             options={{ title: "Create Display Name" }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="HomeScreen"
