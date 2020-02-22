@@ -1,26 +1,54 @@
 import * as React from "react";
-import { Button, View, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 import firebase from "../Auth/Firebase";
+import {
+  Container,
+  Header,
+  Content,
+  Footer,
+  FooterTab,
+  Icon,
+  Text,
+  Form,
+  Item,
+  Input,
+  Label,
+  Button
+} from "native-base";
+// import styles from "../Styles.js";
 
 export default class LoginOrCreate extends React.Component {
   render() {
+    console.log(styles);
     return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center"
-        }}
+      <Container
+        style={styles.container}
+        // style={{
+        //   flex: 1,
+        //   alignItems: "center",
+        //   justifyContent: "center"
+        // }}
       >
-        <Button
-          title="Login"
-          onPress={() => this.props.navigation.navigate("LoginHandler")}
-        />
-        <Button
-          title="Sign Up"
-          onPress={() => this.props.navigation.navigate("CreateAccountHandler")}
-        />
-      </View>
+        <Content>
+          <Button
+            style={styles.button}
+            block
+            onPress={() => this.props.navigation.navigate("LoginHandler")}
+          >
+            <Text style={styles.buttonText}>Login</Text>
+          </Button>
+          <Button
+            style={styles.button}
+            block
+            bordered
+            onPress={() =>
+              this.props.navigation.navigate("CreateAccountHandler")
+            }
+          >
+            <Text style={styles.borderedButtonText}>Sign Up</Text>
+          </Button>
+        </Content>
+      </Container>
     );
   }
 
@@ -53,3 +81,36 @@ export default class LoginOrCreate extends React.Component {
   //   }
   // }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // backgroundColor: "#fff",
+    justifyContent: "center"
+  },
+  input: {
+    marginTop: 10
+  },
+  button: {
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    height: 50
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18
+  },
+  borderedButtonText: {
+    color: "#0960FF",
+    fontSize: 18
+  },
+  error: {
+    color: "red",
+    fontSize: 20,
+    marginTop: 20,
+    alignContent: "center",
+    flex: 1
+  }
+});
