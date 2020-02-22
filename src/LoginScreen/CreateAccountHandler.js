@@ -39,8 +39,14 @@ export default class CreateAccountHandler extends Component {
       "auth/user-disabled": "Account disabled"
     };
     return (
-      <Container style={styles.container}>
-        <Content>
+      <Container>
+        <Content
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: "flex-start",
+            marginTop: 100
+          }}
+        >
           <Form>
             <Item floatingLabel>
               <Label> Email Address </Label>
@@ -229,7 +235,7 @@ export default class CreateAccountHandler extends Component {
       this.setState({
         error: { message: "Passwords do not match" }
       });
-    } else if (!email) {
+    } else if (!email || !password) {
       this.setState({
         error: { message: "Please complete all fields" }
       });
@@ -263,7 +269,7 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   button: {
-    marginTop: 10,
+    marginTop: 20,
     marginBottom: 10,
     marginLeft: 20,
     marginRight: 20,
