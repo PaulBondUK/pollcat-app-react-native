@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   SafeAreaView,
   KeyboardAvoidingView,
-  Text,
   TextInput,
   View,
   StyleSheet,
@@ -12,6 +11,7 @@ import {
   Container,
   Header,
   Content,
+  Text,
   Form,
   Item,
   Input,
@@ -48,6 +48,9 @@ export default class LoginHandler extends Component {
                 onChangeText={text =>
                   this.setState({ email: text, error: null })
                 }
+                onFocus={() => {
+                  this.setState({ error: null });
+                }}
                 value={this.state.email}
                 keyboardType="email-address"
                 textContentType="emailAddress"
@@ -64,6 +67,9 @@ export default class LoginHandler extends Component {
                 onChangeText={text =>
                   this.setState({ password: text, error: null })
                 }
+                onFocus={() => {
+                  this.setState({ error: null });
+                }}
                 value={this.state.password}
                 secureTextEntry={true}
                 textContentType="password"
@@ -222,9 +228,8 @@ const styles = StyleSheet.create({
   },
   error: {
     color: "red",
-    fontSize: 20,
+    fontSize: 18,
     marginTop: 20,
-    alignContent: "center",
-    flex: 1
+    alignSelf: "center"
   }
 });
