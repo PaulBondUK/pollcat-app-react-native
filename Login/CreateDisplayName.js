@@ -46,7 +46,7 @@ export default class CreateDisplayName extends Component {
             </Item>
             <Button
               style={styles.button}
-              full
+              block
               primary
               onPress={() => {
                 const { displayName } = this.state;
@@ -90,8 +90,11 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   button: {
-    marginTop: 20,
-    height: 70
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    height: 50
   },
   buttonText: {
     color: "white",
