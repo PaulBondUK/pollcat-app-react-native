@@ -43,25 +43,24 @@ export default class LoginHandler extends Component {
               <Label>Email Address</Label>
               <Input
                 style={styles.input}
-                title="email"
-                placeholder="Email Address"
+                // title="email"
+                // placeholder="Email Address"
                 onChangeText={text =>
                   this.setState({ email: text, error: null })
                 }
                 value={this.state.email}
                 keyboardType="email-address"
-                returnKeyType="next"
                 textContentType="emailAddress"
                 autoCorrect={false}
                 autoCapitalize="none"
               />
             </Item>
-            <Item floatingLabel last>
+            <Item floatingLabel>
               <Label>Password</Label>
               <Input
                 style={styles.input}
-                title="password"
-                placeholder="Password"
+                // title="password"
+                // placeholder="Password"
                 onChangeText={text =>
                   this.setState({ password: text, error: null })
                 }
@@ -78,7 +77,7 @@ export default class LoginHandler extends Component {
                 const { email, password } = this.state;
                 this.firebaseLoginHandler(email, password);
               }}
-              full
+              block
               primary
             >
               <Text style={styles.buttonText}>Login</Text>
@@ -207,11 +206,15 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   input: {
-    marginTop: 10
+    marginTop: 10,
+    height: 50
   },
   button: {
     marginTop: 20,
-    height: 70
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    height: 50
   },
   buttonText: {
     color: "white",
