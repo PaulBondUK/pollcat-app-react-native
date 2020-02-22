@@ -18,7 +18,7 @@ import {
   Label,
   Button
 } from "native-base";
-import firebase from "../Auth/Firebase";
+import firebase from "../../Auth/Firebase";
 
 export default class LoginHandler extends Component {
   state = {

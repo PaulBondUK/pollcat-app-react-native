@@ -6,10 +6,10 @@ import { AppLoading } from "expo";
 import { Container, Text } from "native-base";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
-import LoginOrCreate from "./Login/LoginOrCreate";
-import LoginHandler from "./Login/LoginHandler";
-import CreateAccountHandler from "./Login/CreateAccountHandler";
-import CreateDisplayName from "./Login/CreateDisplayName";
+import LoginOrCreate from "./src/LoginScreen/LoginOrCreate";
+import LoginHandler from "./src/LoginScreen/LoginHandler";
+import CreateAccountHandler from "./src/LoginScreen/CreateAccountHandler";
+import CreateDisplayName from "./src/LoginScreen/CreateDisplayName";
 import Main from "./Screens/Main";
 
 // function Login() {

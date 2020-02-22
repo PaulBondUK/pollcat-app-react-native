@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, View } from "react-native";
-import firebase from "../Auth/Firebase";
+import firebase from "../../Auth/Firebase";
 import {
   Container,
   Header,

@@ -2,33 +2,30 @@ import React, { Component } from "react";
 import {
   SafeAreaView,
   KeyboardAvoidingView,
-  Text,
   TextInput,
   View,
   StyleSheet,
-  Platform
+  AsyncStorage
 } from "react-native";
 import {
   Container,
   Header,
   Content,
+  Text,
   Form,
   Item,
   Input,
   Label,
-  Button,
-  Icon
+  Button
 } from "native-base";
-import firebase from "../Auth/Firebase";
+import firebase from "../../Auth/Firebase";
 
-export default class CreateAccountHandler extends Component {
+export default class LoginHandler extends Component {
   state = {
     email: null,
-    displayName: null,
     password: null,
-    repeatPassword: null,
     error: null,
-    passwordCheck: true
+    accountCreated: null
   };
 
   render() {
@@ -43,11 +40,11 @@ export default class CreateAccountHandler extends Component {
         <Content>
           <Form>
             <Item floatingLabel>
-              <Label> Email Address </Label>
+              <Label>Email Address</Label>
               <Input
                 style={styles.input}
-                title="email"
-                placeholder="Email Address"
+                // title="email"
+                // placeholder="Email Address"
                 onChangeText={text =>
                   this.setState({ email: text, error: null })
                 }
@@ -56,18 +53,17 @@ export default class CreateAccountHandler extends Component {
                 }}
                 value={this.state.email}
                 keyboardType="email-address"
-                returnKeyType="next"
                 textContentType="emailAddress"
                 autoCorrect={false}
                 autoCapitalize="none"
               />
             </Item>
             <Item floatingLabel>
-              <Label> Password (at least 8 characters)</Label>
+              <Label>Password</Label>
               <Input
                 style={styles.input}
-                title="password"
-                placeholder="Password"
+                // title="password"
+                // placeholder="Password"
                 onChangeText={text =>
                   this.setState({ password: text, error: null })
                 }
@@ -81,44 +77,16 @@ export default class CreateAccountHandler extends Component {
                 autoCapitalize="none"
               />
             </Item>
-            <Item
-              floatingLabel
-              // success={
-              //   this.state.passwordCheck ? this.state.passwordCheck : false
-              // }
-            >
-              <Label>Repeat Password</Label>
-              <Input
-                style={styles.input}
-                title="repeat password"
-                placeholder="repeat password"
-                onChangeText={text =>
-                  this.setState({ repeatPassword: text, error: null })
-                }
-                onFocus={() => {
-                  this.setState({ error: null });
-                }}
-                value={this.state.repeatPassword}
-                secureTextEntry={true}
-                textContentType="password"
-                autoCorrect={false}
-                autoCapitalize="none"
-              />
-            </Item>
             <Button
               style={styles.button}
               onPress={() => {
-                const { email, password, repeatPassword } = this.state;
-                this.firebaseCreateAccountHandler(
-                  email,
-                  password,
-                  repeatPassword
-                );
+                const { email, password } = this.state;
+                this.firebaseLoginHandler(email, password);
               }}
               block
               primary
             >
-              <Text style={styles.buttonText}>Sign Up</Text>
+              <Text style={styles.buttonText}>Login</Text>
             </Button>
           </Form>
           {this.state.error && (
@@ -127,6 +95,10 @@ export default class CreateAccountHandler extends Component {
                 ? errorHandler[this.state.error.code]
                 : this.state.error.message}
             </Text>
+          )}
+
+          {this.state.accountCreated && (
+            <Text>Account created. Please login to continue!</Text>
           )}
         </Content>
       </Container>
@@ -157,6 +129,11 @@ export default class CreateAccountHandler extends Component {
   //               : this.state.error.message}
   //           </Text>
   //         )}
+
+  //         {this.state.accountCreated && (
+  //           <Text>Account created. Please login to continue!</Text>
+  //         )}
+
   //         <Text>Email Address</Text>
   //         <TextInput
   //           style={styles.input}
@@ -166,17 +143,7 @@ export default class CreateAccountHandler extends Component {
   //           value={this.state.email}
   //           keyboardType="email-address"
   //           returnKeyType="next"
-  //         ></TextInput>
-  //         <Text>Display Name</Text>
-  //         <TextInput
-  //           style={styles.input}
-  //           title="email"
-  //           placeholder="Display Name"
-  //           onChangeText={text =>
-  //             this.setState({ displayName: text, error: null })
-  //           }
-  //           value={this.state.displayName}
-  //           returnKeyType="next"
+  //           textContentType="emailAddress"
   //         ></TextInput>
   //         <Text>Password</Text>
   //         <TextInput
@@ -187,36 +154,14 @@ export default class CreateAccountHandler extends Component {
   //             this.setState({ password: text, error: null })
   //           }
   //           value={this.state.password}
-  //           returnKeyType="next"
   //           secureTextEntry={true}
-  //           textContentType="newPassword"
-  //         ></TextInput>
-  //         <Text>Repeat Password</Text>
-  //         <TextInput
-  //           style={styles.input}
-  //           title="password"
-  //           placeholder="Repeat Password"
-  //           onChangeText={text =>
-  //             this.setState({ repeatPassword: text, error: null })
-  //           }
-  //           value={this.state.repeatPassword}
-  //           secureTextEntry={true}
+  //           textContentType="password"
   //         ></TextInput>
   //         <Button
-  //           title="Sign Up"
+  //           title="Login"
   //           onPress={() => {
-  //             const {
-  //               email,
-  //               displayName,
-  //               password,
-  //               repeatPassword
-  //             } = this.state;
-  //             this.firebaseCreateAccountHandler(
-  //               email,
-  //               displayName,
-  //               password,
-  //               repeatPassword
-  //             );
+  //             const { email, password } = this.state;
+  //             this.firebaseLoginHandler(email, password);
   //           }}
   //         ></Button>
   //       </SafeAreaView>
@@ -224,30 +169,37 @@ export default class CreateAccountHandler extends Component {
   //   );
   // }
 
-  async firebaseCreateAccountHandler(email, password, repeatPassword) {
-    if (password !== repeatPassword) {
+  async firebaseLoginHandler(email, password) {
+    if (!email || !password) {
       this.setState({
-        error: { message: "Passwords do not match" }
-      });
-    } else if (!email) {
-      this.setState({
-        error: { message: "Please complete all fields" }
-      });
-    } else if (password.length < 8) {
-      this.setState({
-        error: { message: "Password should be 8 characters or more" }
+        error: { message: "Please enter a valid email address and password" }
       });
     } else {
-      const newUser = await firebase
+      const userData = await firebase
         .auth()
-        .createUserWithEmailAndPassword(email, password)
+        .signInWithEmailAndPassword(email, password)
         .catch(error => {
           this.setState({ error });
         });
 
-      if (await newUser) {
-        this.props.navigation.navigate("CreateDisplayName");
+      // console.log(this.props);
+      //this.props.addUserData(await userData);
+      // this.setState({ userData });
+
+      // AsyncStorage.setItem("userData", JSON.stringify(userData), () => {
+      if (userData) {
+        const userDataString = JSON.stringify(userData);
+        this.props.navigation.navigate("Main", userDataString);
       }
+      // });
+    }
+  }
+
+  componentDidMount() {
+    const { params } = this.props.route;
+    if (params) {
+      const email = JSON.parse(params);
+      this.setState({ email, accountCreated: true });
     }
   }
 }
@@ -260,10 +212,11 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   input: {
-    marginTop: 10
+    marginTop: 10,
+    height: 50
   },
   button: {
-    marginTop: 10,
+    marginTop: 20,
     marginBottom: 10,
     marginLeft: 20,
     marginRight: 20,
@@ -275,9 +228,8 @@ const styles = StyleSheet.create({
   },
   error: {
     color: "red",
-    fontSize: 20,
+    fontSize: 18,
     marginTop: 20,
-    alignContent: "center",
-    flex: 1
+    alignSelf: "center"
   }
 });
