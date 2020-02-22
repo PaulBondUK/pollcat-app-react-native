@@ -16,7 +16,8 @@ import {
   Item,
   Input,
   Label,
-  Button
+  Button,
+  Icon
 } from "native-base";
 import firebase from "../Auth/Firebase";
 
@@ -47,7 +48,9 @@ export default class CreateAccountHandler extends Component {
                 style={styles.input}
                 title="email"
                 placeholder="Email Address"
-                onChangeText={text => this.setState({ email: text })}
+                onChangeText={text =>
+                  this.setState({ email: text, error: null })
+                }
                 onFocus={() => {
                   this.setState({ error: null });
                 }}
@@ -60,12 +63,14 @@ export default class CreateAccountHandler extends Component {
               />
             </Item>
             <Item floatingLabel>
-              <Label> Password </Label>
+              <Label> Password (at least 8 characters)</Label>
               <Input
                 style={styles.input}
                 title="password"
                 placeholder="Password"
-                onChangeText={text => this.setState({ password: text })}
+                onChangeText={text =>
+                  this.setState({ password: text, error: null })
+                }
                 onFocus={() => {
                   this.setState({ error: null });
                 }}
@@ -82,12 +87,14 @@ export default class CreateAccountHandler extends Component {
               //   this.state.passwordCheck ? this.state.passwordCheck : false
               // }
             >
-              <Label> Repeat Password </Label>
+              <Label>Repeat Password</Label>
               <Input
                 style={styles.input}
                 title="repeat password"
                 placeholder="repeat password"
-                onChangeText={text => this.setState({ repeatPassword: text })}
+                onChangeText={text =>
+                  this.setState({ repeatPassword: text, error: null })
+                }
                 onFocus={() => {
                   this.setState({ error: null });
                 }}
@@ -108,7 +115,7 @@ export default class CreateAccountHandler extends Component {
                   repeatPassword
                 );
               }}
-              full
+              block
               primary
             >
               <Text style={styles.buttonText}>Sign Up</Text>
@@ -222,6 +229,14 @@ export default class CreateAccountHandler extends Component {
       this.setState({
         error: { message: "Passwords do not match" }
       });
+    } else if (!email) {
+      this.setState({
+        error: { message: "Please complete all fields" }
+      });
+    } else if (password.length < 8) {
+      this.setState({
+        error: { message: "Password should be 8 characters or more" }
+      });
     } else {
       const newUser = await firebase
         .auth()
@@ -248,8 +263,11 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   button: {
-    marginTop: 20,
-    height: 70
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    height: 50
   },
   buttonText: {
     color: "white",
