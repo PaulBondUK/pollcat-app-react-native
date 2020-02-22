@@ -36,8 +36,14 @@ export default class LoginHandler extends Component {
       "auth/user-disabled": "Account disabled"
     };
     return (
-      <Container style={styles.container}>
-        <Content>
+      <Container>
+        <Content
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: "flex-start",
+            marginTop: 100
+          }}
+        >
           <Form>
             <Item floatingLabel>
               <Label>Email Address</Label>
@@ -77,6 +83,7 @@ export default class LoginHandler extends Component {
                 autoCapitalize="none"
               />
             </Item>
+
             <Button
               style={styles.button}
               onPress={() => {
@@ -89,6 +96,7 @@ export default class LoginHandler extends Component {
               <Text style={styles.buttonText}>Login</Text>
             </Button>
           </Form>
+
           {this.state.error && (
             <Text style={styles.error}>
               {errorHandler[this.state.error.code]
@@ -230,6 +238,8 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 18,
     marginTop: 20,
-    alignSelf: "center"
+    alignSelf: "center",
+    flex: 1,
+    alignContent: "center"
   }
 });
