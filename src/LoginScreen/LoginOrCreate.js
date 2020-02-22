@@ -1,20 +1,7 @@
 import * as React from "react";
-import { StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, View } from "react-native";
 import firebase from "../Auth/Firebase";
-import {
-  Container,
-  Header,
-  Content,
-  Footer,
-  FooterTab,
-  Icon,
-  Text,
-  Form,
-  Item,
-  Input,
-  Label,
-  Button
-} from "native-base";
+import { Container, Header, Content, Text, Button } from "native-base";
 // import styles from "../Styles.js";
 
 export default class LoginOrCreate extends React.Component {
@@ -46,14 +33,14 @@ export default class LoginOrCreate extends React.Component {
               <Text style={styles.buttonText}>Login</Text>
             </Button>
             <Button
-              style={styles.button}
+              style={styles.borderedButton}
               block
               bordered
               onPress={() =>
                 this.props.navigation.navigate("CreateAccountHandler")
               }
             >
-              <Text style={styles.borderedButtonText}>Sign Up</Text>
+              <Text style={styles.borderedButtonText}>Sign up</Text>
             </Button>
           </View>
         </Content>
@@ -108,6 +95,14 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     height: 50
+  },
+  borderedButton: {
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    height: 50,
+    backgroundColor: "white"
   },
   buttonText: {
     color: "white",
