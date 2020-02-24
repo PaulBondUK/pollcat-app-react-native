@@ -32,6 +32,7 @@ import {
 import { questions, answers } from "../../../spec/TestData";
 import PollCard from "../TodaysPoll/PollCard";
 import { monthName } from "../../Utils/DateFormatting";
+import ConfettiCannon from "react-native-confetti-cannon";
 
 const height = (Dimensions.get("window").width / 800) * 500;
 
@@ -72,7 +73,7 @@ export default class TodaysPollScreen extends PureComponent {
                 marginBottom: 10
               }}
             >{`${today.getDate()} ${monthName[today.getMonth()]}`}</H1>
-            <PollCard questionData={questionData} filter={"current"} />
+            <PollCard questionData={questionData} />
           </Content>
         )}
       </Container>
@@ -83,7 +84,6 @@ export default class TodaysPollScreen extends PureComponent {
     const questionData = questions.find(question => {
       return question.questionStatus === "current";
     });
-    console.log(questionData);
     this.setState({ questionData, isLoading: false });
   }
 }
