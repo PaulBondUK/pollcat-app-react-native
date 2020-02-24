@@ -24,7 +24,6 @@ import {
   Button,
   H1
 } from "native-base";
-import { TabNavigator } from "@react-navigation/native";
 import Account from "./Account/Account";
 import CityProfile from "./CityProfile/CityProfile";
 import History from "./History/History";
