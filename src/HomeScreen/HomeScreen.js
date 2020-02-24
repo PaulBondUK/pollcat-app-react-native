@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import GoogleMapsAuth from "../Auth/GoogleMaps";
+import GoogleMapsAuth from "../Auth/GoogleMapsAuth";
 import firebase from "../Auth/Firebase";
 import axios from "axios";
 import { TextInput, View, StyleSheet, AsyncStorage } from "react-native";
@@ -73,7 +73,12 @@ export default class HomeScreen extends Component {
         ) : (
           <Tab.Navigator>
             <Tab.Screen name="Today's Poll">
-              {props => <TodaysPollScreen {...props} extraData={CountyName} />}
+              {props => (
+                <TodaysPollScreen
+                  {...props}
+                  extraData={(CountyName, townName)}
+                />
+              )}
             </Tab.Screen>
             <Tab.Screen name="History" component={HistoryScreen} />
             <Tab.Screen name="City Profile" component={CityProfileScreen} />
@@ -83,71 +88,70 @@ export default class HomeScreen extends Component {
           </Tab.Navigator>
         )}
       </Container>
-
-      // <Container>
-      // <Header>
-      //   <Left />
-      //   <Body>
-      //     <Title>{activePage}</Title>
-      //     <Right />
-      //   </Body>
-      //   <Right />
-      // </Header>
-      //   <Content
-      //     style={{ flex: 1 }}
-      //     contentContainerStyle={{
-      //       flex: 1,
-      //       justifyContent: "center",
-      //       alignItems: "center"
-      //     }}
-      //   >
-      //     <H1 style={styles.header1}>
-      //       {townName && `Viewing Polls in ${townName}`}
-      //     </H1>
-      //   </Content>
-      //   <Footer>
-      //     <FooterTab>
-      //       <Button
-      //         style={styles.button}
-      //         vertical
-      //         onPress={() => this.setState({ activePage: "Today's Poll" })}
-      //         active={this.state.activePage === "Today's Poll"}
-      //       >
-      //         <Icon type="MaterialCommunityIcons" name="calendar-today" />
-      //         <Text style={styles.buttonText}>Today's Poll</Text>
-      //       </Button>
-      //       <Button
-      //         style={styles.button}
-      //         vertical
-      //         onPress={() => this.setState({ activePage: "History" })}
-      //         active={this.state.activePage === "History"}
-      //       >
-      //         <Icon type="MaterialCommunityIcons" name="history" />
-      //         <Text style={styles.buttonText}>History</Text>
-      //       </Button>
-      //       <Button
-      //         style={styles.button}
-      //         vertical
-      //         onPress={() => this.setState({ activePage: "City Profile" })}
-      //         active={this.state.activePage === "City Profile"}
-      //       >
-      //         <Icon type="MaterialCommunityIcons" name="city" />
-      //         <Text style={styles.buttonText}>City Profile</Text>
-      //       </Button>
-      //       <Button
-      //         style={styles.button}
-      //         vertical
-      //         onPress={() => this.setState({ activePage: "Account" })}
-      //         active={this.state.activePage === "Account"}
-      //       >
-      //         <Icon type="MaterialCommunityIcons" name="account" />
-      //         <Text style={styles.buttonText}>Account</Text>
-      //       </Button>
-      //     </FooterTab>
-      //   </Footer>
-      // </Container>
     );
   }
+  // <Container>
+  // <Header>
+  //   <Left />
+  //   <Body>
+  //     <Title>{activePage}</Title>
+  //     <Right />
+  //   </Body>
+  //   <Right />
+  // </Header>
+  //   <Content
+  //     style={{ flex: 1 }}
+  //     contentContainerStyle={{
+  //       flex: 1,
+  //       justifyContent: "center",
+  //       alignItems: "center"
+  //     }}
+  //   >
+  //     <H1 style={styles.header1}>
+  //       {townName && `Viewing Polls in ${townName}`}
+  //     </H1>
+  //   </Content>
+  //   <Footer>
+  //     <FooterTab>
+  //       <Button
+  //         style={styles.button}
+  //         vertical
+  //         onPress={() => this.setState({ activePage: "Today's Poll" })}
+  //         active={this.state.activePage === "Today's Poll"}
+  //       >
+  //         <Icon type="MaterialCommunityIcons" name="calendar-today" />
+  //         <Text style={styles.buttonText}>Today's Poll</Text>
+  //       </Button>
+  //       <Button
+  //         style={styles.button}
+  //         vertical
+  //         onPress={() => this.setState({ activePage: "History" })}
+  //         active={this.state.activePage === "History"}
+  //       >
+  //         <Icon type="MaterialCommunityIcons" name="history" />
+  //         <Text style={styles.buttonText}>History</Text>
+  //       </Button>
+  //       <Button
+  //         style={styles.button}
+  //         vertical
+  //         onPress={() => this.setState({ activePage: "City Profile" })}
+  //         active={this.state.activePage === "City Profile"}
+  //       >
+  //         <Icon type="MaterialCommunityIcons" name="city" />
+  //         <Text style={styles.buttonText}>City Profile</Text>
+  //       </Button>
+  //       <Button
+  //         style={styles.button}
+  //         vertical
+  //         onPress={() => this.setState({ activePage: "Account" })}
+  //         active={this.state.activePage === "Account"}
+  //       >
+  //         <Icon type="MaterialCommunityIcons" name="account" />
+  //         <Text style={styles.buttonText}>Account</Text>
+  //       </Button>
+  //     </FooterTab>
+  //   </Footer>
+  // </Container>
 
   // firebaseUserCheck = () => {
   //   const user = firebase.auth().currentUser;
