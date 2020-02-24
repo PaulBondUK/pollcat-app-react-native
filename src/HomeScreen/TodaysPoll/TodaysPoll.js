@@ -1,5 +1,12 @@
 import React, { Component, Fragment } from "react";
-import { TextInput, View, StyleSheet, AsyncStorage } from "react-native";
+import {
+  TextInput,
+  View,
+  StyleSheet,
+  AsyncStorage,
+  Image,
+  Dimensions
+} from "react-native";
 import {
   Container,
   Header,
@@ -24,6 +31,8 @@ import {
 } from "native-base";
 import { questions, answers } from "../../../spec/TestData";
 
+const width = Dimensions.get("window").width;
+
 export default class TodaysPollScreen extends Component {
   state = {
     questions: null,
@@ -31,29 +40,41 @@ export default class TodaysPollScreen extends Component {
   };
 
   render() {
+    const { isLoading, questions } = this.state;
+    console.log(questions && questions[0]);
     return (
-      <Fragment>
+      <Container>
         <Header />
 
-        <Content
-          contentContainerStyle={{
-            flex: 1,
-            backgroundColor: "white"
-          }}
-          style={{ flex: 1 }}
-        >
-          <Card>
-            <CardItem>
-              <Body>
-                <H1>
-                  {this.state.questions && this.state.questions[0].question}
-                </H1>
-              </Body>
-            </CardItem>
-          </Card>
-          <Text>Hello!!!!!</Text>
-        </Content>
-      </Fragment>
+        {isLoading ? (
+          <Content>
+            <Spinner />
+          </Content>
+        ) : (
+          <Content
+            contentContainerStyle={{
+              flex: 1,
+              backgroundColor: "white"
+            }}
+            style={{ flex: 1 }}
+          >
+            <Card>
+              <CardItem>
+                <Body>
+                  <H1>{questions && questions[0].question}</H1>
+                </Body>
+              </CardItem>
+              <CardItem cardBody>
+                <Image
+                  source={{ uri: "https://i.postimg.cc/CMCJppjB/marmite.jpg" }}
+                  style={{ height: 500, width: width, flex: 1 }}
+                  resizeMode="cover"
+                />
+              </CardItem>
+            </Card>
+          </Content>
+        )}
+      </Container>
     );
   }
 
