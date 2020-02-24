@@ -29,33 +29,26 @@ import {
   Card,
   CardItem
 } from "native-base";
+import AnswerButtons from "./AnswerButtons";
 
 const height = (Dimensions.get("window").width / 800) * 500;
 
 const PollCard = ({ questionData }) => {
+  const { img, question, answerArray } = questionData;
   return (
     <Card>
       <CardItem>
         <Body>
-          <H1>{questionData.question}</H1>
+          <H1>{question}</H1>
         </Body>
       </CardItem>
       <CardItem cardBody>
-        <Image
-          source={{ uri: questionData.img }}
-          style={{ height: height, flex: 1 }}
-        />
+        <Image source={{ uri: img }} style={{ height: height, flex: 1 }} />
       </CardItem>
-      <CardItem>
-        <Body>
-          <H1>{questionData.answerArray[0].answer}</H1>
-        </Body>
-      </CardItem>
-      <CardItem>
-        <Body>
-          <H1>{questionData.answerArray[1].answer}</H1>
-        </Body>
-      </CardItem>
+      {!questionData.votes &&
+        answerArray.map(answerData => {
+          return <AnswerButtons answerData={answerData} />;
+        })}
     </Card>
   );
 };
