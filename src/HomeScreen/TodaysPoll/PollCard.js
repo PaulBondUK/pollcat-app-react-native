@@ -34,7 +34,14 @@ import AnswerButtons from "./AnswerButtons";
 const height = (Dimensions.get("window").width / 800) * 500;
 
 const PollCard = ({ questionData }) => {
-  const { img, question, answerArray } = questionData;
+  console.log(questionData);
+  const {
+    img,
+    question,
+    answerArray,
+    questionStatus,
+    startTime
+  } = questionData;
   return (
     <Card>
       <CardItem>
@@ -45,9 +52,9 @@ const PollCard = ({ questionData }) => {
       <CardItem cardBody>
         <Image source={{ uri: img }} style={{ height: height, flex: 1 }} />
       </CardItem>
-      {!questionData.votes &&
-        answerArray.map(answerData => {
-          return <AnswerButtons answerData={answerData} />;
+      {questionStatus === "current" &&
+        answerArray.map((answerData, index) => {
+          return <AnswerButtons key={index} answerData={answerData} />;
         })}
     </Card>
   );
