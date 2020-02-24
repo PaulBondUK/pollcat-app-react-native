@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Text, View } from "react-native";
 
-export default class TodaysPoll extends Component {
+export default class TodaysPollScreen extends Component {
   render() {
     return (
-      <View>
-        <Text> Today's Poll </Text>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Today's Poll!</Text>
       </View>
     );
   }
