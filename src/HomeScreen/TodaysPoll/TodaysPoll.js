@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { PureComponent, Fragment } from "react";
 import {
   TextInput,
   View,
@@ -30,22 +30,28 @@ import {
   CardItem
 } from "native-base";
 import { questions, answers } from "../../../spec/TestData";
+import PollCard from "../TodaysPoll/PollCard";
+import { monthName } from "../../Utils/DateFormatting";
 
-const width = Dimensions.get("window").width;
+const height = (Dimensions.get("window").width / 800) * 500;
 
-export default class TodaysPollScreen extends Component {
+export default class TodaysPollScreen extends PureComponent {
   state = {
-    questions: null,
+    questionData: null,
     isLoading: true
   };
 
   render() {
-    const { isLoading, questions } = this.state;
-    console.log(questions && questions[0]);
+    const { isLoading, questionData } = this.state;
+    const today = new Date();
+
+    console.log(today);
+    console.log(height, questionData && questionData[0]);
     return (
       <Container>
-        <Header />
-
+        <Header>
+          <Text>Today's Poll</Text>
+        </Header>
         {isLoading ? (
           <Content>
             <Spinner />
@@ -54,24 +60,21 @@ export default class TodaysPollScreen extends Component {
           <Content
             contentContainerStyle={{
               flex: 1,
-              backgroundColor: "white"
+              backgroundColor: "white",
+              alignContent: "center"
             }}
             style={{ flex: 1 }}
           >
-            <Card>
-              <CardItem>
-                <Body>
-                  <H1>{questions && questions[0].question}</H1>
-                </Body>
-              </CardItem>
-              <CardItem cardBody>
-                <Image
-                  source={{ uri: "https://i.postimg.cc/CMCJppjB/marmite.jpg" }}
-                  style={{ height: 500, width: width, flex: 1 }}
-                  resizeMode="cover"
-                />
-              </CardItem>
-            </Card>
+            <H1
+              style={{
+                alignSelf: "center",
+                fontSize: 40,
+                fontWeight: "bold",
+                paddingTop: 30,
+                marginBottom: 10
+              }}
+            >{`${today.getDate()} ${monthName[today.getMonth()]}`}</H1>
+            <PollCard questionData={questionData} filter={"current"} />
           </Content>
         )}
       </Container>
@@ -79,6 +82,34 @@ export default class TodaysPollScreen extends Component {
   }
 
   componentDidMount() {
-    this.setState({ questions, isLoading: false });
+    const questionData = questions.find(question => {
+      return question.questionStatus === "current";
+    });
+    console.log(questionData);
+    this.setState({ questionData, isLoading: false });
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center"
+  },
+  header1: { flex: 1, justifyContent: "center" },
+  input: {
+    marginTop: 10
+  },
+  button: {
+    fontSize: 10
+  },
+  buttonText: {
+    fontSize: 13
+  },
+  error: {
+    color: "red",
+    fontSize: 20,
+    marginTop: 20,
+    alignContent: "center",
+    flex: 1
+  }
+});
