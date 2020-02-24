@@ -23,7 +23,8 @@ import {
   Body,
   Title,
   Button,
-  H1
+  H1,
+  Spinner
 } from "native-base";
 import AccountScreen from "./Account/Account";
 import CityProfileScreen from "./CityProfile/CityProfile";
@@ -51,21 +52,36 @@ export default class HomeScreen extends Component {
   };
 
   render() {
-    if (this.state.user && !this.state.user.displayName) {
-      this.props.navigation.navigate("CreateDisplayName");
-    }
-    const { user, location, townName, activePage } = this.state;
+    // if (this.state.user && !this.state.user.displayName) {
+    //   this.props.navigation.navigate("CreateDisplayName");
+    // }
+    const {
+      user,
+      location,
+      townName,
+      CountyName,
+      activePage,
+      isLoading
+    } = this.state;
 
     return (
       <Container>
-        <Tab.Navigator>
-          <Tab.Screen name="Today's Poll" component={TodaysPollScreen} />
-          <Tab.Screen name="History" component={HistoryScreen} />
-          <Tab.Screen name="City Profile" component={CityProfileScreen} />
-          <Tab.Screen name="Account">
-            {props => <AccountScreen {...props} extraData={user} />}
-          </Tab.Screen>
-        </Tab.Navigator>
+        {isLoading ? (
+          <Content>
+            <Spinner />
+          </Content>
+        ) : (
+          <Tab.Navigator>
+            <Tab.Screen name="Today's Poll">
+              {props => <TodaysPollScreen {...props} extraData={CountyName} />}
+            </Tab.Screen>
+            <Tab.Screen name="History" component={HistoryScreen} />
+            <Tab.Screen name="City Profile" component={CityProfileScreen} />
+            <Tab.Screen name="Account">
+              {props => <AccountScreen {...props} extraData={user} />}
+            </Tab.Screen>
+          </Tab.Navigator>
+        )}
       </Container>
 
       // <Container>
@@ -176,9 +192,11 @@ export default class HomeScreen extends Component {
 
   async componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
-      if (this.state.user && !this.state.user.displayName) {
-        this.props.navigation.navigate("CreateDisplayName");
-      } else if (user) {
+      // if (user && !user.displayName) {
+      //   this.props.navigation.navigate("CreateDisplayName");
+      // } else
+
+      if (user) {
         console.log(user);
         this.setState({ user });
       } else {
