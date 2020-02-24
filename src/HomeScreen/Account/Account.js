@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { View } from "react-native";
 import {
   Container,
@@ -12,20 +12,21 @@ import {
   Item,
   Input,
   Label,
-  Button
+  Button,
+  H1
 } from "native-base";
 import firebase from "../../Auth/Firebase";
 
-export default class Account extends Component {
+export default class AccountScreen extends PureComponent {
   render() {
+    const { displayName } = this.props.extraData;
     return (
-      <Container>
-        <Content>
-          <Button onPress={this.firebaseLogoutUser}>
-            <Text>Logout</Text>
-          </Button>
-        </Content>
-      </Container>
+      <Content>
+        <H1>Logged in as {displayName}</H1>
+        <Button onPress={this.firebaseLogoutUser}>
+          <Text>Logout</Text>
+        </Button>
+      </Content>
     );
   }
 
