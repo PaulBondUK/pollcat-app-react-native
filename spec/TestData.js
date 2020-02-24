@@ -1,4 +1,4 @@
-const questions = [
+exports.questions = [
   {
     question: "Marmite...",
     startTime: 1582833600,
@@ -93,7 +93,7 @@ const questions = [
   }
 ];
 
-const Answers = [
+exports.answers = [
   {
     questionId: 1,
     userUid: "9wYP0SqImSYOlwnWWOXkFPzpFvu1",
