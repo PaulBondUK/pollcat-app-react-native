@@ -3,7 +3,7 @@ exports.questions = [
     question: "Marmite...",
     startTime: 1582833600,
     questionStatus: "current",
-    img: "https://i.postimg.cc/Y9Zhjcrg/marmite.jpg",
+    img: "https://i.postimg.cc/7ZPTGpGR/marmite.jpg",
     answerArray: [
       { answer: "Love it", img: "answer photo" },
       { answer: "Hate it", img: "answer photo" }
