@@ -44,9 +44,6 @@ export default class TodaysPollScreen extends PureComponent {
   render() {
     const { isLoading, questionData } = this.state;
     const today = new Date();
-
-    console.log(today);
-    console.log(height, questionData && questionData[0]);
     return (
       <Container>
         <Header>
@@ -58,6 +55,7 @@ export default class TodaysPollScreen extends PureComponent {
           </Content>
         ) : (
           <Content
+            style={{ flex: 1 }}
             contentContainerStyle={{
               flex: 1,
               backgroundColor: "white",
