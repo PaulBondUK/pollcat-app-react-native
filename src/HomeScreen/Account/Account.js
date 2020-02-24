@@ -34,7 +34,7 @@ export default class AccountScreen extends PureComponent {
     firebase
       .auth()
       .signOut()
-      .then(function() {
+      .then(() => {
         console.log("Sign-out successful");
         this.props.navigation.navigate("LoginOrCreate");
       })
