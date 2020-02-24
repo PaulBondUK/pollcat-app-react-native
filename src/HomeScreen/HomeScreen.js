@@ -65,11 +65,13 @@ export default class HomeScreen extends Component {
     } = this.state;
 
     return (
-      <Container>
+      <Fragment>
         {isLoading ? (
-          <Content>
-            <Spinner />
-          </Content>
+          <Container>
+            <Content>
+              <Spinner />
+            </Content>
+          </Container>
         ) : (
           <Tab.Navigator>
             <Tab.Screen name="Today's Poll">
@@ -87,7 +89,7 @@ export default class HomeScreen extends Component {
             </Tab.Screen>
           </Tab.Navigator>
         )}
-      </Container>
+      </Fragment>
     );
   }
   // <Container>
