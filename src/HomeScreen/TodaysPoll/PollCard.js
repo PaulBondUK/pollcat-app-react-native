@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { TextInput, View, StyleSheet, AsyncStorage } from "react-native";
+import {
+  TextInput,
+  View,
+  StyleSheet,
+  AsyncStorage,
+  Image,
+  Dimensions
+} from "react-native";
 import {
   Container,
   Header,
@@ -19,15 +26,37 @@ import {
   Button,
   H1,
   Spinner,
-  Card
+  Card,
+  CardItem
 } from "native-base";
-import { questions, answers } from "../../../spec/TestData";
 
-const PollCard = () => {
+const height = (Dimensions.get("window").width / 800) * 500;
+
+const PollCard = ({ questionData }) => {
   return (
-    <View>
-      <Text></Text>
-    </View>
+    <Card>
+      <CardItem>
+        <Body>
+          <H1>{questionData.question}</H1>
+        </Body>
+      </CardItem>
+      <CardItem cardBody>
+        <Image
+          source={{ uri: questionData.img }}
+          style={{ height: height, flex: 1 }}
+        />
+      </CardItem>
+      <CardItem>
+        <Body>
+          <H1>{questionData.answerArray[0].answer}</H1>
+        </Body>
+      </CardItem>
+      <CardItem>
+        <Body>
+          <H1>{questionData.answerArray[1].answer}</H1>
+        </Body>
+      </CardItem>
+    </Card>
   );
 };
 
