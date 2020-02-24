@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import GoogleMapsAuth from "../Auth/GoogleMaps";
 import firebase from "../Auth/Firebase";
 import axios from "axios";
