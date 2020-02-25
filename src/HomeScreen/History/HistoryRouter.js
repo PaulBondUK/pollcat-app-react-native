@@ -12,12 +12,12 @@ const HistoryRouter = () => {
       <Stack.Screen
         name="History"
         component={History}
-        options={{ headerShown: false }}
+        // options={{ headerShown: false }}
       />
       <Stack.Screen
         name="SinglePollHistory"
         component={SinglePollHistory}
-        options={{ headerShown: false }}
+        // options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
