@@ -6,7 +6,8 @@ import {
   TextInput,
   View,
   StyleSheet,
-  Platform
+  Platform,
+  Alert
 } from "react-native";
 import {
   Header,
@@ -19,20 +20,20 @@ import {
   Button,
   Icon
 } from "native-base";
-import firebase from "../../Auth/Firebase";
+//import firebase from "../../Auth/Firebase";
+import * as firebase from "firebase";
 
 export default class ChangePassword extends Component {
   state = {
-    currentPassword: null,
+    password: null,
     newPassword: null,
     repeatNewPassword: null,
     error: null,
     passwordCheck: true
   };
 
-  user = firebase.auth().currentUser;
-
   render() {
+    const { password, newPassword, repeatNewPassword } = this.state;
     const errorHandler = {
       "auth/user-not-found": "User not found",
       "auth/invalid-email": "Invalid email address",
@@ -47,15 +48,18 @@ export default class ChangePassword extends Component {
               <Label> Current Password </Label>
               <Input
                 style={styles.input}
-                title="currentPassword"
+                title="Password"
                 placeholder="Current Password"
                 onChangeText={text =>
-                  this.setState({ currentPassword: text, error: null })
+                  this.setState({
+                    password: text,
+                    error: null
+                  })
                 }
                 onFocus={() => {
                   this.setState({ error: null });
                 }}
-                value={this.state.currentPassword}
+                value={password}
                 secureTextEntry={true}
                 textContentType="currentPassword"
                 autoCorrect={false}
@@ -66,15 +70,18 @@ export default class ChangePassword extends Component {
               <Label> New Password (at least 8 characters) </Label>
               <Input
                 style={styles.input}
-                title="newPassword"
+                title="password"
                 placeholder="New Password"
                 onChangeText={text =>
-                  this.setState({ newPassword: text, error: null })
+                  this.setState({
+                    newPassword: text,
+                    error: null
+                  })
                 }
                 onFocus={() => {
                   this.setState({ error: null });
                 }}
-                value={this.state.newPassword}
+                value={newPassword}
                 secureTextEntry={true}
                 textContentType="newPassword"
                 autoCorrect={false}
@@ -88,12 +95,15 @@ export default class ChangePassword extends Component {
                 title="repeatNewPassword"
                 placeholder="Repeat New Password"
                 onChangeText={text =>
-                  this.setState({ repeatNewPassword: text, error: null })
+                  this.setState({
+                    repeatNewPassword: text,
+                    error: null
+                  })
                 }
                 onFocus={() => {
                   this.setState({ error: null });
                 }}
-                value={this.state.repeatNewPassword}
+                value={repeatNewPassword}
                 secureTextEntry={true}
                 textContentType="repeatNewPassword"
                 autoCorrect={false}
@@ -103,11 +113,11 @@ export default class ChangePassword extends Component {
             <Button
               style={styles.button}
               onPress={() => {
-                const {
-                  currentPassword,
+                this.onChangePasswordPress(
+                  password,
                   newPassword,
                   repeatNewPassword
-                } = this.state;
+                );
               }}
             >
               <Text style={styles.buttonText}>Change Password</Text>
@@ -117,7 +127,48 @@ export default class ChangePassword extends Component {
       </Container>
     );
   }
+
+  reauthenticate = password => {
+    var user = firebase.auth().currentUser;
+    var cred = firebase.auth.EmailAuthProvider.credential(user.email, password);
+    return user.reauthenticateWithCredential(cred);
+  };
+
+  onChangePasswordPress(password, newPassword, repeatNewPassword) {
+    if (!password || !newPassword || !repeatNewPassword) {
+      alert("Please enter password and new password");
+    } else {
+      if (newPassword !== repeatNewPassword) {
+        alert("Passwords do not match. Please try again");
+      } else {
+        this.reauthenticate(password).then(() => {
+          firebase.auth().onAuthStateChanged(user => {
+            user
+              .updatePassword(newPassword)
+              .then(() => {
+                alert("Password changed successfully!");
+              })
+              .catch(error => {
+                this.setState({ error });
+              });
+          });
+        });
+      }
+    }
+    // });
+  }
 }
+
+// reauthenticate = currentPassword => {
+//   user = firebase.auth().currentUser;
+//   const cred = firebase.auth.EmailAuthProvider.credential(
+//     user.email,
+//     currentPassword
+//   );
+// };
+
+// onChangePasswordPress = () => {
+//   const user = firebase.auth().currentUser;
 
 const styles = StyleSheet.create({
   container: {
