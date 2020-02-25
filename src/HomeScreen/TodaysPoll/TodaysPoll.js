@@ -32,6 +32,7 @@ import {
 } from "native-base";
 import { questions, answers } from "../../../spec/TestData";
 // import PollCard from "./PollCard";
+import AnswerButtons from "./AnswerButtons";
 import { monthName } from "../../Utils/DateFormatting";
 import ConfettiCannon from "react-native-confetti-cannon";
 import CountDown from "react-native-countdown-component";
@@ -45,47 +46,23 @@ export default class TodaysPollScreen extends PureComponent {
     questionData: null,
     isLoading: true,
     endTime: null,
-    CARDS: null
+    parsedAnswerArray: null
   };
 
   render() {
     const now = new Date();
-    // const CARDS = [
-    //   {
-    //     image: {
-    //       uri: "https://i.postimg.cc/7ZPTGpGR/marmite.jpg"
-    //     },
-    //     height: 500,
-    //     renderItem: ({ item, index }) => (
-    //       <PollCardToday endTime={this.state.endTime} />
-    //     ),
-    //     renderDetails: ({ item, index }) => (
-    //       <View
-    //         style={{
-    //           paddingVertical: 30,
-    //           paddingHorizontal: 16
-    //         }}
-    //       >
-    //         <Text
-    //           style={{
-    //             color: "rgba(0, 0, 0, 0.7)",
-    //             fontSize: 18
-    //           }}
-    //         >
-    //           Test text
-    //         </Text>
-    //       </View>
-    //     )
-    //   }
-    // ];
-
-    const { isLoading, questionData, endTime } = this.state;
-    const today = new Date();
+    const { isLoading, questionData, endTime, parsedAnswerArray } = this.state;
 
     if (isLoading) {
       return (
         <Container>
-          <Content>
+          <Content
+            contentContainerStyle={{
+              flex: 1,
+              justifyContent: "center",
+              alignContent: "center"
+            }}
+          >
             <Spinner />
           </Content>
         </Container>
@@ -128,56 +105,18 @@ export default class TodaysPollScreen extends PureComponent {
                 paddingHorizontal: 16
               }}
             >
-              <Text
-                style={{
-                  color: "rgba(0, 0, 0, 0.7)",
-                  fontSize: 18
-                }}
-              >
-                Test text
-              </Text>
+              <Container>
+                <Content>
+                  {parsedAnswerArray.map(answer => {
+                    console.log(answer);
+                    return <AnswerButtons answerData={answer} />;
+                    // return <Text>{answer.answer}</Text>;
+                  })}
+                </Content>
+              </Container>
             </View>
           )}
         />
-        // <Container>
-        //   {/* <ConfettiCannon
-        //     count={100}
-        //     origin={{ x: -10, y: 0 }}
-        //     fadeOut={true}
-        //   /> */}
-        //   <Header>
-        //     <Text>Today's Poll</Text>
-        //   </Header>
-        //   <Content
-        //     style={{ flex: 1 }}
-        //     contentContainerStyle={{
-        //       flex: 1,
-        //       backgroundColor: "white",
-        //       alignContent: "center",
-        //       justifyContent: "space-between"
-        //     }}
-        //     style={{ flex: 1 }}
-        //   >
-        //     <H1
-        //       style={{
-        //         alignSelf: "center",
-        //         fontSize: 40,
-        //         fontWeight: "bold",
-        //         paddingTop: 30,
-        //         marginBottom: 10
-        //       }}
-        //     >{`${today.getDate()} ${monthName[today.getMonth()]}`}</H1>
-        //     <PollCard questionData={questionData} />
-
-        //     <CountDown
-        //       until={(endTime - Date.now()) / 1000}
-        //       size={40}
-        //       timeToShow={["H", "M", "S"]}
-        //       timeLabels={{ h: "Hrs", m: "Mins", s: "Secs" }}
-        //       // style={{ marginTop: 20 }}
-        //     />
-        //   </Content>
-        // </Container>
       );
     }
   }
@@ -185,7 +124,6 @@ export default class TodaysPollScreen extends PureComponent {
   componentDidMount() {
     Api.getQuestions()
       .then(({ questions }) => {
-        console.log(questions);
         return (questionData = questions.find(question => {
           return question.questionStatus === "current";
         }));
@@ -193,29 +131,21 @@ export default class TodaysPollScreen extends PureComponent {
       .then(questionData => {
         const startTime = Date.parse(questionData.startTime);
         const { img, answerArray } = questionData;
-        // const parsedAnswerArray = JSON.parse(answerArray);
-        // console.log(parsedAnswerArray);
+        const parsedAnswerArray = answerArray.map(answer => {
+          return JSON.parse(answer);
+        });
+
         const endTime = (startTime + 86400) * 1000;
         this.setState({
           questionData,
           isLoading: false,
           endTime,
-          CARDS
+          parsedAnswerArray
         });
       })
       .catch(err => {
         console.log(err);
       });
-
-    // const { startTime } = questionData;
-    // const endTime = (startTime + 86400) * 1000;
-
-    // this.setState({
-    //   questionData,
-    //   isLoading: false,
-    //   endTime,
-    //   CARDS
-    // });
   }
 }
 
