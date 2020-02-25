@@ -93,7 +93,7 @@ export default class TodaysPollScreen extends PureComponent {
               image: {
                 uri: questionData.img
               },
-              height: 500
+              height: 550
             }
           ]}
           renderItem={({ item, index }) => (
