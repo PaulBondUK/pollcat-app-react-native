@@ -6,7 +6,8 @@ import {
   AsyncStorage,
   Image,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  SafeAreaView
 } from "react-native";
 import {
   Container,
@@ -60,7 +61,7 @@ export default class TodaysPollScreen extends PureComponent {
             contentContainerStyle={{
               flex: 1,
               justifyContent: "center",
-              alignContent: "center"
+              paddingTop: 50
             }}
           >
             <Spinner color={"tomato"} />
@@ -105,15 +106,11 @@ export default class TodaysPollScreen extends PureComponent {
                 paddingHorizontal: 16
               }}
             >
-              <Container>
-                <Content>
-                  {parsedAnswerArray.map(answer => {
-                    console.log(answer);
-                    return <AnswerButtons answerData={answer} />;
-                    // return <Text>{answer.answer}</Text>;
-                  })}
-                </Content>
-              </Container>
+              <Content>
+                {parsedAnswerArray.map((answer, index) => {
+                  return <AnswerButtons answerData={answer} key={index} />;
+                })}
+              </Content>
             </View>
           )}
         />
@@ -135,7 +132,7 @@ export default class TodaysPollScreen extends PureComponent {
           return JSON.parse(answer);
         });
 
-        const endTime = (startTime + 86400) * 1000;
+        const endTime = startTime + 86400;
         this.setState({
           questionData,
           isLoading: false,
