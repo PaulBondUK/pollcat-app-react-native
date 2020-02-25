@@ -11,6 +11,7 @@ import LoginHandler from "./src/LoginScreen/LoginHandler";
 import CreateAccountHandler from "./src/LoginScreen/CreateAccountHandler";
 import CreateDisplayName from "./src/LoginScreen/CreateDisplayName";
 import HomeScreen from "./src/HomeScreen/HomeScreen";
+import ChangePassword from "./src/HomeScreen/Account/ChangePassword";
 
 // function Login() {
 //   return (
@@ -74,6 +75,12 @@ export default class App extends React.Component {
           <Stack.Screen
             name="HomeScreen"
             component={HomeScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ChangePassword"
+            component={ChangePassword}
+            options={{ title: "Change Password" }}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
