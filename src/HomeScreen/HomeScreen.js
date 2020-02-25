@@ -203,7 +203,6 @@ export default class HomeScreen extends Component {
       // } else
 
       if (user) {
-        console.log(user);
         this.setState({ user });
       } else {
         this.props.navigation.navigate("LoginOrCreate");
