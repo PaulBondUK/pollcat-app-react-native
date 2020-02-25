@@ -74,8 +74,8 @@ exports.PollCardToday = ({ questionData, endTime }) => {
               timeLabels={{ h: "Hrs", m: "Mins", s: "Secs" }}
               digitStyle={
                 (endTime - Date.now()) / 1000 < 3600
-                  ? { backgroundColor: "red" }
-                  : { backgroundColor: "green" }
+                  ? { backgroundColor: "#EA162F" }
+                  : { backgroundColor: "#20C5B6" }
               }
               digitTxtStyle={{ color: "white" }}
             />
