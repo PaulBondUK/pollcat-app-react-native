@@ -16,10 +16,12 @@ import {
   H1
 } from "native-base";
 import firebase from "../../Auth/Firebase";
-
 export default class AccountScreen extends PureComponent {
   render() {
-    const { displayName } = this.props.extraData;
+    const {
+      extraData: { displayName },
+      navigation
+    } = this.props;
     return (
       <Content>
         <H1>Logged in as {displayName}</H1>
@@ -29,7 +31,6 @@ export default class AccountScreen extends PureComponent {
       </Content>
     );
   }
-
   firebaseLogoutUser() {
     firebase
       .auth()
@@ -42,7 +43,6 @@ export default class AccountScreen extends PureComponent {
         // An error happened.
       });
   }
-
   // componentDidUpdate() {
   //   // const userData = JSON.parse(this.props.route.params);
   //   // this.setState({ userData });
