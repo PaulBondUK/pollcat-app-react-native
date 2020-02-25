@@ -46,7 +46,6 @@ export default class HistoryScreen extends PureComponent {
     const { navigation } = this.props;
     const now = new Date();
     const { isLoading, questionData } = this.state;
-    console.log(isLoading, questionData);
     if (isLoading) {
       return (
         <Container>
@@ -64,18 +63,6 @@ export default class HistoryScreen extends PureComponent {
     } else if (questionData) {
       return (
         <Container>
-          <Header noShadow style={{ height: 80 }}>
-            <View
-              style={{
-                paddingLeft: 10,
-                paddingBottom: 10,
-                flex: 1,
-                justifyContent: "flex-end"
-              }}
-            >
-              <Text style={{ fontSize: 32, fontWeight: "bold" }}>History</Text>
-            </View>
-          </Header>
           <Content style={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}>
             {questionData.map((question, index) => {
               return (
@@ -109,14 +96,11 @@ export default class HistoryScreen extends PureComponent {
         }));
       })
       .then(returnedQuestionData => {
-        console.log(returnedQuestionData);
-
         const questionData = returnedQuestionData.map(question => {
           const startTime = Date.parse(question.startTime);
           const endTime = startTime + 86400;
           return { ...question, startTime, endTime };
         });
-        console.log(questionData);
 
         this.setState({
           questionData,
