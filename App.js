@@ -12,6 +12,8 @@ import CreateAccountHandler from "./src/LoginScreen/CreateAccountHandler";
 import CreateDisplayName from "./src/LoginScreen/CreateDisplayName";
 import HomeScreen from "./src/HomeScreen/HomeScreen";
 import ChangePassword from "./src/HomeScreen/Account/ChangePassword";
+import ChangeEmail from "./src/HomeScreen/Account/ChangeEmail";
+import TodaysPoll from "./src/HomeScreen/TodaysPoll/TodaysPoll";
 
 // function Login() {
 //   return (
@@ -81,6 +83,18 @@ export default class App extends React.Component {
             name="ChangePassword"
             component={ChangePassword}
             options={{ title: "Change Password" }}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ChangeEmail"
+            component={ChangeEmail}
+            options={{ title: "Change Email" }}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="TodaysPoll"
+            component={TodaysPoll}
+            options={{ title: "Today's Poll" }}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
