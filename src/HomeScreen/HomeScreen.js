@@ -27,6 +27,7 @@ import {
   H1,
   Spinner
 } from "native-base";
+import HistoryRouter from "./History/HistoryRouter";
 import AccountScreen from "./Account/Account";
 import CityProfileScreen from "./CityProfile/CityProfile";
 import HistoryScreen from "./History/History";
@@ -104,7 +105,7 @@ export default class HomeScreen extends Component {
             </Tab.Screen>
             <Tab.Screen
               name="History"
-              component={HistoryScreen}
+              component={HistoryRouter}
               options={{
                 tabBarIcon: ({ focused }) => (
                   <TabBarIcon name="history" focused={focused} />

@@ -31,6 +31,7 @@ import {
   CardItem
 } from "native-base";
 import PollCard from "../TodaysPoll/PollCard";
+import PollCardHistory from "./PollCardHistory";
 import { monthName } from "../../Utils/DateFormatting";
 import { questions } from "../../../spec/TestData";
 import * as Api from "../../../Api";
@@ -42,6 +43,7 @@ export default class HistoryScreen extends PureComponent {
   };
   const;
   render() {
+    const { navigation } = this.props;
     const now = new Date();
     const { isLoading, questionData } = this.state;
     console.log(isLoading, questionData);
@@ -76,7 +78,13 @@ export default class HistoryScreen extends PureComponent {
           </Header>
           <Content style={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}>
             {questionData.map((question, index) => {
-              return <PollCard key={index} questionData={question} />;
+              return (
+                <PollCardHistory
+                  key={index}
+                  questionData={question}
+                  navigation={navigation}
+                />
+              );
             })}
           </Content>
         </Container>
