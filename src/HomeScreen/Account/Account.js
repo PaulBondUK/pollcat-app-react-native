@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
-import { View } from "react-native";
+import ChangePassword from "../Account/ChangePassword";
+import { createStackNavigator } from "@react-navigation/stack";
 import {
   Container,
   Header,
@@ -7,7 +8,6 @@ import {
   Footer,
   FooterTab,
   Icon,
-  Text,
   Form,
   Item,
   Input,
@@ -15,7 +15,17 @@ import {
   Button,
   H1
 } from "native-base";
+import {
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Text,
+  TextInput,
+  View,
+  StyleSheet,
+  Platform
+} from "react-native";
 import firebase from "../../Auth/Firebase";
+
 export default class AccountScreen extends PureComponent {
   render() {
     const {
@@ -23,8 +33,17 @@ export default class AccountScreen extends PureComponent {
       navigation
     } = this.props;
     return (
-      <Content>
+      <Content
+        contentContainerStyle={{
+          flex: 1,
+          justifyContent: "flex-start",
+          marginTop: 100
+        }}
+      >
         <H1>Logged in as {displayName}</H1>
+        <Button onPress={() => navigation.navigate("ChangePassword")}>
+          <Text> Change Password</Text>
+        </Button>
         <Button onPress={this.firebaseLogoutUser}>
           <Text>Logout</Text>
         </Button>
