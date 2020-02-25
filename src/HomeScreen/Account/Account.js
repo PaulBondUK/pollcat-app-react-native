@@ -41,6 +41,9 @@ export default class AccountScreen extends PureComponent {
         }}
       >
         <H1>Logged in as {displayName}</H1>
+        <Button onPress={() => navigation.navigate("ChangeEmail")}>
+          <Text> Change Email </Text>
+        </Button>
         <Button onPress={() => navigation.navigate("ChangePassword")}>
           <Text> Change Password</Text>
         </Button>
