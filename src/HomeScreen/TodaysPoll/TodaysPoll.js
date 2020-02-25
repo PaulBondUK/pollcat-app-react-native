@@ -79,7 +79,7 @@ export default class TodaysPollScreen extends PureComponent {
     //   }
     // ];
 
-    const { isLoading, questionData, endTime, CARDS } = this.state;
+    const { isLoading, questionData, endTime } = this.state;
     const today = new Date();
 
     if (isLoading) {
@@ -110,13 +110,34 @@ export default class TodaysPollScreen extends PureComponent {
               </View>
             )
           }}
-          data={CARDS}
-          renderItem={({ item, index }) => {
-            return item.renderItem({ item, index });
-          }}
-          renderDetails={({ item, index }) => {
-            return item.renderDetails({ item, index });
-          }}
+          data={[
+            {
+              image: {
+                uri: questionData.img
+              },
+              height: 500
+            }
+          ]}
+          renderItem={({ item, index }) => (
+            <PollCardToday endTime={endTime} questionData={questionData} />
+          )}
+          renderDetails={({ item, index }) => (
+            <View
+              style={{
+                paddingVertical: 30,
+                paddingHorizontal: 16
+              }}
+            >
+              <Text
+                style={{
+                  color: "rgba(0, 0, 0, 0.7)",
+                  fontSize: 18
+                }}
+              >
+                Test text
+              </Text>
+            </View>
+          )}
         />
         // <Container>
         //   {/* <ConfettiCannon
@@ -175,34 +196,6 @@ export default class TodaysPollScreen extends PureComponent {
         // const parsedAnswerArray = JSON.parse(answerArray);
         // console.log(parsedAnswerArray);
         const endTime = (startTime + 86400) * 1000;
-        const CARDS = [
-          {
-            image: {
-              uri: img
-            },
-            height: 500,
-            renderItem: ({ item, index }) => (
-              <PollCardToday endTime={endTime} />
-            ),
-            renderDetails: ({ item, index }) => (
-              <View
-                style={{
-                  paddingVertical: 30,
-                  paddingHorizontal: 16
-                }}
-              >
-                <Text
-                  style={{
-                    color: "rgba(0, 0, 0, 0.7)",
-                    fontSize: 18
-                  }}
-                >
-                  Test text
-                </Text>
-              </View>
-            )
-          }
-        ];
         this.setState({
           questionData,
           isLoading: false,
