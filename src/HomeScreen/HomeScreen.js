@@ -6,6 +6,7 @@ import GoogleMapsAuth from "../Auth/GoogleMapsAuth";
 import firebase from "../Auth/Firebase";
 import axios from "axios";
 import { TextInput, View, StyleSheet, AsyncStorage } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 import {
   Container,
   Header,
@@ -30,6 +31,7 @@ import AccountScreen from "./Account/Account";
 import CityProfileScreen from "./CityProfile/CityProfile";
 import HistoryScreen from "./History/History";
 import TodaysPollScreen from "./TodaysPoll/TodaysPoll";
+import TabBarIcon from "../HomeScreen/TabBarIcon";
 
 // const Tab = createBottomTabNavigator({
 //   "Today's Poll": TodaysPollScreen,
@@ -73,8 +75,20 @@ export default class HomeScreen extends Component {
             </Content>
           </Container>
         ) : (
-          <Tab.Navigator>
-            <Tab.Screen name="Today's Poll">
+          <Tab.Navigator
+            tabBarOptions={{
+              activeTintColor: "tomato",
+              inactiveTintColor: "gray"
+            }}
+          >
+            <Tab.Screen
+              name="Today's Poll"
+              options={{
+                tabBarIcon: ({ focused }) => (
+                  <TabBarIcon name="today" focused={focused} />
+                )
+              }}
+            >
               {props => (
                 <TodaysPollScreen
                   {...props}
@@ -82,9 +96,32 @@ export default class HomeScreen extends Component {
                 />
               )}
             </Tab.Screen>
-            <Tab.Screen name="History" component={HistoryScreen} />
-            <Tab.Screen name="City Profile" component={CityProfileScreen} />
-            <Tab.Screen name="Account">
+            <Tab.Screen
+              name="History"
+              component={HistoryScreen}
+              options={{
+                tabBarIcon: ({ focused }) => (
+                  <TabBarIcon name="history" focused={focused} />
+                )
+              }}
+            />
+            <Tab.Screen
+              name="City Profile"
+              component={CityProfileScreen}
+              options={{
+                tabBarIcon: ({ focused }) => (
+                  <TabBarIcon name="location-city" focused={focused} />
+                )
+              }}
+            />
+            <Tab.Screen
+              name="Account"
+              options={{
+                tabBarIcon: ({ focused }) => (
+                  <TabBarIcon name="person" focused={focused} />
+                )
+              }}
+            >
               {props => <AccountScreen {...props} extraData={user} />}
             </Tab.Screen>
           </Tab.Navigator>
