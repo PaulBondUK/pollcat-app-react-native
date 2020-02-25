@@ -4,7 +4,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CountDown from "react-native-countdown-component";
 
 exports.PollCardToday = ({ questionData, endTime }) => {
-  console.log(questionData);
   const { img, answerArray, question } = questionData;
   return (
     <View
@@ -88,9 +87,3 @@ exports.PollCardToday = ({ questionData, endTime }) => {
     </View>
   );
 };
-
-{
-  /* <Text style={{ fontSize: 18, fontWeight: "bold", padding: 10 }}>
-  Ends 8pm Tomorrow
-</Text>; */
-}
