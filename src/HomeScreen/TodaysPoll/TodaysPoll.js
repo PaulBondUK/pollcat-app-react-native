@@ -5,7 +5,8 @@ import {
   StyleSheet,
   AsyncStorage,
   Image,
-  Dimensions
+  Dimensions,
+  TouchableOpacity
 } from "react-native";
 import {
   Container,
@@ -30,10 +31,12 @@ import {
   CardItem
 } from "native-base";
 import { questions, answers } from "../../../spec/TestData";
-import PollCard from "../TodaysPoll/PollCard";
+// import PollCard from "./PollCard";
 import { monthName } from "../../Utils/DateFormatting";
 import ConfettiCannon from "react-native-confetti-cannon";
 import CountDown from "react-native-countdown-component";
+import CardList from "react-native-card-animated-modal";
+import { PollCardToday } from "./PollCardToday";
 
 export default class TodaysPollScreen extends PureComponent {
   state = {
@@ -43,6 +46,33 @@ export default class TodaysPollScreen extends PureComponent {
   };
 
   render() {
+    const now = new Date();
+    const CARDS = [
+      {
+        image: {
+          uri: "https://i.postimg.cc/7ZPTGpGR/marmite.jpg"
+        },
+        height: 500,
+        renderItem: ({ item, index }) => (
+          // <View>
+          //   <Text
+          //     style={{ color: "rgba(0, 0, 0, 0.7)", fontSize: 30, paddingLeft: 10 }}
+          //   >
+          //     Marmite...
+          //   </Text>
+          // </View>
+          <PollCardToday endTime={this.state.endTime} />
+        ),
+        renderDetails: ({ item, index }) => (
+          /* You can also provide custom content per item */
+          <View style={{ paddingVertical: 30, paddingHorizontal: 16 }}>
+            <Text style={{ color: "rgba(0, 0, 0, 0.7)", fontSize: 18 }}>
+              Test text
+            </Text>
+          </View>
+        )
+      }
+    ];
     const { isLoading, questionData, endTime } = this.state;
     const today = new Date();
 
@@ -56,45 +86,77 @@ export default class TodaysPollScreen extends PureComponent {
       );
     } else {
       return (
-        <Container>
-          {/* <ConfettiCannon
-            count={100}
-            origin={{ x: -10, y: 0 }}
-            fadeOut={true}
-          /> */}
-          <Header>
-            <Text>Today's Poll</Text>
-          </Header>
-          <Content
-            style={{ flex: 1 }}
-            contentContainerStyle={{
-              flex: 1,
-              backgroundColor: "white",
-              alignContent: "center",
-              justifyContent: "space-between"
+        <>
+          <CardList
+            listProps={{
+              ListHeaderComponent: () => (
+                <View style={{ padding: 16, paddingBottom: 0 }}>
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      color: "rgba(0, 0, 0, 0.5)"
+                    }}
+                  >
+                    {now.toDateString()}
+                  </Text>
+                  <Text style={{ fontSize: 32, fontWeight: "bold" }}>
+                    Today's Poll
+                  </Text>
+                </View>
+              )
             }}
-            style={{ flex: 1 }}
-          >
-            <H1
-              style={{
-                alignSelf: "center",
-                fontSize: 40,
-                fontWeight: "bold",
-                paddingTop: 30,
-                marginBottom: 10
-              }}
-            >{`${today.getDate()} ${monthName[today.getMonth()]}`}</H1>
-            <PollCard questionData={questionData} />
+            data={CARDS}
+            renderItem={({ item, index }) => {
+              /* Render card per item */
+              return item.renderItem({ item, index });
 
-            <CountDown
-              until={(endTime - Date.now()) / 1000}
-              size={40}
-              timeToShow={["H", "M", "S"]}
-              timeLabels={{ h: "Hrs", m: "Mins", s: "Secs" }}
-              // style={{ marginTop: 20 }}
-            />
-          </Content>
-        </Container>
+              /* Default card when not specified */
+            }}
+            renderDetails={({ item, index }) => {
+              /* You can also provide custom content per item */
+              return item.renderDetails({ item, index });
+            }}
+          />
+        </>
+        // <Container>
+        //   {/* <ConfettiCannon
+        //     count={100}
+        //     origin={{ x: -10, y: 0 }}
+        //     fadeOut={true}
+        //   /> */}
+        //   <Header>
+        //     <Text>Today's Poll</Text>
+        //   </Header>
+        //   <Content
+        //     style={{ flex: 1 }}
+        //     contentContainerStyle={{
+        //       flex: 1,
+        //       backgroundColor: "white",
+        //       alignContent: "center",
+        //       justifyContent: "space-between"
+        //     }}
+        //     style={{ flex: 1 }}
+        //   >
+        //     <H1
+        //       style={{
+        //         alignSelf: "center",
+        //         fontSize: 40,
+        //         fontWeight: "bold",
+        //         paddingTop: 30,
+        //         marginBottom: 10
+        //       }}
+        //     >{`${today.getDate()} ${monthName[today.getMonth()]}`}</H1>
+        //     <PollCard questionData={questionData} />
+
+        //     <CountDown
+        //       until={(endTime - Date.now()) / 1000}
+        //       size={40}
+        //       timeToShow={["H", "M", "S"]}
+        //       timeLabels={{ h: "Hrs", m: "Mins", s: "Secs" }}
+        //       // style={{ marginTop: 20 }}
+        //     />
+        //   </Content>
+        // </Container>
       );
     }
   }
