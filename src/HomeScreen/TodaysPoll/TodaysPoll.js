@@ -33,34 +33,45 @@ import { questions, answers } from "../../../spec/TestData";
 import PollCard from "../TodaysPoll/PollCard";
 import { monthName } from "../../Utils/DateFormatting";
 import ConfettiCannon from "react-native-confetti-cannon";
-
-const height = (Dimensions.get("window").width / 800) * 500;
+import CountDown from "react-native-countdown-component";
 
 export default class TodaysPollScreen extends PureComponent {
   state = {
     questionData: null,
-    isLoading: true
+    isLoading: true,
+    endTime: null
   };
 
   render() {
-    const { isLoading, questionData } = this.state;
+    const { isLoading, questionData, endTime } = this.state;
     const today = new Date();
-    return (
-      <Container>
-        <Header>
-          <Text>Today's Poll</Text>
-        </Header>
-        {isLoading ? (
+
+    if (isLoading) {
+      return (
+        <Container>
           <Content>
             <Spinner />
           </Content>
-        ) : (
+        </Container>
+      );
+    } else {
+      return (
+        <Container>
+          {/* <ConfettiCannon
+            count={100}
+            origin={{ x: -10, y: 0 }}
+            fadeOut={true}
+          /> */}
+          <Header>
+            <Text>Today's Poll</Text>
+          </Header>
           <Content
             style={{ flex: 1 }}
             contentContainerStyle={{
               flex: 1,
               backgroundColor: "white",
-              alignContent: "center"
+              alignContent: "center",
+              justifyContent: "space-between"
             }}
             style={{ flex: 1 }}
           >
@@ -74,17 +85,29 @@ export default class TodaysPollScreen extends PureComponent {
               }}
             >{`${today.getDate()} ${monthName[today.getMonth()]}`}</H1>
             <PollCard questionData={questionData} />
+
+            <CountDown
+              until={(endTime - Date.now()) / 1000}
+              size={40}
+              timeToShow={["H", "M", "S"]}
+              timeLabels={{ h: "Hrs", m: "Mins", s: "Secs" }}
+              // style={{ marginTop: 20 }}
+            />
           </Content>
-        )}
-      </Container>
-    );
+        </Container>
+      );
+    }
   }
 
   componentDidMount() {
     const questionData = questions.find(question => {
       return question.questionStatus === "current";
     });
-    this.setState({ questionData, isLoading: false });
+
+    const { startTime } = questionData;
+    const endTime = (startTime + 86400) * 1000;
+
+    this.setState({ questionData, isLoading: false, endTime });
   }
 }
 
