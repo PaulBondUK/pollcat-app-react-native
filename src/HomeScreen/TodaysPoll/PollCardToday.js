@@ -3,7 +3,9 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import CountDown from "react-native-countdown-component";
 
-exports.PollCardToday = ({ endTime }) => {
+exports.PollCardToday = ({ questionData, endTime }) => {
+  console.log(questionData);
+  const { img, answerArray, question } = questionData;
   return (
     <View
       style={{
@@ -41,7 +43,7 @@ exports.PollCardToday = ({ endTime }) => {
             color: "rgb(51, 51, 51)"
           }}
         >
-          Marmite...?
+          {question}
         </Text>
       </View>
       <View
