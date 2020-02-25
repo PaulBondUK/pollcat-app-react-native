@@ -130,6 +130,8 @@ export default class ChangePassword extends Component {
 
   reauthenticate = password => {
     var user = firebase.auth().currentUser;
+    console.log(user, "user");
+
     var cred = firebase.auth.EmailAuthProvider.credential(user.email, password);
     return user.reauthenticateWithCredential(cred);
   };
@@ -141,21 +143,27 @@ export default class ChangePassword extends Component {
       if (newPassword !== repeatNewPassword) {
         alert("Passwords do not match. Please try again");
       } else {
-        this.reauthenticate(password).then(() => {
-          firebase.auth().onAuthStateChanged(user => {
-            user
-              .updatePassword(newPassword)
-              .then(() => {
-                alert("Password changed successfully!");
-              })
-              .catch(error => {
-                this.setState({ error });
-              });
+        this.reauthenticate(password)
+          .then(() => {
+            let currentUser = firebase.auth().currentUser;
+
+            currentUser.updatePassword(newPassword);
+            console.log(currentUser, "currentUser");
+            //currentUser.updateEmail()
+            // can use await
+            // .then() and .catch()
+          })
+          .then(() => {
+            alert("Password changed successfully!");
+          })
+          .then(() => {
+            this.props.navigation.navigate("TodaysPoll");
+          })
+          .catch(error => {
+            this.setState({ error });
           });
-        });
       }
     }
-    // });
   }
 }
 
