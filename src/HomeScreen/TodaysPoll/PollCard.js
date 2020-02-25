@@ -34,7 +34,6 @@ import AnswerButtons from "./AnswerButtons";
 const height = (Dimensions.get("window").width / 800) * 500;
 
 const PollCard = ({ questionData }) => {
-  console.log(questionData);
   const {
     img,
     question,
