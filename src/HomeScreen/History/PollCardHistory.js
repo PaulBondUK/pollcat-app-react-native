@@ -36,14 +36,8 @@ const height = (Dimensions.get("window").width / 800) * 500;
 
 const PollCardHistory = ({ questionData, navigation }) => {
   const { img, question, answerArray, questionStatus, endTime } = questionData;
-  // const date = new Date(endTime);
   return (
-    <Card
-      style={{ marginBottom: 20 }}
-      onPress={() => {
-        console.log("PRESSED!!!!");
-      }}
-    >
+    <Card style={{ marginBottom: 20 }}>
       <CardItem style={{ paddingBottom: 20 }}>
         <Text
           style={{
@@ -83,7 +77,7 @@ const PollCardHistory = ({ questionData, navigation }) => {
           name="keyboard-arrow-right"
           size={32}
           onPress={() => {
-            navigation.navigate("SinglePollHistory");
+            navigation.navigate("SinglePollHistory", questionData);
           }}
         />
       </CardItem>
