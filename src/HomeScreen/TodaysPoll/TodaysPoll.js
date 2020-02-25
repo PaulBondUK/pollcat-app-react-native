@@ -63,7 +63,7 @@ export default class TodaysPollScreen extends PureComponent {
               alignContent: "center"
             }}
           >
-            <Spinner />
+            <Spinner color={"tomato"} />
           </Content>
         </Container>
       );
