@@ -70,8 +70,14 @@ export default class HomeScreen extends Component {
       <Fragment>
         {isLoading ? (
           <Container>
-            <Content>
-              <Spinner />
+            <Content
+              contentContainerStyle={{
+                flex: 1,
+                justifyContent: "center",
+                alignContent: "center"
+              }}
+            >
+              <Spinner color={"tomato"} />
             </Content>
           </Container>
         ) : (
