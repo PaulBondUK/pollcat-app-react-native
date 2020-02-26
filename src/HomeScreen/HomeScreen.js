@@ -32,6 +32,7 @@ import AccountScreen from "./Account/Account";
 import CityProfileScreen from "./CityProfile/CityProfile";
 import HistoryScreen from "./History/History";
 import TodaysPollScreen from "./TodaysPoll/TodaysPoll";
+import AccountRouter from "./Account/AccountRouter";
 import TabBarIcon from "../HomeScreen/TabBarIcon";
 
 // const Tab = createBottomTabNavigator({
@@ -95,14 +96,7 @@ export default class HomeScreen extends Component {
                   <TabBarIcon name="today" focused={focused} />
                 )
               }}
-            >
-              {props => (
-                <TodaysPollScreen
-                  {...props}
-                  extraData={(CountyName, townName)}
-                />
-              )}
-            </Tab.Screen>
+            />
             <Tab.Screen
               name="History"
               component={HistoryRouter}
@@ -121,16 +115,11 @@ export default class HomeScreen extends Component {
                 )
               }}
             />
-            <Tab.Screen
-              name="Account"
-              options={{
+            <Tab.Screen name="Account" component={AccountRouter} options={{
                 tabBarIcon: ({ focused }) => (
                   <TabBarIcon name="person" focused={focused} />
                 )
-              }}
-            >
-              {props => <AccountScreen {...props} extraData={user} />}
-            </Tab.Screen>
+              }}/>
           </Tab.Navigator>
         )}
       </Fragment>

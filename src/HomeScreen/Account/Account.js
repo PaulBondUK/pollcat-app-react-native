@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
-import { View } from "react-native";
+import ChangePassword from "../Account/ChangePassword";
+import { createStackNavigator } from "@react-navigation/stack";
 import {
   Container,
   Header,
@@ -7,7 +8,6 @@ import {
   Footer,
   FooterTab,
   Icon,
-  Text,
   Form,
   Item,
   Input,
@@ -15,20 +15,43 @@ import {
   Button,
   H1
 } from "native-base";
+import {
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Text,
+  TextInput,
+  View,
+  StyleSheet,
+  Platform
+} from "react-native";
 import firebase from "../../Auth/Firebase";
 
 export default class AccountScreen extends PureComponent {
   render() {
-    const { displayName } = this.props.extraData;
+    const { navigation } = this.props;
     return (
-      <Content>
-        <H1>Logged in as {displayName}</H1>
+      <Content
+        contentContainerStyle={{
+          flex: 1,
+          justifyContent: "flex-start",
+          marginTop: 100
+        }}
+      >
+        {/* <H1>Logged in as {displayName}</H1> */}
+        <Button onPress={() => navigation.navigate("ChangeEmail")}>
+          <Text> Change Email </Text>
+        </Button>
+        <Button onPress={() => navigation.navigate("ChangePassword")}>
+          <Text> Change Password</Text>
+        </Button>
         <Button onPress={this.firebaseLogoutUser}>
           <Text>Logout</Text>
         </Button>
       </Content>
     );
   }
+
+  // componentDidMount()
 
   firebaseLogoutUser() {
     firebase
@@ -42,7 +65,6 @@ export default class AccountScreen extends PureComponent {
         // An error happened.
       });
   }
-
   // componentDidUpdate() {
   //   // const userData = JSON.parse(this.props.route.params);
   //   // this.setState({ userData });
