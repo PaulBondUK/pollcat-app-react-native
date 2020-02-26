@@ -119,13 +119,9 @@ export default class TodaysPollScreen extends PureComponent {
   }
 
   componentDidMount() {
-    Api.getQuestions()
+    Api.getQuestions({ questionStatus: "current" })
       .then(({ questions }) => {
-        return (questionData = questions.find(question => {
-          return question.questionStatus === "current";
-        }));
-      })
-      .then(questionData => {
+        const questionData = questions[0];
         const startTime = Date.parse(questionData.startTime);
         const { img, answerArray } = questionData;
         const parsedAnswerArray = answerArray.map(answer => {
