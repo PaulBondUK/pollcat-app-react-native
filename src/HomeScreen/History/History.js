@@ -99,7 +99,9 @@ export default class HistoryScreen extends PureComponent {
         const questionData = returnedQuestionData.map(question => {
           const startTime = Date.parse(question.startTime);
           const endTime = startTime + 86400;
-          return { ...question, startTime, endTime };
+          const parsedEndTime = new Date(endTime);
+          const pageTitle = parsedEndTime.toDateString();
+          return { ...question, startTime, endTime, pageTitle };
         });
 
         this.setState({
