@@ -6,6 +6,7 @@ import GoogleMapsAuth from "../Auth/GoogleMapsAuth";
 import firebase from "../Auth/Firebase";
 import axios from "axios";
 import { TextInput, View, StyleSheet, AsyncStorage } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 import {
   Container,
   Header,
@@ -26,10 +27,12 @@ import {
   H1,
   Spinner
 } from "native-base";
+import HistoryRouter from "./History/HistoryRouter";
 import AccountScreen from "./Account/Account";
 import CityProfileScreen from "./CityProfile/CityProfile";
 import HistoryScreen from "./History/History";
 import TodaysPollScreen from "./TodaysPoll/TodaysPoll";
+import TabBarIcon from "../HomeScreen/TabBarIcon";
 
 // const Tab = createBottomTabNavigator({
 //   "Today's Poll": TodaysPollScreen,
@@ -68,13 +71,31 @@ export default class HomeScreen extends Component {
       <Fragment>
         {isLoading ? (
           <Container>
-            <Content>
-              <Spinner />
+            <Content
+              contentContainerStyle={{
+                flex: 1,
+                justifyContent: "center",
+                alignContent: "center"
+              }}
+            >
+              <Spinner color={"tomato"} />
             </Content>
           </Container>
         ) : (
-          <Tab.Navigator>
-            <Tab.Screen name="Today's Poll">
+          <Tab.Navigator
+            tabBarOptions={{
+              activeTintColor: "tomato",
+              inactiveTintColor: "gray"
+            }}
+          >
+            <Tab.Screen
+              name="Today's Poll"
+              options={{
+                tabBarIcon: ({ focused }) => (
+                  <TabBarIcon name="today" focused={focused} />
+                )
+              }}
+            >
               {props => (
                 <TodaysPollScreen
                   {...props}
@@ -82,9 +103,32 @@ export default class HomeScreen extends Component {
                 />
               )}
             </Tab.Screen>
-            <Tab.Screen name="History" component={HistoryScreen} />
-            <Tab.Screen name="City Profile" component={CityProfileScreen} />
-            <Tab.Screen name="Account">
+            <Tab.Screen
+              name="History"
+              component={HistoryRouter}
+              options={{
+                tabBarIcon: ({ focused }) => (
+                  <TabBarIcon name="history" focused={focused} />
+                )
+              }}
+            />
+            <Tab.Screen
+              name="City Profile"
+              component={CityProfileScreen}
+              options={{
+                tabBarIcon: ({ focused }) => (
+                  <TabBarIcon name="location-city" focused={focused} />
+                )
+              }}
+            />
+            <Tab.Screen
+              name="Account"
+              options={{
+                tabBarIcon: ({ focused }) => (
+                  <TabBarIcon name="person" focused={focused} />
+                )
+              }}
+            >
               {props => <AccountScreen {...props} extraData={user} />}
             </Tab.Screen>
           </Tab.Navigator>

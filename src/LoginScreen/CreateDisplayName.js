@@ -73,7 +73,6 @@ export default class CreateDisplayName extends Component {
     } else {
       const user = await firebase.auth().currentUser;
       const displayNameData = await user.updateProfile({ displayName });
-      console.log(displayNameData);
       this.props.navigation.navigate("HomeScreen");
     }
   }

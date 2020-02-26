@@ -5,7 +5,9 @@ import {
   StyleSheet,
   AsyncStorage,
   Image,
-  Dimensions
+  Dimensions,
+  TouchableOpacity,
+  SafeAreaView
 } from "react-native";
 import {
   Container,
@@ -30,84 +32,117 @@ import {
   CardItem
 } from "native-base";
 import { questions, answers } from "../../../spec/TestData";
-import PollCard from "../TodaysPoll/PollCard";
+// import PollCard from "./PollCard";
+import AnswerButtons from "./AnswerButtons";
 import { monthName } from "../../Utils/DateFormatting";
 import ConfettiCannon from "react-native-confetti-cannon";
 import CountDown from "react-native-countdown-component";
+import CardList from "react-native-card-animated-modal";
+import { PollCardToday } from "./PollCardToday";
+import CARDS from "./CardGeneratorToday";
+import * as Api from "../../../Api";
 
 export default class TodaysPollScreen extends PureComponent {
   state = {
     questionData: null,
     isLoading: true,
-    endTime: null
+    endTime: null,
+    parsedAnswerArray: null
   };
 
   render() {
-    const { isLoading, questionData, endTime } = this.state;
-    const today = new Date();
+    const now = new Date();
+    const { isLoading, questionData, endTime, parsedAnswerArray } = this.state;
 
     if (isLoading) {
       return (
         <Container>
-          <Content>
-            <Spinner />
+          <Content
+            contentContainerStyle={{
+              flex: 1,
+              justifyContent: "center",
+              paddingTop: 50
+            }}
+          >
+            <Spinner color={"tomato"} />
           </Content>
         </Container>
       );
     } else {
       return (
-        <Container>
-          {/* <ConfettiCannon
-            count={100}
-            origin={{ x: -10, y: 0 }}
-            fadeOut={true}
-          /> */}
-          <Header>
-            <Text>Today's Poll</Text>
-          </Header>
-          <Content
-            style={{ flex: 1 }}
-            contentContainerStyle={{
-              flex: 1,
-              backgroundColor: "white",
-              alignContent: "center",
-              justifyContent: "space-between"
-            }}
-            style={{ flex: 1 }}
-          >
-            <H1
+        <CardList
+          listProps={{
+            ListHeaderComponent: () => (
+              <View style={{ padding: 16, paddingBottom: 0 }}>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    color: "rgba(0, 0, 0, 0.5)"
+                  }}
+                >
+                  {now.toDateString()}
+                </Text>
+                <Text style={{ fontSize: 32, fontWeight: "bold" }}>
+                  Today's Poll
+                </Text>
+              </View>
+            )
+          }}
+          data={[
+            {
+              image: {
+                uri: questionData.img
+              },
+              height: 550
+            }
+          ]}
+          renderItem={({ item, index }) => (
+            <PollCardToday endTime={endTime} questionData={questionData} />
+          )}
+          renderDetails={({ item, index }) => (
+            <View
               style={{
-                alignSelf: "center",
-                fontSize: 40,
-                fontWeight: "bold",
-                paddingTop: 30,
-                marginBottom: 10
+                paddingVertical: 30,
+                paddingHorizontal: 16
               }}
-            >{`${today.getDate()} ${monthName[today.getMonth()]}`}</H1>
-            <PollCard questionData={questionData} />
-
-            <CountDown
-              until={(endTime - Date.now()) / 1000}
-              size={40}
-              timeToShow={["H", "M", "S"]}
-              timeLabels={{ h: "Hrs", m: "Mins", s: "Secs" }}
-              // style={{ marginTop: 20 }}
-            />
-          </Content>
-        </Container>
+            >
+              <Content>
+                {parsedAnswerArray.map((answer, index) => {
+                  return <AnswerButtons answerData={answer} key={index} />;
+                })}
+              </Content>
+            </View>
+          )}
+        />
       );
     }
   }
 
   componentDidMount() {
-    const questionData = questions.find(question => {
-      return question.questionStatus === "current";
-    });
+    Api.getQuestions()
+      .then(({ questions }) => {
+        return (questionData = questions.find(question => {
+          return question.questionStatus === "current";
+        }));
+      })
+      .then(questionData => {
+        const startTime = Date.parse(questionData.startTime);
+        const { img, answerArray } = questionData;
+        const parsedAnswerArray = answerArray.map(answer => {
+          return JSON.parse(answer);
+        });
 
-    const { startTime } = questionData;
-    const endTime = (startTime + 86400) * 1000;
-
-    this.setState({ questionData, isLoading: false, endTime });
+        const endTime = startTime + 86400;
+        this.setState({
+          questionData,
+          isLoading: false,
+          endTime,
+          parsedAnswerArray
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 }
 
