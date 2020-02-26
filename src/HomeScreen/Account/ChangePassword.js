@@ -33,6 +33,7 @@ export default class ChangePassword extends Component {
   };
 
   render() {
+    const { navigation } = this.props;
     const { password, newPassword, repeatNewPassword } = this.state;
     const errorHandler = {
       "auth/user-not-found": "User not found",
@@ -157,7 +158,7 @@ export default class ChangePassword extends Component {
             alert("Password changed successfully!");
           })
           .then(() => {
-            this.props.navigation.navigate("TodaysPoll");
+            this.props.navigation.navigate("Account");
           })
           .catch(error => {
             this.setState({ error });
