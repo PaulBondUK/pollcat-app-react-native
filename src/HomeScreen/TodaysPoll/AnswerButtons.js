@@ -34,7 +34,7 @@ export default AnswerButtons = ({
               answer
             )
           }
-          style={buttonStyle}
+          style={styles.button}
           block
         >
           <Text style={styles.buttonText}>{answer}</Text>
