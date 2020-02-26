@@ -47,15 +47,21 @@ export default class TodaysPollScreen extends PureComponent {
     questionData: null,
     isLoading: true,
     endTime: null,
-    parsedAnswerArray: null
+    parsedAnswerArray: null,
+    votedAnswer: null
   };
 
   render() {
     const now = new Date();
-    const { isLoading, questionData, endTime, parsedAnswerArray } = this.state;
+    const {
+      isLoading,
+      questionData,
+      endTime,
+      parsedAnswerArray,
+      allowVote
+    } = this.state;
     const { countyName, townName, user } = this.props.route.params;
     const userUid = user.uid;
-    console.log(parsedAnswerArray);
 
     if (isLoading) {
       return (
@@ -120,6 +126,7 @@ export default class TodaysPollScreen extends PureComponent {
                       townName={townName}
                       countyName={countyName}
                       question_id={questionData.question_id}
+                      allowVote={allowVote}
                     />
                   );
                 })}
@@ -144,7 +151,6 @@ export default class TodaysPollScreen extends PureComponent {
         const endTime = startTime + 86400;
         this.setState({
           questionData,
-          isLoading: false,
           endTime,
           parsedAnswerArray
         });
@@ -152,9 +158,17 @@ export default class TodaysPollScreen extends PureComponent {
       })
       .then(question_id => {
         const { user } = this.props.route.params;
-        Api.checkIfUserHasVoted(question_id, user.uid).catch(err =>
-          console.log(err)
-        );
+        return Api.checkIfUserHasVoted(question_id, user.uid);
+      })
+      .then(data => {
+        if (data.answer) {
+          this.setState({
+            votedAnswer: data.answer.answerIndex,
+            isLoading: false
+          });
+        } else {
+          this.setState({ isLoading: false });
+        }
       })
       .catch(err => {
         console.log(err);
