@@ -17,6 +17,7 @@ const HistoryRouter = () => {
       <Stack.Screen
         name="SinglePollHistory"
         component={SinglePollHistory}
+        options={({ route }) => ({ title: route.params.pageTitle })}
         // options={{ headerShown: false }}
       />
     </Stack.Navigator>
