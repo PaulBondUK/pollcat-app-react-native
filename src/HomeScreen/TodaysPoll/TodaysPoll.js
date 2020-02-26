@@ -47,12 +47,21 @@ export default class TodaysPollScreen extends PureComponent {
     questionData: null,
     isLoading: true,
     endTime: null,
-    parsedAnswerArray: null
+    parsedAnswerArray: null,
+    votedAnswer: null
   };
 
   render() {
     const now = new Date();
-    const { isLoading, questionData, endTime, parsedAnswerArray } = this.state;
+    const {
+      isLoading,
+      questionData,
+      endTime,
+      parsedAnswerArray,
+      allowVote
+    } = this.state;
+
+    const { countyName, townName, userUid } = this.props.route.params;
 
     if (isLoading) {
       return (
@@ -108,7 +117,18 @@ export default class TodaysPollScreen extends PureComponent {
             >
               <Content>
                 {parsedAnswerArray.map((answer, index) => {
-                  return <AnswerButtons answerData={answer} key={index} />;
+                  return (
+                    <AnswerButtons
+                      answerData={answer}
+                      key={index}
+                      index={index}
+                      userUid={userUid}
+                      townName={townName}
+                      countyName={countyName}
+                      question_id={questionData.question_id}
+                      allowVote={allowVote}
+                    />
+                  );
                 })}
               </Content>
             </View>
@@ -119,13 +139,9 @@ export default class TodaysPollScreen extends PureComponent {
   }
 
   componentDidMount() {
-    Api.getQuestions()
+    Api.getQuestions({ questionStatus: "current" })
       .then(({ questions }) => {
-        return (questionData = questions.find(question => {
-          return question.questionStatus === "current";
-        }));
-      })
-      .then(questionData => {
+        const questionData = questions[0];
         const startTime = Date.parse(questionData.startTime);
         const { img, answerArray } = questionData;
         const parsedAnswerArray = answerArray.map(answer => {
@@ -135,10 +151,24 @@ export default class TodaysPollScreen extends PureComponent {
         const endTime = startTime + 86400;
         this.setState({
           questionData,
-          isLoading: false,
           endTime,
           parsedAnswerArray
         });
+        return questionData.question_id;
+      })
+      .then(question_id => {
+        const { userUid } = this.props.route.params;
+        return Api.checkIfUserHasVoted(question_id, userUid);
+      })
+      .then(data => {
+        if (data.answer) {
+          this.setState({
+            votedAnswer: data.answer.answerIndex,
+            isLoading: false
+          });
+        } else {
+          this.setState({ isLoading: false });
+        }
       })
       .catch(err => {
         console.log(err);

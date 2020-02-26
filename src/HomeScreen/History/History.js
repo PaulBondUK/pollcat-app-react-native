@@ -89,14 +89,9 @@ export default class HistoryScreen extends PureComponent {
   // }
 
   componentDidMount() {
-    Api.getQuestions()
+    Api.getQuestions({ questionStatus: "past" })
       .then(({ questions }) => {
-        return (questionData = questions.filter(question => {
-          return question.questionStatus === "past";
-        }));
-      })
-      .then(returnedQuestionData => {
-        const questionData = returnedQuestionData.map(question => {
+        const questionData = questions.map(question => {
           const startTime = Date.parse(question.startTime);
           const endTime = startTime + 86400;
           const parsedEndTime = new Date(endTime);
