@@ -38,10 +38,10 @@ export default class AccountScreen extends PureComponent {
         }}
       >
         {/* <H1>Logged in as {displayName}</H1> */}
-        <Button onPress={() => navigation.navigate("ChangeEmail")}>
+        <Button onPress={() => navigation.navigate("Change Email")}>
           <Text> Change Email </Text>
         </Button>
-        <Button onPress={() => navigation.navigate("ChangePassword")}>
+        <Button onPress={() => navigation.navigate("Change Password")}>
           <Text> Change Password</Text>
         </Button>
         <Button onPress={this.firebaseLogoutUser}>
