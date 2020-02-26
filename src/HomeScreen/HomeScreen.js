@@ -30,6 +30,7 @@ import AccountScreen from "./Account/Account";
 import CityProfileScreen from "./CityProfile/CityProfile";
 import HistoryScreen from "./History/History";
 import TodaysPollScreen from "./TodaysPoll/TodaysPoll";
+import AccountRouter from "./Account/AccountRouter";
 
 // const Tab = createBottomTabNavigator({
 //   "Today's Poll": TodaysPollScreen,
@@ -84,9 +85,9 @@ export default class HomeScreen extends Component {
             </Tab.Screen>
             <Tab.Screen name="History" component={HistoryScreen} />
             <Tab.Screen name="City Profile" component={CityProfileScreen} />
-            <Tab.Screen name="Account">
-              {props => <AccountScreen {...props} extraData={user} />}
-            </Tab.Screen>
+            <Tab.Screen name="Account" component={AccountRouter} />
+            {/* {props => <AccountRouter {...props} extraData={user} />}
+            </Tab.Screen> */}
           </Tab.Navigator>
         )}
       </Fragment>
