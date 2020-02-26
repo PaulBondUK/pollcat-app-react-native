@@ -23,8 +23,8 @@ import {
   CardItem
 } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
-import ConfettiCannon from "react-native-confetti-cannon";
 import { render } from "react-dom";
+import Confetti from "@milkywire/react-native-confetti";
 
 // const height = (Dimensions.get("window").width / 800) * 500;
 const width = Dimensions.get("window").width;
@@ -40,13 +40,7 @@ export default class SinglePollHistory extends PureComponent {
     return (
       <Container>
         <Content>
-          {this.state.showConfetti && (
-            <ConfettiCannon
-              count={100}
-              origin={{ x: 0, y: 0 }}
-              fadeOut={true}
-            />
-          )}
+          <View>{this.state.showConfetti && <Confetti active={true} />}</View>
           <Image source={{ uri: img }} style={{ height: height, flex: 1 }} />
           <Text style={{ fontSize: 25, fontWeight: "bold" }}>{question}</Text>
           <Button
