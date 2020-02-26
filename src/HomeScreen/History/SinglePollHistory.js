@@ -38,23 +38,27 @@ export default class SinglePollHistory extends PureComponent {
     const { params } = this.props.route;
     const { img, question } = params;
     return (
-      <Container>
-        <Content>
-          <View>{this.state.showConfetti && <Confetti active={true} />}</View>
-          <Image source={{ uri: img }} style={{ height: height, flex: 1 }} />
-          <Text style={{ fontSize: 25, fontWeight: "bold" }}>{question}</Text>
-          <Button
-            style={{ backgroundColor: "tomato", height: 60, margin: 15 }}
-            onPress={() => {
-              this.setState({ showConfetti: true });
-            }}
-          >
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-              Reveal the Winner...
-            </Text>
-          </Button>
-        </Content>
-      </Container>
+      <>
+        <View style={{ position: "absolute" }}>
+          <Confetti active={true} elementCount={100} />
+        </View>
+        <Container>
+          <Content>
+            <Image source={{ uri: img }} style={{ height: height, flex: 1 }} />
+            <Text style={{ fontSize: 25, fontWeight: "bold" }}>{question}</Text>
+            <Button
+              style={{ backgroundColor: "tomato", height: 60, margin: 15 }}
+              onPress={() => {
+                this.setState({ showConfetti: true });
+              }}
+            >
+              <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                Reveal the Winner...
+              </Text>
+            </Button>
+          </Content>
+        </Container>
+      </>
     );
   }
 }
