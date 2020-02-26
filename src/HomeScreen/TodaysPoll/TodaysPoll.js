@@ -148,6 +148,13 @@ export default class TodaysPollScreen extends PureComponent {
           endTime,
           parsedAnswerArray
         });
+        return questionData.question_id;
+      })
+      .then(question_id => {
+        const { user } = this.props.route.params;
+        Api.checkIfUserHasVoted(question_id, user.uid).catch(err =>
+          console.log(err)
+        );
       })
       .catch(err => {
         console.log(err);
