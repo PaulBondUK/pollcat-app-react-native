@@ -14,7 +14,8 @@ import {
   Input,
   Label,
   Button,
-  H1
+  H1,
+  Spinner
 } from "native-base";
 import {
   SafeAreaView,
@@ -29,7 +30,7 @@ import firebase from "../../Auth/Firebase";
 
 export default class AccountScreen extends PureComponent {
   state = {
-    user: "",
+    user: null,
     error: null,
     isLoading: true
   };
@@ -37,27 +38,43 @@ export default class AccountScreen extends PureComponent {
   render() {
     //"displayName": "kirsty",
     const { navigation } = this.props;
-    return (
-      <Content
-        contentContainerStyle={{
-          flex: 1,
-          justifyContent: "flex-start",
-          marginTop: 100
-        }}
-      >
-        <H1> Logged in as {this.state.user.displayName} </H1>
-        {/* <H1>Logged in as {displayName}</H1> */}
-        <Button onPress={() => navigation.navigate("Change Email")}>
-          <Text> Change Email </Text>
-        </Button>
-        <Button onPress={() => navigation.navigate("Change Password")}>
-          <Text> Change Password</Text>
-        </Button>
-        <Button onPress={this.firebaseLogoutUser}>
-          <Text>Logout</Text>
-        </Button>
-      </Content>
-    );
+    if (this.state.isLoading) {
+      return (
+        <Container>
+          <Content
+            contentContainerStyle={{
+              flex: 1,
+              justifyContent: "center",
+              paddingTop: 50
+            }}
+          >
+            <Spinner color={"tomato"} />
+          </Content>
+        </Container>
+      );
+    } else {
+      return (
+        <Content
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: "flex-start",
+            marginTop: 100
+          }}
+        >
+          <H1> Logged in as {this.state.user.displayName}</H1>
+          {/* <H1>Logged in as {displayName}</H1> */}
+          <Button onPress={() => navigation.navigate("Change Email")}>
+            <Text> Change Email </Text>
+          </Button>
+          <Button onPress={() => navigation.navigate("Change Password")}>
+            <Text> Change Password</Text>
+          </Button>
+          <Button onPress={this.firebaseLogoutUser}>
+            <Text>Logout</Text>
+          </Button>
+        </Content>
+      );
+    }
   }
 
   async componentDidMount() {
@@ -68,7 +85,7 @@ export default class AccountScreen extends PureComponent {
     await firebase.auth().onAuthStateChanged(user => {
       console.log(user);
       if (user) {
-        this.setState({ user });
+        this.setState({ user, isLoading: false });
       } else {
         this.props.navigation.navigate("LoginOrCreate");
       }
