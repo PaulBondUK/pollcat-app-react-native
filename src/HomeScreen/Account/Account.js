@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import ChangePassword from "../Account/ChangePassword";
 import { createStackNavigator } from "@react-navigation/stack";
+import AccountRouter from "../Account/AccountRouter";
 import {
   Container,
   Header,
@@ -27,7 +28,14 @@ import {
 import firebase from "../../Auth/Firebase";
 
 export default class AccountScreen extends PureComponent {
+  state = {
+    user: "",
+    error: null,
+    isLoading: true
+  };
+
   render() {
+    //"displayName": "kirsty",
     const { navigation } = this.props;
     return (
       <Content
@@ -37,6 +45,7 @@ export default class AccountScreen extends PureComponent {
           marginTop: 100
         }}
       >
+        <H1> Logged in as {this.state.user.displayName} </H1>
         {/* <H1>Logged in as {displayName}</H1> */}
         <Button onPress={() => navigation.navigate("Change Email")}>
           <Text> Change Email </Text>
@@ -51,7 +60,20 @@ export default class AccountScreen extends PureComponent {
     );
   }
 
-  // componentDidMount()
+  async componentDidMount() {
+    console.log("here");
+    //   currentUser = await firebase.auth().currentUser;
+    //   this.setState({ user: currentUser });
+    // }
+    await firebase.auth().onAuthStateChanged(user => {
+      console.log(user);
+      if (user) {
+        this.setState({ user });
+      } else {
+        this.props.navigation.navigate("LoginOrCreate");
+      }
+    });
+  }
 
   firebaseLogoutUser() {
     firebase

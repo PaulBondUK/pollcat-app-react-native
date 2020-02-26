@@ -131,7 +131,6 @@ export default class ChangePassword extends Component {
 
   reauthenticate = password => {
     var user = firebase.auth().currentUser;
-    console.log(user, "user");
 
     var cred = firebase.auth.EmailAuthProvider.credential(user.email, password);
     return user.reauthenticateWithCredential(cred);
@@ -149,7 +148,6 @@ export default class ChangePassword extends Component {
             let currentUser = firebase.auth().currentUser;
 
             currentUser.updatePassword(newPassword);
-            console.log(currentUser, "currentUser");
             //currentUser.updateEmail()
             // can use await
             // .then() and .catch()
