@@ -9,13 +9,21 @@ export default AnswerButtons = ({
   userUid,
   question_id,
   townName,
-  countyName
+  countyName,
+  allowVote
 }) => {
   const { answer } = answerData;
+  const buttonStyle =
+    allowVote && allowVote === index
+      ? buttonStyles.buttonSelectedVote
+      : allowVote && allowVote !== index
+      ? buttonStyles.buttonNotSelectedVote
+      : buttonStyles.button;
   return (
     <CardItem>
       <Body>
         <Button
+          disabled={allowVote ? false : true}
           onPress={() =>
             submitVote(
               index,
@@ -26,7 +34,7 @@ export default AnswerButtons = ({
               answer
             )
           }
-          style={styles.button}
+          style={buttonStyle}
           block
         >
           <Text style={styles.buttonText}>{answer}</Text>
@@ -35,6 +43,22 @@ export default AnswerButtons = ({
     </CardItem>
   );
 };
+
+// style={
+//             allowVote && allowVote === index
+//               ? buttonStyles.selectedVote
+//               : allowVote && allowVote !== index
+//               ? buttonStyles.buttonNotSelectedVote
+//               : buttonStyles.button
+//           }
+
+// if (allowVote && allowVote === index) {
+//   buttonStyles.buttonSelectedVote;
+// } else if (allowVote && allowVote !== index) {
+//   buttonStyles.buttonNotSelectedVote;
+// } else {
+//   buttonStyles.button;
+// }
 
 const submitVote = (
   index,
@@ -52,11 +76,32 @@ const submitVote = (
     countyName
   })
     .then(({ data }) => {
-      console.log(data);
       Alert.alert("💣 BOOM!", `Your vote for '${answer}' has been recorded.`);
     })
     .catch(err => console.log(err));
 };
+
+const buttonStyles = StyleSheet.create({
+  button: {
+    marginTop: 5,
+    marginBottom: 5,
+    height: 50
+  },
+  buttonSelectedVote: {
+    marginTop: 5,
+    marginBottom: 5,
+    height: 50,
+    borderColor: "green",
+    borderWidth: 5
+  },
+  buttonNotSelectedVote: {
+    marginTop: 5,
+    marginBottom: 5,
+    height: 50,
+    borderColor: "tomato",
+    borderWidth: 5
+  }
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -74,6 +119,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
     height: 50
+  },
+  buttonSelectedVote: {
+    marginTop: 5,
+    marginBottom: 5,
+    height: 50,
+    borderColor: "green",
+    borderWidth: 5
   },
   buttonText: {
     color: "white",
