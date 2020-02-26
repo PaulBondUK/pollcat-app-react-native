@@ -53,6 +53,9 @@ export default class TodaysPollScreen extends PureComponent {
   render() {
     const now = new Date();
     const { isLoading, questionData, endTime, parsedAnswerArray } = this.state;
+    const { countyName, townName, user } = this.props.route.params;
+    const userUid = user.uid;
+    console.log(parsedAnswerArray);
 
     if (isLoading) {
       return (
@@ -108,7 +111,17 @@ export default class TodaysPollScreen extends PureComponent {
             >
               <Content>
                 {parsedAnswerArray.map((answer, index) => {
-                  return <AnswerButtons answerData={answer} key={index} />;
+                  return (
+                    <AnswerButtons
+                      answerData={answer}
+                      key={index}
+                      index={index}
+                      userUid={userUid}
+                      townName={townName}
+                      countyName={countyName}
+                      question_id={questionData.question_id}
+                    />
+                  );
                 })}
               </Content>
             </View>
