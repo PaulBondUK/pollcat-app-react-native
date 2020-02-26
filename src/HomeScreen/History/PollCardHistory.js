@@ -37,7 +37,7 @@ const height = (Dimensions.get("window").width / 800) * 500;
 const PollCardHistory = ({ questionData, navigation }) => {
   const { img, question, answerArray, questionStatus, endTime } = questionData;
   return (
-    <Card style={{ marginBottom: 20 }}>
+    <Card style={{ marginTop: 10 }}>
       <CardItem style={{ paddingBottom: 20 }}>
         <Text
           style={{
