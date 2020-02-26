@@ -1,18 +1,61 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Alert } from "react-native";
 import { CardItem, Body, H2, Button, Text } from "native-base";
+import * as Api from "../../../Api";
 
-export default AnswerButtons = ({ answerData }) => {
+export default AnswerButtons = ({
+  answerData,
+  index,
+  userUid,
+  question_id,
+  townName,
+  countyName
+}) => {
   const { answer } = answerData;
   return (
     <CardItem>
       <Body>
-        <Button style={styles.button} block>
+        <Button
+          onPress={() =>
+            submitVote(
+              index,
+              question_id,
+              userUid,
+              townName,
+              countyName,
+              answer
+            )
+          }
+          style={styles.button}
+          block
+        >
           <Text style={styles.buttonText}>{answer}</Text>
         </Button>
       </Body>
     </CardItem>
   );
+};
+
+const submitVote = (
+  index,
+  question_id,
+  userUid,
+  townName,
+  countyName,
+  answer
+) => {
+  Api.postAnswer({
+    question_id,
+    userUid,
+    answerIndex: index,
+    townName,
+    countyName
+  })
+    .then(({ data }) => {
+      console.log(data);
+      Alert.alert("💣 BOOM!", `Your vote for '${answer}' has been recorded.`);
+    })
+    .catch(err => console.log(err));
 };
 
 const styles = StyleSheet.create({
