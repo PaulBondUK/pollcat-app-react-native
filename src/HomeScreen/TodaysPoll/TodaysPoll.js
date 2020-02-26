@@ -58,11 +58,12 @@ export default class TodaysPollScreen extends PureComponent {
       questionData,
       endTime,
       parsedAnswerArray,
-      allowVote
+      votedAnswer
     } = this.state;
 
-    const { countyName, townName, userUid } = this.props.route.params;
+    console.log("state", votedAnswer);
 
+    const { countyName, townName, userUid } = this.props.route.params;
     if (isLoading) {
       return (
         <Container>
@@ -116,26 +117,54 @@ export default class TodaysPollScreen extends PureComponent {
               }}
             >
               <Content>
-                {parsedAnswerArray.map((answer, index) => {
-                  return (
-                    <AnswerButtons
-                      answerData={answer}
-                      key={index}
-                      index={index}
-                      userUid={userUid}
-                      townName={townName}
-                      countyName={countyName}
-                      question_id={questionData.question_id}
-                      allowVote={allowVote}
-                    />
-                  );
-                })}
+                <CardItem>
+                  <Body>
+                    {parsedAnswerArray.map((answer, index) => {
+                      return (
+                        <AnswerButtons
+                          answerData={answer}
+                          key={index}
+                          index={index}
+                          userUid={userUid}
+                          townName={townName}
+                          countyName={countyName}
+                          question_id={questionData.question_id}
+                          votedAnswer={votedAnswer}
+                          consoleLog={this.consoleLog}
+                        />
+                      );
+                    })}
+                  </Body>
+                </CardItem>
               </Content>
             </View>
           )}
         />
       );
     }
+  }
+
+  consoleLog() {
+    console.log("TESSSSST!!!!");
+    this.setState({ test: 0 });
+  }
+
+  componentDidUpdate() {
+    const { userUid } = this.props.route.params;
+    const { question_id } = this.state.questionData;
+    Api.checkIfUserHasVoted(question_id, userUid)
+      .then(data => {
+        if (
+          !this.state.answerIndex &&
+          typeof data.answer.answerIndex === "number"
+        ) {
+          this.setState({
+            votedAnswer: data.answer.answerIndex,
+            isLoading: false
+          });
+        }
+      })
+      .catch(err => console.log(err));
   }
 
   componentDidMount() {
@@ -161,9 +190,10 @@ export default class TodaysPollScreen extends PureComponent {
         return Api.checkIfUserHasVoted(question_id, userUid);
       })
       .then(data => {
-        if (data.answer) {
+        if (typeof data.answer.answerIndex === "number") {
+          const votedAnswer = data.answer.answerIndex;
           this.setState({
-            votedAnswer: data.answer.answerIndex,
+            votedAnswer,
             isLoading: false
           });
         } else {
