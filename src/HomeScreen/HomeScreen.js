@@ -91,6 +91,7 @@ export default class HomeScreen extends Component {
           >
             <Tab.Screen
               name="Today's Poll"
+              component={TodaysPollScreen}
               options={{
                 tabBarIcon: ({ focused }) => (
                   <TabBarIcon name="today" focused={focused} />
@@ -115,11 +116,15 @@ export default class HomeScreen extends Component {
                 )
               }}
             />
-            <Tab.Screen name="Account" component={AccountRouter} options={{
+            <Tab.Screen
+              name="Account"
+              component={AccountRouter}
+              options={{
                 tabBarIcon: ({ focused }) => (
                   <TabBarIcon name="person" focused={focused} />
                 )
-              }}/>
+              }}
+            />
           </Tab.Navigator>
         )}
       </Fragment>
