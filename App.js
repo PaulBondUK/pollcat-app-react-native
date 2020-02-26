@@ -79,18 +79,7 @@ export default class App extends React.Component {
             component={HomeScreen}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
-            name="ChangePassword"
-            component={ChangePassword}
-            options={{ title: "Change Password" }}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="ChangeEmail"
-            component={ChangeEmail}
-            options={{ title: "Change Email" }}
-            options={{ headerShown: false }}
-          />
+
           <Stack.Screen
             name="TodaysPoll"
             component={TodaysPoll}
