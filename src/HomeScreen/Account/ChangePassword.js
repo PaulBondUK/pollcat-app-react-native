@@ -62,7 +62,7 @@ export default class ChangePassword extends Component {
                 }}
                 value={password}
                 secureTextEntry={true}
-                textContentType="currentPassword"
+                textContentType="password"
                 autoCorrect={false}
                 autoCapitalize="none"
               />
@@ -106,7 +106,7 @@ export default class ChangePassword extends Component {
                 }}
                 value={repeatNewPassword}
                 secureTextEntry={true}
-                textContentType="repeatNewPassword"
+                textContentType="newPassword"
                 autoCorrect={false}
                 autoCapitalize="none"
               />

@@ -54,7 +54,7 @@ export default class ChangeEmail extends Component {
                 }}
                 value={email}
                 secureTextEntry={true}
-                textContentType="email"
+                textContentType="emailAddress"
                 autoCorrect={false}
                 autoCapitalize="none"
               />
@@ -76,7 +76,7 @@ export default class ChangeEmail extends Component {
                 }}
                 value={newEmail}
                 secureTextEntry={true}
-                textContentType="newEmail"
+                textContentType="emailAddress"
                 autoCorrect={false}
                 autoCapitalize="none"
               />
@@ -99,7 +99,7 @@ export default class ChangeEmail extends Component {
                 }}
                 value={repeatNewEmail}
                 secureTextEntry={true}
-                textContentType="repeat New Email"
+                textContentType="emailAddress"
                 autoCorrect={false}
                 autoCapitalize="none"
               />
