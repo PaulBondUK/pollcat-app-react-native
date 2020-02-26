@@ -28,10 +28,7 @@ import firebase from "../../Auth/Firebase";
 
 export default class AccountScreen extends PureComponent {
   render() {
-    const {
-      extraData: { displayName },
-      navigation
-    } = this.props;
+    const { navigation } = this.props;
     return (
       <Content
         contentContainerStyle={{
@@ -40,7 +37,7 @@ export default class AccountScreen extends PureComponent {
           marginTop: 100
         }}
       >
-        <H1>Logged in as {displayName}</H1>
+        {/* <H1>Logged in as {displayName}</H1> */}
         <Button onPress={() => navigation.navigate("ChangeEmail")}>
           <Text> Change Email </Text>
         </Button>
@@ -53,6 +50,9 @@ export default class AccountScreen extends PureComponent {
       </Content>
     );
   }
+
+  // componentDidMount()
+
   firebaseLogoutUser() {
     firebase
       .auth()
