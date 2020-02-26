@@ -60,8 +60,8 @@ export default class TodaysPollScreen extends PureComponent {
       parsedAnswerArray,
       allowVote
     } = this.state;
-    const { countyName, townName, user } = this.props.route.params;
-    const userUid = user.uid;
+
+    const { countyName, townName, userUid } = this.props.route.params;
 
     if (isLoading) {
       return (
@@ -157,8 +157,8 @@ export default class TodaysPollScreen extends PureComponent {
         return questionData.question_id;
       })
       .then(question_id => {
-        const { user } = this.props.route.params;
-        return Api.checkIfUserHasVoted(question_id, user.uid);
+        const { userUid } = this.props.route.params;
+        return Api.checkIfUserHasVoted(question_id, userUid);
       })
       .then(data => {
         if (data.answer) {
