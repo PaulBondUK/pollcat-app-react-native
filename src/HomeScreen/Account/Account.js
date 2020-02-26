@@ -29,7 +29,7 @@ import firebase from "../../Auth/Firebase";
 
 export default class AccountScreen extends PureComponent {
   state = {
-    user: null,
+    user: "",
     error: null,
     isLoading: true
   };
@@ -61,6 +61,7 @@ export default class AccountScreen extends PureComponent {
   }
 
   async componentDidMount() {
+    console.log("here");
     //   currentUser = await firebase.auth().currentUser;
     //   this.setState({ user: currentUser });
     // }
