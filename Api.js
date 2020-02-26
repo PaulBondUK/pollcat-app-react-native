@@ -32,9 +32,10 @@ exports.postAnswer = ({
 };
 
 exports.checkIfUserHasVoted = (question_id, userUid) => {
+  console.log("BOOM", question_id, userUid);
   return axios
     .get(
-      `https://pollcat-backend.herokuapp.com/api/questions/${question_id}/answers/${userUid}`
+      `https://pollcat-backend.herokuapp.com/api/questions/${question_id}/answers?userUid=${userUid}`
     )
     .then(({ data }) => {
       console.log(data);
