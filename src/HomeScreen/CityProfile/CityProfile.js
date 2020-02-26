@@ -21,13 +21,14 @@ import {
 } from "native-base";
 import firebase from "../../Auth/Firebase";
 import * as Api from "../../../Api";
+import { answers } from "../../../spec/TestData";
 
 export default class CityProfileScreen extends Component {
   state = {
     questionData: "",
     isLoading: true,
     endTime: null,
-    parsedAnswerArray: null,
+    answerArray: [],
     votedAnswer: null
   };
 
@@ -36,8 +37,9 @@ export default class CityProfileScreen extends Component {
       questionData,
       isLoading,
       endTime,
-      parsedAnswerArray,
-      votedAnswer
+      answerArray,
+      votedAnswer,
+      startTime
     } = this.state;
 
     // if (isLoading) {
@@ -55,15 +57,14 @@ export default class CityProfileScreen extends Component {
     //     </Container>
     //   );
     // } else {
+
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <Text> City Profile! </Text>
+      <View>
+        <Content>
+          {/* {answerArray.reduce(function(prev, current) {
+            return (prev.)
+          }) } */}
+        </Content>
       </View>
     );
   }
@@ -71,15 +72,28 @@ export default class CityProfileScreen extends Component {
   componentDidMount() {
     //changed question status to "past"
     Api.getQuestions({ questionStatus: "past" }).then(({ questions }) => {
-      const questionData = questions[0];
-      console.log(questionData, "QUESTION DATA");
-      const startTime = Date.parse(questionData.startTime);
-      console.log(startTime, "START TIME");
-      const { img, answerArray } = questionData;
-      const parsedAnswerArray = answerArray.map(answer => {
-        console.log(JSON.parse(answer), "PARSED ANSWER");
+      const questionData = questions;
+
+      console.log(questionData);
+
+      const answerArray = questionData.map(function(datum) {
+        return datum.answerArray;
+      });
+
+      const parsedAnswerArray = answerArray.map(function(answer) {
         return JSON.parse(answer);
       });
+      console.log(parsedAnswerArray, "AA");
+
+      this.setState({ questionData, answerArray });
     });
   }
+
+  // getWinner = parsedAnswerArray => {
+  //   if (parsedAnswerArray[0].votes > parsedAnswerArray[1].votes) {
+  //     let winner = parsedAnswerArray[0].answer;
+  //     console.log(winner, "in function");
+  //     this.setState({ winner });
+  //   }
+  // };
 }
