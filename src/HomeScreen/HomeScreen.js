@@ -39,25 +39,24 @@ const Tab = createBottomTabNavigator();
 
 export default class HomeScreen extends Component {
   state = {
-    user: null,
     location: null,
     townName: null,
     countyName: null,
     error: null,
     isLoading: true,
-    activePage: "Today's Poll"
+    activePage: "Today's Poll",
+    userUid: null
   };
 
   render() {
     const {
-      user,
       location,
       townName,
       countyName,
       activePage,
-      isLoading
+      isLoading,
+      userUid
     } = this.state;
-
     return (
       <Fragment>
         {isLoading ? (
@@ -87,7 +86,7 @@ export default class HomeScreen extends Component {
                   <TabBarIcon name="today" focused={focused} />
                 )
               }}
-              initialParams={{ user, townName, countyName }}
+              initialParams={{ userUid, townName, countyName }}
             />
             <Tab.Screen
               name="History"
@@ -125,7 +124,8 @@ export default class HomeScreen extends Component {
   async componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.setState({ user });
+        const userUid = user.uid;
+        this.setState({ userUid });
       } else {
         this.props.navigation.navigate("LoginOrCreate");
       }
