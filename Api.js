@@ -38,6 +38,6 @@ exports.checkIfUserHasVoted = (question_id, userUid) => {
       `https://pollcat-backend.herokuapp.com/api/questions/${question_id}/answers?userUid=${userUid}`
     )
     .then(({ data }) => {
-      console.log(data);
+      return data;
     });
 };
