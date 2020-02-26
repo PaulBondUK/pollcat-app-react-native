@@ -35,17 +35,25 @@ import { MaterialIcons } from "@expo/vector-icons";
 const height = (Dimensions.get("window").width / 800) * 500;
 
 const PollCardHistory = ({ questionData, navigation }) => {
-  const { img, question, answerArray, questionStatus, endTime } = questionData;
+  const {
+    img,
+    question,
+    answerArray,
+    questionStatus,
+    endTime,
+    pageTitle
+  } = questionData;
   return (
-    <Card style={{ marginTop: 10 }}>
-      <CardItem style={{ paddingBottom: 20 }}>
+    <Card style={{ marginTop: 10, flex: 1, justifyContent: "space-between4" }}>
+      <CardItem style={{ paddingBottom: 10, height: 60 }}>
         <Text
           style={{
-            fontSize: 15,
-            color: "rgba(0, 0, 0, 0.5)"
+            fontSize: 25,
+            color: "rgba(0, 0, 0, 0.8)",
+            fontWeight: "bold"
           }}
         >
-          {"date"}
+          {pageTitle}
         </Text>
       </CardItem>
 
@@ -55,7 +63,7 @@ const PollCardHistory = ({ questionData, navigation }) => {
 
       <CardItem
         style={{
-          height: 70,
+          height: 60,
           flex: 1,
           flexDirection: "row",
           alignContent: "flex-start",
@@ -65,7 +73,7 @@ const PollCardHistory = ({ questionData, navigation }) => {
         <Text
           style={{
             fontWeight: "bold",
-            color: "black",
+            color: "tomato",
             fontSize: 20,
             paddingTop: 5
           }}
@@ -75,6 +83,7 @@ const PollCardHistory = ({ questionData, navigation }) => {
 
         <MaterialIcons
           name="keyboard-arrow-right"
+          color="tomato"
           size={32}
           onPress={() => {
             navigation.navigate("SinglePollHistory", questionData);
