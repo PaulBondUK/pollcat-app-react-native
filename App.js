@@ -20,7 +20,7 @@ import TodaysPoll from "./src/HomeScreen/TodaysPoll/TodaysPoll";
 //     </View>
 //   );
 // }
-
+console.disableYellowBox = true;
 const Stack = createStackNavigator();
 const initialRouteName = "Main";
 
