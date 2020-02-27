@@ -11,8 +11,6 @@ import LoginHandler from "./src/LoginScreen/LoginHandler";
 import CreateAccountHandler from "./src/LoginScreen/CreateAccountHandler";
 import CreateDisplayName from "./src/LoginScreen/CreateDisplayName";
 import HomeScreen from "./src/HomeScreen/HomeScreen";
-import ChangePassword from "./src/HomeScreen/Account/ChangePassword";
-import ChangeEmail from "./src/HomeScreen/Account/ChangeEmail";
 import TodaysPoll from "./src/HomeScreen/TodaysPoll/TodaysPoll";
 
 // function Login() {
@@ -22,7 +20,7 @@ import TodaysPoll from "./src/HomeScreen/TodaysPoll/TodaysPoll";
 //     </View>
 //   );
 // }
-
+console.disableYellowBox = true;
 const Stack = createStackNavigator();
 const initialRouteName = "Main";
 
