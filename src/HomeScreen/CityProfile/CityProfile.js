@@ -76,9 +76,25 @@ export default class CityProfileScreen extends Component {
               return (
                 <CardItem>
                   <Body>
-                    <Text key={index}>
-                      {winner.question}, {winner.answer[0].response},
-                      {winner.answer[0].percent}%
+                    <MaterialCommunityIcons
+                      name="trophy-award"
+                      color="gold"
+                      size={50}
+                    />
+                    <Text
+                      key={index}
+                      style={{
+                        fontSize: 15,
+                        color: "rgba(0, 0, 0, 0.5)"
+                      }}
+                    >
+                      {winner.question}
+                    </Text>
+                    <Text
+                      key={index}
+                      style={{ fontSize: 32, fontWeight: "bold" }}
+                    >
+                      {winner.answer[0].response} {winner.answer[0].percent}%
                     </Text>
                   </Body>
                 </CardItem>
