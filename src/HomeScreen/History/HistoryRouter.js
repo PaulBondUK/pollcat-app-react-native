@@ -10,8 +10,9 @@ const HistoryRouter = () => {
   return (
     <Stack.Navigator initialRouteName="LoginOrCreate">
       <Stack.Screen
-        name="History"
+        name="Local History"
         component={History}
+        title={"Local History"}
         // options={{ headerShown: false }}
       />
       <Stack.Screen
