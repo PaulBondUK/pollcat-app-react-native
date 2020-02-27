@@ -192,7 +192,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginLeft: 20,
     marginRight: 20,
-    height: 50
+    height: 50,
+    justifyContent: "center",
+    flex: 1
   },
   buttonText: {
     color: "white",
