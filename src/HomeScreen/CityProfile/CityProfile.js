@@ -81,35 +81,36 @@ export default class CityProfileScreen extends Component {
 
   componentDidMount() {
     Api.getQuestions({ questionStatus: "past" }).then(({ questions }) => {
-      const questionData = questions;
+      const questionData = questions[0];
       console.log(questionData, "QD");
 
       const refObjArray = [];
       const refObj = {};
-      questionData.forEach(datum => {
-        // refObj.question = datum.question;
 
-        questionData.forEach(answer => {
-          answer.answerArray.forEach(singleAnswer => {
-            let answers = JSON.parse(singleAnswer);
+      // questionData.forEach(datum => {
+      //   // refObj.question = datum.question;
 
-            //console.log(singleAnswer, "singleAnswer");
-            refObj.question = datum.question;
-            refObj.answers = [];
-            refObj.answers.push(answers.answer);
-            refObj.vote = answers.votes;
-          });
-          //console.log(refObj);
+      //   questionData.forEach(answer => {
+      //     answer.answerArray.forEach(singleAnswer => {
+      //       let answers = JSON.parse(singleAnswer);
 
-          // console.log(answer.answerArray, "answer");
-          // refObj.answers = JSON.parse(answer.answerArray);
+      //       //console.log(singleAnswer, "singleAnswer");
+      //       refObj.question = datum.question;
+      //       refObj.answers = [];
+      //       refObj.answers.push(answers.answer);
+      //       refObj.vote = answers.votes;
+      //     });
+      //     //console.log(refObj);
 
-          //console.log(refObjArray, "ROA");
-        });
-        refObjArray.push(refObj);
-        console.log(refObjArray);
-        this.setState({ refObjArray });
-      });
+      //     // console.log(answer.answerArray, "answer");
+      //     // refObj.answers = JSON.parse(answer.answerArray);
+
+      //     //console.log(refObjArray, "ROA");
+      //   });
+      //   refObjArray.push(refObj);
+      //   //console.log(refObjArray);
+      //   this.setState({ refObjArray });
+      // });
 
       // datum.answerArray.forEach(answer => {
       //   let parsedAnswer = JSON.parse(answer);
