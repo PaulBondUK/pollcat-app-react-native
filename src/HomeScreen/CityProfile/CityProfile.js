@@ -17,11 +17,14 @@ import {
   Item,
   Input,
   Label,
-  Button
+  Button,
+  CardItem,
+  Body
 } from "native-base";
 import firebase from "../../Auth/Firebase";
 import * as Api from "../../../Api";
 import { answers } from "../../../spec/TestData";
+import { Card } from "react-native-card-animated-modal/src/components";
 
 export default class CityProfileScreen extends Component {
   state = {
@@ -32,7 +35,7 @@ export default class CityProfileScreen extends Component {
     votedAnswer: null,
     parsedAnswerArray: "",
     referenceObject: "",
-    refObjArray: ""
+    refObjArray: null
   };
 
   render() {
@@ -48,125 +51,81 @@ export default class CityProfileScreen extends Component {
       refObjArray
     } = this.state;
 
-    // if (isLoading) {
-    //   return (
-    //     <Container>
-    //       <Content
-    //         contentContainerStyle={{
-    //           flex: 1,
-    //           justifyContent: "center",
-    //           paddingTop: 50
-    //         }}
-    //       >
-    //         <Spinner color={"tomato"} />
-    //       </Content>
-    //     </Container>
-    //   );
-    // } else {
-    // console.log(refObjArray, "ROA");
+    if (isLoading) {
+      return (
+        <Container>
+          <Content
+            contentContainerStyle={{
+              flex: 1,
+              justifyContent: "center",
+              paddingTop: 50
+            }}
+          >
+            <Spinner color={"tomato"} />
+          </Content>
+        </Container>
+      );
+    } else {
+      //console.log(refObjArray, "ROA");
 
-    return (
-      <View>
-        <Content>
-          {console.log(refObjArray, "REFOBJ")}
-          {/* {console.log(parsedAnswerArray, "PAA")} */}
-          {/* {parsedAnswerArray.reduce(function(prev, current) {
-            return prev.votes > current.votes ? prev : current;
-          })} */}
-        </Content>
-      </View>
-    );
+      return (
+        <Container>
+          <Content>
+            {refObjArray.map((winner, index) => {
+              return (
+                <CardItem>
+                  <Body>
+                    <Text key={index}>
+                      {winner.question}, {winner.answer[0].response},
+                      {winner.answer[0].percent}%
+                    </Text>
+                  </Body>
+                </CardItem>
+              );
+            })}
+          </Content>
+        </Container>
+      );
+    }
   }
-  //}
 
   componentDidMount() {
     Api.getQuestions({ questionStatus: "past" }).then(({ questions }) => {
       const questionData = questions;
-      console.log(questionData, "QD");
 
       const refObjArray = [];
 
       questionData.forEach(singleQuestion => {
         const refObj = {};
+        let totalVote = 0;
         const answersArrayParsed = singleQuestion.answerArray.map(answer => {
           const answerParsed = JSON.parse(answer);
+          totalVote += answerParsed.votes;
+          answerParsed.response = answerParsed.answer;
 
-          answerParsed[answerParsed.answer] = answerParsed.votes;
           delete answerParsed.answer;
           delete answerParsed.img;
-          delete answerParsed.votes;
           return answerParsed;
         });
 
-        refObj[singleQuestion.question] = answersArrayParsed;
+        const answersArraySorted = answersArrayParsed.sort((a, b) =>
+          a.votes < b.votes ? 1 : -1
+        );
+        answersArraySorted.forEach(answer => {
+          answer.percent = ((answer.votes * 100) / totalVote).toFixed();
+        });
+        refObj.question = singleQuestion.question;
+        refObj.answer = answersArraySorted;
+
+        //refObj.percent = singleQuestion.votes / totalVote;
+        // refObj[singleQuestion.question] = answersArraySorted;
+        //console.log(refObj, "RO");
 
         refObjArray.push(refObj);
+        console.log(refObjArray, "ROA");
 
-        this.setState({ refObjArray });
+        this.setState({ refObjArray, isLoading: false });
       });
-
-      // questionData.forEach(datum => {
-      //   // refObj.question = datum.question;
-
-      //   questionData.forEach(answer => {
-      //     answer.answerArray.forEach(singleAnswer => {
-      //       let answers = JSON.parse(singleAnswer);
-
-      //       //console.log(singleAnswer, "singleAnswer");
-      //       refObj.question = datum.question;
-      //       refObj.answers = [];
-      //       refObj.answers.push(answers.answer);
-      //       refObj.vote = answers.votes;
-      //     });
-      //     //console.log(refObj);
-
-      //     // console.log(answer.answerArray, "answer");
-      //     // refObj.answers = JSON.parse(answer.answerArray);
-
-      //     //console.log(refObjArray, "ROA");
-      //   });
-      //   refObjArray.push(refObj);
-      //   //console.log(refObjArray);
-      //   this.setState({ refObjArray });
-      // });
-
-      // datum.answerArray.forEach(answer => {
-      //   let parsedAnswer = JSON.parse(answer);
-
-      //   refObj.answers = parsedAnswer;
-      // });
-      //this.setState({ refObjArray });
-      // });
-      //console.log(refObj, "Obj");
-      //console.log(refObjArray, "ROA");
-      // datum.answerArray.forEach(element => {
-      //   let referenceObject = [];
-      //   let parsedElement = JSON.parse(element);
-      //   referenceObject.push(parsedElement);
-
-      //console.log(referenceObject, "REF OBJECT");
-      //let parsedAnswerArray = JSON.parse(element);
-      //this.setState({ parsedAnswerArray, referenceObject });
     });
-    //});
-
-    // const answerArray = questionData.map(function(datum) {
-    //   return datum.answerArray;
-    // });
-
-    // const parsedAnswerArray = answerArray.map(function(answer) {
-    //   return JSON.parse(answer);
-    // });
-    // console.log(parsedAnswerArray, "AA");
-
-    //this.setState({ questionData, answerArray, parsedAnswerArray });
   }
-
-  // getWinner = parsedAnswerArray => {
-  //   if (parsedAnswerArray[0].votes > parsedAnswerArray[1].votes) {
-  //     let winner = parsedAnswerArray[0].answer;
-  //     console.log(winner, "in function");
-  //     this.setState({ winner });
-  //   }
-  // };
 }
