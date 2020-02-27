@@ -44,7 +44,7 @@ const PollCardHistory = ({ questionData, navigation }) => {
     pageTitle
   } = questionData;
   return (
-    <Card style={{ marginTop: 10, flex: 1, justifyContent: "space-between4" }}>
+    <Card style={{ marginTop: 10, flex: 1, justifyContent: "space-between" }}>
       <CardItem style={{ paddingBottom: 10, height: 60 }}>
         <Text
           style={{
