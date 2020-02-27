@@ -76,9 +76,31 @@ export default class CityProfileScreen extends Component {
               return (
                 <CardItem>
                   <Body>
-                    <Text key={index}>
-                      {winner.question}, {winner.answer[0].response},
-                      {winner.answer[0].percent}%
+                    <MaterialCommunityIcons
+                      name="trophy-award"
+                      color="gold"
+                      size={50}
+                      // style={{
+                      //   flex: 1,
+                      //   alignSelf: "flex-start"
+                      //}}
+                    />
+                    <Text
+                      key={winner.question}
+                      style={{
+                        fontSize: 15,
+                        color: "rgba(0, 0, 0, 0.5)"
+                      }}
+                      // style={{ flex: 2, alignSelf: "flex-end" }}
+                    >
+                      {winner.question}
+                    </Text>
+                    <Text
+                      key={index}
+                      style={{ fontSize: 32, fontWeight: "bold" }}
+                      // style={{ flex: 2, alignSelf: "flex-end" }}
+                    >
+                      {winner.answer[0].response} {winner.answer[0].percent}%
                     </Text>
                   </Body>
                 </CardItem>
@@ -123,7 +145,6 @@ export default class CityProfileScreen extends Component {
         //console.log(refObj, "RO");
 
         refObjArray.push(refObj);
-        console.log(refObjArray, "ROA");
 
         this.setState({ refObjArray, isLoading: false });
       });
