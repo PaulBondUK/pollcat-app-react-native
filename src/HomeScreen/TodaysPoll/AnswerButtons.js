@@ -10,37 +10,43 @@ export default AnswerButtons = ({
   question_id,
   townName,
   countyName,
-  allowVote
+  votedAnswer,
+  addAnswerIndex,
+  consoleLog
 }) => {
   const { answer } = answerData;
-  const buttonStyle =
-    allowVote && allowVote === index
-      ? buttonStyles.buttonSelectedVote
-      : allowVote && allowVote !== index
-      ? buttonStyles.buttonNotSelectedVote
-      : buttonStyles.button;
+  let disabledButton;
+  if (typeof votedAnswer === "number") {
+    disabledButton = true;
+  } else {
+    disabledButton = false;
+  }
+
+  // const buttonStyle =
+  //   allowVote && allowVote === index
+  //     ? buttonStyles.buttonSelectedVote
+  //     : allowVote && allowVote !== index
+  //     ? buttonStyles.buttonNotSelectedVote
+  //     : buttonStyles.button;
   return (
-    <CardItem>
-      <Body>
-        <Button
-          disabled={allowVote ? false : true}
-          onPress={() =>
-            submitVote(
-              index,
-              question_id,
-              userUid,
-              townName,
-              countyName,
-              answer
-            )
-          }
-          style={styles.button}
-          block
-        >
-          <Text style={styles.buttonText}>{answer}</Text>
-        </Button>
-      </Body>
-    </CardItem>
+    <Button
+      // disabled={disabledButton}
+      // onPress={() => {
+      //   submitVote(
+      //     index,
+      //     question_id,
+      //     userUid,
+      //     townName,
+      //     countyName,
+      //     answer
+      //   );
+      // }}
+      onPress={() => consoleLog()}
+      style={styles.button}
+      block
+    >
+      <Text style={styles.buttonText}>{answer}</Text>
+    </Button>
   );
 };
 
@@ -76,7 +82,7 @@ const submitVote = (
     countyName
   })
     .then(({ data }) => {
-      Alert.alert("💣 BOOM!", `Your vote for '${answer}' has been recorded.`);
+      Alert.alert("💣 BOOM!", `Your vote for '${answer}' has been recorded`);
     })
     .catch(err => console.log(err));
 };

@@ -7,7 +7,8 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
-  SafeAreaView
+  SafeAreaView,
+  Alert
 } from "react-native";
 import {
   Container,
@@ -58,11 +59,9 @@ export default class TodaysPollScreen extends PureComponent {
       questionData,
       endTime,
       parsedAnswerArray,
-      allowVote
+      votedAnswer
     } = this.state;
-
     const { countyName, townName, userUid } = this.props.route.params;
-
     if (isLoading) {
       return (
         <Container>
@@ -116,20 +115,23 @@ export default class TodaysPollScreen extends PureComponent {
               }}
             >
               <Content>
-                {parsedAnswerArray.map((answer, index) => {
-                  return (
-                    <AnswerButtons
-                      answerData={answer}
-                      key={index}
-                      index={index}
-                      userUid={userUid}
-                      townName={townName}
-                      countyName={countyName}
-                      question_id={questionData.question_id}
-                      allowVote={allowVote}
-                    />
-                  );
-                })}
+                <CardItem>
+                  <Body>
+                    {parsedAnswerArray.map((answer, index) => {
+                      return (
+                        <Button
+                          onPress={() => this.submitVote(index)}
+                          style={styles.button}
+                          key={index}
+                          disabled={typeof votedAnswer === "number"}
+                          block
+                        >
+                          <Text style={styles.buttonText}>{answer.answer}</Text>
+                        </Button>
+                      );
+                    })}
+                  </Body>
+                </CardItem>
               </Content>
             </View>
           )}
@@ -137,6 +139,50 @@ export default class TodaysPollScreen extends PureComponent {
       );
     }
   }
+
+  // consoleLog() {
+  //   console.log("TESSSSST!!!!");
+  //   this.setState({ test: 0 });
+  // }
+
+  submitVote(index) {
+    const { questionData, parsedAnswerArray } = this.state;
+    const { question_id } = questionData;
+    const { countyName, townName, userUid } = this.props.route.params;
+    Api.postAnswer({
+      question_id,
+      userUid,
+      answerIndex: index,
+      townName,
+      countyName
+    })
+      .then(({ data }) => {
+        this.setState({ votedAnswer: index });
+        Alert.alert(
+          "💣 BOOM!",
+          `Your vote for '${parsedAnswerArray[index].answer}' has been recorded`
+        );
+      })
+      .catch(err => console.log(err));
+  }
+
+  // componentDidUpdate() {
+  //   const { userUid } = this.props.route.params;
+  //   const { question_id } = this.state.questionData;
+  //   Api.checkIfUserHasVoted(question_id, userUid)
+  //     .then(data => {
+  //       if (
+  //         !this.state.answerIndex &&
+  //         typeof data.answer.answerIndex === "number"
+  //       ) {
+  //         this.setState({
+  //           votedAnswer: data.answer.answerIndex,
+  //           isLoading: false
+  //         });
+  //       }
+  //     })
+  //     .catch(err => console.log(err));
+  // }
 
   componentDidMount() {
     Api.getQuestions({ questionStatus: "current" })
@@ -161,9 +207,10 @@ export default class TodaysPollScreen extends PureComponent {
         return Api.checkIfUserHasVoted(question_id, userUid);
       })
       .then(data => {
-        if (data.answer) {
+        if (typeof data.answer.answerIndex === "number") {
+          const votedAnswer = data.answer.answerIndex;
           this.setState({
-            votedAnswer: data.answer.answerIndex,
+            votedAnswer,
             isLoading: false
           });
         } else {
@@ -186,10 +233,14 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   button: {
-    fontSize: 10
+    marginTop: 5,
+    marginBottom: 5,
+    height: 50
   },
   buttonText: {
-    fontSize: 13
+    color: "white",
+    fontSize: 22,
+    fontWeight: "bold"
   },
   error: {
     color: "red",

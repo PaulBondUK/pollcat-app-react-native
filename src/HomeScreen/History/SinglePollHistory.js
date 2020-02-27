@@ -32,7 +32,8 @@ const height = (width / 800) * 500;
 
 export default class SinglePollHistory extends PureComponent {
   state = {
-    showConfetti: false
+    showConfetti: false,
+    revealWinner: false
   };
   render() {
     const { params } = this.props.route;
