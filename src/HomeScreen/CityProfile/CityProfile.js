@@ -25,6 +25,7 @@ import firebase from "../../Auth/Firebase";
 import * as Api from "../../../Api";
 import { answers } from "../../../spec/TestData";
 import { Card } from "react-native-card-animated-modal/src/components";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default class CityProfileScreen extends Component {
   state = {
