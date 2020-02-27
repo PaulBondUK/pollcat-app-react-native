@@ -48,43 +48,22 @@ export default class LoginOrCreate extends React.Component {
     );
   }
 
-  // async componentDidMount() {
-  //   const user = await firebase.auth().currentUser;
-  //   if (await user) {
-  //     console.log("user is logged in", user);
-  //   } else {
-  //     console.log("user is not logged in");
-  //   }
-  // }
-
   componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        console.log("user is logged in", user);
+        console.log("user is logged in");
         this.props.navigation.navigate("HomeScreen");
       } else {
         console.log("user is not logged in");
       }
     });
   }
-
-  // async componentDidMount() {
-  //   const user = await firebase.auth().currentUser;
-  //   if (await user) {
-  //     console.log("user is logged in", user);
-  //   } else {
-  //     console.log("user is not logged in");
-  //   }
-  // }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // flexDirection: "column-reverse",
-    // backgroundColor: "#fff",
     justifyContent: "center"
-    // alignContent: "flex-end"
   },
   input: {
     marginTop: 10
