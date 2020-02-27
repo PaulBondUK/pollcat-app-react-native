@@ -68,7 +68,7 @@ export default class CityProfileScreen extends Component {
     return (
       <View>
         <Content>
-          {/* {console.log(referenceObject, "REFOBJ")} */}
+          {console.log(refObjArray, "REFOBJ")}
           {/* {console.log(parsedAnswerArray, "PAA")} */}
           {/* {parsedAnswerArray.reduce(function(prev, current) {
             return prev.votes > current.votes ? prev : current;
@@ -81,11 +81,29 @@ export default class CityProfileScreen extends Component {
 
   componentDidMount() {
     Api.getQuestions({ questionStatus: "past" }).then(({ questions }) => {
-      const questionData = questions[0];
+      const questionData = questions;
       console.log(questionData, "QD");
 
       const refObjArray = [];
-      const refObj = {};
+
+      questionData.forEach(singleQuestion => {
+        const refObj = {};
+        const answersArrayParsed = singleQuestion.answerArray.map(answer => {
+          const answerParsed = JSON.parse(answer);
+
+          answerParsed[answerParsed.answer] = answerParsed.votes;
+          delete answerParsed.answer;
+          delete answerParsed.img;
+          delete answerParsed.votes;
+          return answerParsed;
+        });
+
+        refObj[singleQuestion.question] = answersArrayParsed;
+
+        refObjArray.push(refObj);
+
+        this.setState({ refObjArray });
+      });
 
       // questionData.forEach(datum => {
       //   // refObj.question = datum.question;
