@@ -29,7 +29,10 @@ export default class CityProfileScreen extends Component {
     isLoading: true,
     endTime: null,
     answerArray: [],
-    votedAnswer: null
+    votedAnswer: null,
+    parsedAnswerArray: "",
+    referenceObject: "",
+    refObjArray: ""
   };
 
   render() {
@@ -39,7 +42,10 @@ export default class CityProfileScreen extends Component {
       endTime,
       answerArray,
       votedAnswer,
-      startTime
+      startTime,
+      parsedAnswerArray,
+      referenceObject,
+      refObjArray
     } = this.state;
 
     // if (isLoading) {
@@ -57,36 +63,84 @@ export default class CityProfileScreen extends Component {
     //     </Container>
     //   );
     // } else {
+    // console.log(refObjArray, "ROA");
 
     return (
       <View>
         <Content>
-          {/* {answerArray.reduce(function(prev, current) {
-            return (prev.)
-          }) } */}
+          {/* {console.log(referenceObject, "REFOBJ")} */}
+          {/* {console.log(parsedAnswerArray, "PAA")} */}
+          {/* {parsedAnswerArray.reduce(function(prev, current) {
+            return prev.votes > current.votes ? prev : current;
+          })} */}
         </Content>
       </View>
     );
   }
   //}
+
   componentDidMount() {
-    //changed question status to "past"
     Api.getQuestions({ questionStatus: "past" }).then(({ questions }) => {
       const questionData = questions;
+      console.log(questionData, "QD");
 
-      console.log(questionData);
+      const refObjArray = [];
+      const refObj = {};
+      questionData.forEach(datum => {
+        // refObj.question = datum.question;
 
-      const answerArray = questionData.map(function(datum) {
-        return datum.answerArray;
+        questionData.forEach(answer => {
+          answer.answerArray.forEach(singleAnswer => {
+            let answers = JSON.parse(singleAnswer);
+
+            //console.log(singleAnswer, "singleAnswer");
+            refObj.question = datum.question;
+            refObj.answers = [];
+            refObj.answers.push(answers.answer);
+            refObj.vote = answers.votes;
+          });
+          //console.log(refObj);
+
+          // console.log(answer.answerArray, "answer");
+          // refObj.answers = JSON.parse(answer.answerArray);
+
+          //console.log(refObjArray, "ROA");
+        });
+        refObjArray.push(refObj);
+        console.log(refObjArray);
+        this.setState({ refObjArray });
       });
 
-      const parsedAnswerArray = answerArray.map(function(answer) {
-        return JSON.parse(answer);
-      });
-      console.log(parsedAnswerArray, "AA");
+      // datum.answerArray.forEach(answer => {
+      //   let parsedAnswer = JSON.parse(answer);
 
-      this.setState({ questionData, answerArray });
+      //   refObj.answers = parsedAnswer;
+      // });
+      //this.setState({ refObjArray });
+      // });
+      //console.log(refObj, "Obj");
+      //console.log(refObjArray, "ROA");
+      // datum.answerArray.forEach(element => {
+      //   let referenceObject = [];
+      //   let parsedElement = JSON.parse(element);
+      //   referenceObject.push(parsedElement);
+
+      //console.log(referenceObject, "REF OBJECT");
+      //let parsedAnswerArray = JSON.parse(element);
+      //this.setState({ parsedAnswerArray, referenceObject });
     });
+    //});
+
+    // const answerArray = questionData.map(function(datum) {
+    //   return datum.answerArray;
+    // });
+
+    // const parsedAnswerArray = answerArray.map(function(answer) {
+    //   return JSON.parse(answer);
+    // });
+    // console.log(parsedAnswerArray, "AA");
+
+    //this.setState({ questionData, answerArray, parsedAnswerArray });
   }
 
   // getWinner = parsedAnswerArray => {
