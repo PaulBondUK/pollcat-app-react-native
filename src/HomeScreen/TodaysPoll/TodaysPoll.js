@@ -140,11 +140,6 @@ export default class TodaysPollScreen extends PureComponent {
     }
   }
 
-  // consoleLog() {
-  //   console.log("TESSSSST!!!!");
-  //   this.setState({ test: 0 });
-  // }
-
   submitVote(index) {
     const { questionData, parsedAnswerArray } = this.state;
     const { question_id } = questionData;
@@ -165,24 +160,6 @@ export default class TodaysPollScreen extends PureComponent {
       })
       .catch(err => console.log(err));
   }
-
-  // componentDidUpdate() {
-  //   const { userUid } = this.props.route.params;
-  //   const { question_id } = this.state.questionData;
-  //   Api.checkIfUserHasVoted(question_id, userUid)
-  //     .then(data => {
-  //       if (
-  //         !this.state.answerIndex &&
-  //         typeof data.answer.answerIndex === "number"
-  //       ) {
-  //         this.setState({
-  //           votedAnswer: data.answer.answerIndex,
-  //           isLoading: false
-  //         });
-  //       }
-  //     })
-  //     .catch(err => console.log(err));
-  // }
 
   componentDidMount() {
     Api.getQuestions({ questionStatus: "current" })
