@@ -30,6 +30,7 @@ import {
 import HistoryRouter from "./History/HistoryRouter";
 import AccountScreen from "./Account/Account";
 import CityProfileScreen from "./CityProfile/CityProfile";
+import CityProfileRouter from "./CityProfile/CityProfileRouter";
 import HistoryScreen from "./History/History";
 import TodaysPollScreen from "./TodaysPoll/TodaysPoll";
 import AccountRouter from "./Account/AccountRouter";
@@ -96,10 +97,11 @@ export default class HomeScreen extends Component {
                   <TabBarIcon name="history" focused={focused} />
                 )
               }}
+              initialParams={{ townName }}
             />
             <Tab.Screen
               name="City Profile"
-              component={CityProfileScreen}
+              component={CityProfileRouter}
               options={{
                 tabBarIcon: ({ focused }) => (
                   <TabBarIcon name="location-city" focused={focused} />
