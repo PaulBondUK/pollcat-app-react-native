@@ -5,13 +5,18 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
 
-const CityProfileRouter = () => {
+const CityProfileRouter = props => {
+  const { townName } = props.route.params;
   return (
     <Stack.Navigator initialRouteName="CityProfile">
       <Stack.Screen
         name="City Profile"
         component={CityProfile}
         // options={{ headerShown: false }}
+        initialParams={{ townName }}
+        options={({ route }) => ({
+          title: `${route.params.townName}'s City Profile`
+        })}
       />
     </Stack.Navigator>
   );
