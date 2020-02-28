@@ -71,7 +71,7 @@ export default class SinglePollHistory extends PureComponent {
               {question}
             </Text>
             {!revealWinner && (
-              <Animatable.View animation="swing" delay="200">
+              <Animatable.View animation="rubberBand" delay="200">
                 <Button
                   style={{
                     backgroundColor: "tomato",
