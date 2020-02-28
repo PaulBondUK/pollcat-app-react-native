@@ -25,7 +25,7 @@ import {
 } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import { render } from "react-dom";
-import Confetti from "@milkywire/react-native-confetti";
+import ConfettiCannon from "react-native-confetti-cannon";
 
 // const height = (Dimensions.get("window").width / 800) * 500;
 const width = Dimensions.get("window").width;
@@ -59,6 +59,15 @@ export default class SinglePollHistory extends PureComponent {
     } else {
       return (
         <Container>
+          {revealWinner && (
+            <ConfettiCannon
+              count={50}
+              fadeOut={true}
+              origin={{ x: 300, y: 200 }}
+              fallSpeed={1500}
+              explosionSpeed={1}
+            />
+          )}
           <Content>
             <Image source={{ uri: img }} style={{ height: height, flex: 1 }} />
             <Text
@@ -71,7 +80,7 @@ export default class SinglePollHistory extends PureComponent {
               {question}
             </Text>
             {!revealWinner && (
-              <Animatable.View animation="rubberBand" delay="200">
+              <Animatable.View animation="pulse" delay="300">
                 <Button
                   style={{
                     backgroundColor: "tomato",

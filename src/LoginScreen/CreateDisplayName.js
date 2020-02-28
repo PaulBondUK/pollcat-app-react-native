@@ -27,7 +27,13 @@ export default class CreateDisplayName extends Component {
     };
     return (
       <Container>
-        <Content>
+        <Content
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: "flex-end",
+            marginBottom: 300
+          }}
+        >
           <Form>
             <Item floatingLabel>
               <Label>Display Name</Label>

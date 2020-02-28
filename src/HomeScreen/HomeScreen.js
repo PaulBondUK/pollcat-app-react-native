@@ -90,7 +90,7 @@ export default class HomeScreen extends Component {
               initialParams={{ userUid, townName, countyName }}
             />
             <Tab.Screen
-              name="Local History"
+              name="History"
               component={HistoryRouter}
               options={{
                 tabBarIcon: ({ focused }) => (

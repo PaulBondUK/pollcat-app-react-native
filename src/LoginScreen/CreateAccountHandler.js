@@ -43,8 +43,8 @@ export default class CreateAccountHandler extends Component {
         <Content
           contentContainerStyle={{
             flex: 1,
-            justifyContent: "flex-start",
-            marginTop: 100
+            justifyContent: "flex-end",
+            marginBottom: 300
           }}
         >
           <Form>
@@ -285,7 +285,6 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 20,
     marginTop: 20,
-    alignContent: "center",
     flex: 1
   }
 });
