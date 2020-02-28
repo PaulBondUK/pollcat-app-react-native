@@ -194,11 +194,12 @@ const styles = StyleSheet.create({
     marginRight: 20,
     height: 50,
     justifyContent: "center",
-    flex: 1
+    flex: 1,
+    backgroundColor: "#6347ff"
   },
   buttonText: {
     color: "white",
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: "bold"
   },
   error: {

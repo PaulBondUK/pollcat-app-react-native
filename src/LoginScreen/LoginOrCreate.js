@@ -96,7 +96,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginLeft: 20,
     marginRight: 20,
-    height: 50
+    height: 50,
+    backgroundColor: "#6347ff"
   },
   borderedButton: {
     marginTop: 10,
@@ -108,12 +109,12 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: "bold"
   },
   borderedButtonText: {
-    color: "#0960FF",
-    fontSize: 18,
+    color: "#6347ff",
+    fontSize: 22,
     fontWeight: "bold"
   },
   error: {

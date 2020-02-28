@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import * as Animatable from "react-native-animatable";
 import {
   TextInput,
   View,
