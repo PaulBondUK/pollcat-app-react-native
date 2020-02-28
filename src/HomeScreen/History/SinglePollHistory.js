@@ -74,16 +74,18 @@ export default class SinglePollHistory extends PureComponent {
               <Button
                 style={{
                   backgroundColor: "tomato",
-                  height: 60,
-                  marginLeft: 15,
-                  marginRight: 15
+                  marginTop: 10,
+                  marginBottom: 10,
+                  marginLeft: 20,
+                  marginRight: 20,
+                  height: 50
                 }}
                 onPress={() => {
                   this.setState({ revealWinner: true });
                 }}
               >
-                <Text style={{ fontSize: 30, fontWeight: "bold" }}>
-                  Reveal the Winner...
+                <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                  Reveal...
                 </Text>
               </Button>
             )}
