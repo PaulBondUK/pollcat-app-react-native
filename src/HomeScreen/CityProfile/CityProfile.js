@@ -77,7 +77,7 @@ export default class CityProfileScreen extends Component {
 
       return (
         <Container>
-          <Content>
+          <Content style={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}>
             {refObjArray.map((winner, index) => {
               return (
                 <Card>
