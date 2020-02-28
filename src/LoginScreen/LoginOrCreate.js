@@ -1,49 +1,72 @@
 import * as React from "react";
-import { StyleSheet, View } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  Dimensions,
+  ImageBackground
+} from "react-native";
 import firebase from "../Auth/Firebase";
 import { Container, Header, Content, Text, Button } from "native-base";
 // import styles from "../Styles.js";
+const width = Dimensions.get("window").width;
 
 export default class LoginOrCreate extends React.Component {
   render() {
     // const { height: screenHeight } = Dimensions.get("window");
     return (
-      <Container
-
-      // style={styles.container}
-      // style={{
-      //   flex: 1,
-      //   alignItems: "center",
-      //   justifyContent: "center"
-      // }}
-      >
-        <Content style={{ flex: 1 }} contentContainerStyle={{ flex: 1 }}>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "flex-end",
-              marginBottom: 100
-            }}
+      <Container>
+        <ImageBackground
+          source={require("../../Assets/splash.png")}
+          style={{
+            resizeMode: "contain",
+            // width: "100%",
+            // height: "100%",
+            // justifyContent: "center",
+            // alignItems: "center",
+            flex: 1
+          }}
+        >
+          <Content
+            style={{ flex: 1, height: 50 }}
+            contentContainerStyle={{ flex: 1 }}
           >
-            <Button
-              style={styles.button}
-              block
-              onPress={() => this.props.navigation.navigate("LoginHandler")}
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "flex-end",
+                marginBottom: 100
+              }}
             >
-              <Text style={styles.buttonText}>Login</Text>
-            </Button>
-            <Button
-              style={styles.borderedButton}
-              block
-              bordered
-              onPress={() =>
-                this.props.navigation.navigate("CreateAccountHandler")
-              }
-            >
-              <Text style={styles.borderedButtonText}>Sign up</Text>
-            </Button>
-          </View>
-        </Content>
+              {/* <Image
+              source={require("./big_logo.png")}
+              style={{
+                resizeMode: "contain",
+                width: 300,
+                flex: 1,
+                justifyContent: "center"
+              }}
+            /> */}
+
+              <Button
+                style={styles.button}
+                block
+                onPress={() => this.props.navigation.navigate("LoginHandler")}
+              >
+                <Text style={styles.buttonText}>Login</Text>
+              </Button>
+              <Button
+                style={styles.borderedButton}
+                block
+                onPress={() =>
+                  this.props.navigation.navigate("CreateAccountHandler")
+                }
+              >
+                <Text style={styles.borderedButtonText}>Sign up</Text>
+              </Button>
+            </View>
+          </Content>
+        </ImageBackground>
       </Container>
     );
   }
@@ -85,11 +108,13 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
-    fontSize: 18
+    fontSize: 18,
+    fontWeight: "bold"
   },
   borderedButtonText: {
     color: "#0960FF",
-    fontSize: 18
+    fontSize: 18,
+    fontWeight: "bold"
   },
   error: {
     color: "red",
