@@ -5,7 +5,8 @@ import {
   TextInput,
   View,
   StyleSheet,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from "react-native";
 import {
   Container,
@@ -19,12 +20,15 @@ import {
   Label,
   Button,
   CardItem,
-  Body
+  Card,
+  Body,
+  Left,
+  Right
 } from "native-base";
 import firebase from "../../Auth/Firebase";
 import * as Api from "../../../Api";
 import { answers } from "../../../spec/TestData";
-import { Card } from "react-native-card-animated-modal/src/components";
+// import { Card } from "react-native-card-animated-modal/src/components";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default class CityProfileScreen extends Component {
@@ -40,6 +44,8 @@ export default class CityProfileScreen extends Component {
   };
 
   render() {
+    const { params } = this.props.route;
+    const { townName } = params;
     const {
       questionData,
       isLoading,
@@ -74,36 +80,55 @@ export default class CityProfileScreen extends Component {
           <Content>
             {refObjArray.map((winner, index) => {
               return (
-                <CardItem>
-                  <Body>
-                    <MaterialCommunityIcons
-                      name="trophy-award"
-                      color="gold"
-                      size={50}
-                      // style={{
-                      //   flex: 1,
-                      //   alignSelf: "flex-start"
-                      //}}
-                    />
-                    <Text
-                      key={winner.question}
-                      style={{
-                        fontSize: 15,
-                        color: "rgba(0, 0, 0, 0.5)"
-                      }}
-                      // style={{ flex: 2, alignSelf: "flex-end" }}
-                    >
-                      {winner.question}
-                    </Text>
-                    <Text
-                      key={index}
-                      style={{ fontSize: 32, fontWeight: "bold" }}
-                      // style={{ flex: 2, alignSelf: "flex-end" }}
-                    >
-                      {winner.answer[0].response} {winner.answer[0].percent}%
-                    </Text>
-                  </Body>
-                </CardItem>
+                <Card>
+                  <CardItem>
+                    <Left>
+                      <MaterialCommunityIcons
+                        name="trophy-award"
+                        color="gold"
+                        size={50}
+                        // style={{
+                        //   flex: 1,
+                        //   alignSelf: "flex-start"
+                        //}}
+                      />
+                      <Body>
+                        <Text
+                          key={winner.question}
+                          style={{
+                            fontSize: 22,
+                            color: "rgba(0, 0, 0, 0.5)"
+                          }}
+                          // style={{ flex: 2, alignSelf: "flex-end" }}
+                        >
+                          {winner.question}
+                        </Text>
+                        <Text
+                          key={index}
+                          style={{
+                            fontSize: 32,
+                            fontWeight: "bold",
+                            color: "rgba(0, 0, 0, 0.8)"
+                          }}
+                          // style={{ flex: 2, alignSelf: "flex-end" }}
+                        >
+                          {winner.answer[0].response}{" "}
+                          <Text
+                            key={index}
+                            style={{
+                              fontSize: 32,
+                              fontWeight: "bold",
+                              color: "#20C5B6"
+                            }}
+                            // style={{ flex: 2, alignSelf: "flex-end" }}
+                          >
+                            {winner.answer[0].percent}%
+                          </Text>
+                        </Text>
+                      </Body>
+                    </Left>
+                  </CardItem>
+                </Card>
               );
             })}
           </Content>
