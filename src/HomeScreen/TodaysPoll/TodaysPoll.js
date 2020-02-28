@@ -210,8 +210,10 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   button: {
-    marginTop: 5,
-    marginBottom: 5,
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
     height: 50
   },
   buttonText: {
