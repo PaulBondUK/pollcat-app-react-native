@@ -107,6 +107,7 @@ export default class HomeScreen extends Component {
                   <TabBarIcon name="location-city" focused={focused} />
                 )
               }}
+              initialParams={{ townName }}
             />
             <Tab.Screen
               name="Account"
