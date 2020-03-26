@@ -8,22 +8,16 @@ import {
 } from "react-native";
 import firebase from "../Auth/Firebase";
 import { Container, Header, Content, Text, Button } from "native-base";
-// import styles from "../Styles.js";
 const width = Dimensions.get("window").width;
 
 export default class LoginOrCreate extends React.Component {
   render() {
-    // const { height: screenHeight } = Dimensions.get("window");
     return (
       <Container>
         <ImageBackground
           source={require("../../Assets/splash.png")}
           style={{
             resizeMode: "contain",
-            // width: "100%",
-            // height: "100%",
-            // justifyContent: "center",
-            // alignItems: "center",
             flex: 1
           }}
         >

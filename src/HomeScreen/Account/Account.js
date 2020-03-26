@@ -36,7 +36,6 @@ export default class AccountScreen extends PureComponent {
   };
 
   render() {
-    //"displayName": "kirsty",
     const { navigation } = this.props;
     if (this.state.isLoading) {
       return (
@@ -90,9 +89,7 @@ export default class AccountScreen extends PureComponent {
 
   async componentDidMount() {
     console.log("here");
-    //   currentUser = await firebase.auth().currentUser;
-    //   this.setState({ user: currentUser });
-    // }
+
     await firebase.auth().onAuthStateChanged(user => {
       console.log(user);
       if (user) {
@@ -111,31 +108,14 @@ export default class AccountScreen extends PureComponent {
         console.log("Sign-out successful");
         this.props.navigation.navigate("LoginOrCreate");
       })
-      .catch(function(error) {
-        // An error happened.
-      });
+      .catch(function(error) {});
   }
-  // componentDidUpdate() {
-  //   // const userData = JSON.parse(this.props.route.params);
-  //   // this.setState({ userData });
-  //   //this.firebaseUserCheck();
-  //   firebase.auth().onAuthStateChanged(user => {
-  //     if (user) {
-  //       this.setState({ user });
-  //     } else {
-  //       this.props.navigation.navigate("LoginOrCreate");
-  //     }
-  //   });
-  // }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // flexDirection: "column-reverse",
-    // backgroundColor: "#fff",
     justifyContent: "center"
-    // alignContent: "flex-end"
   },
   input: {
     marginTop: 10

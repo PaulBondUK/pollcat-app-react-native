@@ -20,7 +20,6 @@ import {
   Button,
   Icon
 } from "native-base";
-//import firebase from "../../Auth/Firebase";
 import * as firebase from "firebase";
 
 export default class ChangePassword extends Component {
@@ -148,9 +147,6 @@ export default class ChangePassword extends Component {
             let currentUser = firebase.auth().currentUser;
 
             currentUser.updatePassword(newPassword);
-            //currentUser.updateEmail()
-            // can use await
-            // .then() and .catch()
           })
           .then(() => {
             alert("Password changed successfully!");
@@ -166,22 +162,9 @@ export default class ChangePassword extends Component {
   }
 }
 
-// reauthenticate = currentPassword => {
-//   user = firebase.auth().currentUser;
-//   const cred = firebase.auth.EmailAuthProvider.credential(
-//     user.email,
-//     currentPassword
-//   );
-// };
-
-// onChangePasswordPress = () => {
-//   const user = firebase.auth().currentUser;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#fff",
-    // alignItems: "center",
     justifyContent: "center"
   },
   input: {

@@ -27,7 +27,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { render } from "react-dom";
 import ConfettiCannon from "react-native-confetti-cannon";
 
-// const height = (Dimensions.get("window").width / 800) * 500;
 const width = Dimensions.get("window").width;
 const height = (width / 800) * 500;
 

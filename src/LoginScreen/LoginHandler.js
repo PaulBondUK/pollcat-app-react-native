@@ -49,8 +49,6 @@ export default class LoginHandler extends Component {
               <Label>Email Address</Label>
               <Input
                 style={styles.input}
-                // title="email"
-                // placeholder="Email Address"
                 onChangeText={text =>
                   this.setState({ email: text, error: null })
                 }
@@ -68,8 +66,6 @@ export default class LoginHandler extends Component {
               <Label>Password</Label>
               <Input
                 style={styles.input}
-                // title="password"
-                // placeholder="Password"
                 onChangeText={text =>
                   this.setState({ password: text, error: null })
                 }
@@ -113,70 +109,6 @@ export default class LoginHandler extends Component {
     );
   }
 
-  // render() {
-  //   const errorHandler = {
-  //     "auth/user-not-found": "User not found",
-  //     "auth/invalid-email": "Invalid email address",
-  //     "auth/wrong-password": "Wrong password",
-  //     "auth/user-disabled": "Account disabled"
-  //   };
-  //   return (
-  //     <KeyboardAvoidingView
-  //       behavior={Platform.OS === "ios" ? "padding" : null}
-  //       style={{
-  //         flex: 1,
-  //         alignItems: "center",
-  //         justifyContent: "center"
-  //       }}
-  //     >
-  //       <SafeAreaView>
-  //         {this.state.error && (
-  //           <Text>
-  //             {errorHandler[this.state.error.code]
-  //               ? errorHandler[this.state.error.code]
-  //               : this.state.error.message}
-  //           </Text>
-  //         )}
-
-  //         {this.state.accountCreated && (
-  //           <Text>Account created. Please login to continue!</Text>
-  //         )}
-
-  //         <Text>Email Address</Text>
-  //         <TextInput
-  //           style={styles.input}
-  //           title="email"
-  //           placeholder="Email Address"
-  //           onChangeText={text => this.setState({ email: text, error: null })}
-  //           value={this.state.email}
-  //           keyboardType="email-address"
-  //           returnKeyType="next"
-  //           textContentType="emailAddress"
-  //         ></TextInput>
-  //         <Text>Password</Text>
-  //         <TextInput
-  //           style={styles.input}
-  //           title="password"
-  //           placeholder="Password"
-  //           onChangeText={text =>
-  //             this.setState({ password: text, error: null })
-  //           }
-  //           value={this.state.password}
-  //           secureTextEntry={true}
-  //           textContentType="password"
-  //         ></TextInput>
-  //         <Button
-  //           title="Login"
-  //           onPress={() => {
-  //             const { email, password } = this.state;
-  //             this.firebaseLoginHandler(email, password);
-  //           }}
-  //         ></Button>
-  //       </SafeAreaView>
-  //     </KeyboardAvoidingView>
-  //   );
-  // }
-
   firebaseLoginHandler(email, password) {
     if (!email || !password) {
       this.setState({
@@ -207,8 +139,6 @@ export default class LoginHandler extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#fff",
-    // alignItems: "center",
     justifyContent: "center"
   },
   input: {

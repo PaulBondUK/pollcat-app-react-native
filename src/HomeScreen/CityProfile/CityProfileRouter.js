@@ -12,7 +12,6 @@ const CityProfileRouter = props => {
       <Stack.Screen
         name="City Profile"
         component={CityProfile}
-        // options={{ headerShown: false }}
         initialParams={{ townName }}
         options={({ route }) => ({
           title: `${route.params.townName}'s City Profile`

@@ -33,7 +33,6 @@ import {
   CardItem
 } from "native-base";
 import { questions, answers } from "../../../spec/TestData";
-// import PollCard from "./PollCard";
 import AnswerButtons from "./AnswerButtons";
 import { monthName } from "../../Utils/DateFormatting";
 import ConfettiCannon from "react-native-confetti-cannon";

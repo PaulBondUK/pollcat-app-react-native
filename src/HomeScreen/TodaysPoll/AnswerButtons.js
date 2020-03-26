@@ -22,49 +22,12 @@ export default AnswerButtons = ({
     disabledButton = false;
   }
 
-  // const buttonStyle =
-  //   allowVote && allowVote === index
-  //     ? buttonStyles.buttonSelectedVote
-  //     : allowVote && allowVote !== index
-  //     ? buttonStyles.buttonNotSelectedVote
-  //     : buttonStyles.button;
   return (
-    <Button
-      // disabled={disabledButton}
-      // onPress={() => {
-      //   submitVote(
-      //     index,
-      //     question_id,
-      //     userUid,
-      //     townName,
-      //     countyName,
-      //     answer
-      //   );
-      // }}
-      onPress={() => consoleLog()}
-      style={styles.button}
-      block
-    >
+    <Button onPress={() => consoleLog()} style={styles.button} block>
       <Text style={styles.buttonText}>{answer}</Text>
     </Button>
   );
 };
-
-// style={
-//             allowVote && allowVote === index
-//               ? buttonStyles.selectedVote
-//               : allowVote && allowVote !== index
-//               ? buttonStyles.buttonNotSelectedVote
-//               : buttonStyles.button
-//           }
-
-// if (allowVote && allowVote === index) {
-//   buttonStyles.buttonSelectedVote;
-// } else if (allowVote && allowVote !== index) {
-//   buttonStyles.buttonNotSelectedVote;
-// } else {
-//   buttonStyles.button;
-// }
 
 const submitVote = (
   index,
@@ -112,8 +75,6 @@ const buttonStyles = StyleSheet.create({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#fff",
-    // alignItems: "center",
     alignContent: "center",
     justifyContent: "center"
   },

@@ -36,7 +36,6 @@ const height = (Dimensions.get("window").width / 800) * 500;
 
 const PollCard = ({ questionData }) => {
   const { img, question, answerArray, questionStatus, endTime } = questionData;
-  // const date = new Date(endTime);
   return (
     <Card
       style={{ marginBottom: 20 }}

@@ -28,7 +28,6 @@ import {
 import firebase from "../../Auth/Firebase";
 import * as Api from "../../../Api";
 import { answers } from "../../../spec/TestData";
-// import { Card } from "react-native-card-animated-modal/src/components";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default class CityProfileScreen extends Component {
@@ -73,8 +72,6 @@ export default class CityProfileScreen extends Component {
         </Container>
       );
     } else {
-      //console.log(refObjArray, "ROA");
-
       return (
         <Container>
           <Content style={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}>
@@ -87,10 +84,6 @@ export default class CityProfileScreen extends Component {
                         name="trophy-award"
                         color="gold"
                         size={50}
-                        // style={{
-                        //   flex: 1,
-                        //   alignSelf: "flex-start"
-                        //}}
                       />
                       <Body>
                         <Text
@@ -99,7 +92,6 @@ export default class CityProfileScreen extends Component {
                             fontSize: 22,
                             color: "rgba(0, 0, 0, 0.5)"
                           }}
-                          // style={{ flex: 2, alignSelf: "flex-end" }}
                         >
                           {winner.question}
                         </Text>
@@ -110,7 +102,6 @@ export default class CityProfileScreen extends Component {
                             fontWeight: "bold",
                             color: "rgba(0, 0, 0, 0.8)"
                           }}
-                          // style={{ flex: 2, alignSelf: "flex-end" }}
                         >
                           {winner.answer[0].response}{" "}
                           <Text
@@ -120,7 +111,6 @@ export default class CityProfileScreen extends Component {
                               fontWeight: "bold",
                               color: "#20C5B6"
                             }}
-                            // style={{ flex: 2, alignSelf: "flex-end" }}
                           >
                             {winner.answer[0].percent}%
                           </Text>
@@ -164,10 +154,6 @@ export default class CityProfileScreen extends Component {
         });
         refObj.question = singleQuestion.question;
         refObj.answer = answersArraySorted;
-
-        //refObj.percent = singleQuestion.votes / totalVote;
-        // refObj[singleQuestion.question] = answersArraySorted;
-        //console.log(refObj, "RO");
 
         refObjArray.push(refObj);
 

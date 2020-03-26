@@ -87,12 +87,7 @@ export default class CreateAccountHandler extends Component {
                 autoCapitalize="none"
               />
             </Item>
-            <Item
-              floatingLabel
-              // success={
-              //   this.state.passwordCheck ? this.state.passwordCheck : false
-              // }
-            >
+            <Item floatingLabel>
               <Label>Repeat Password</Label>
               <Input
                 style={styles.input}
@@ -139,97 +134,6 @@ export default class CreateAccountHandler extends Component {
     );
   }
 
-  // render() {
-  //   const errorHandler = {
-  //     "auth/user-not-found": "User not found",
-  //     "auth/invalid-email": "Invalid email address",
-  //     "auth/wrong-password": "Wrong password",
-  //     "auth/user-disabled": "Account disabled"
-  //   };
-  //   return (
-  //     <KeyboardAvoidingView
-  //       behavior={Platform.OS === "ios" ? "padding" : null}
-  //       style={{
-  //         flex: 1,
-  //         alignItems: "center",
-  //         justifyContent: "center"
-  //       }}
-  //     >
-  //       <SafeAreaView>
-  //         {this.state.error && (
-  //           <Text>
-  //             {errorHandler[this.state.error.code]
-  //               ? errorHandler[this.state.error.code]
-  //               : this.state.error.message}
-  //           </Text>
-  //         )}
-  //         <Text>Email Address</Text>
-  //         <TextInput
-  //           style={styles.input}
-  //           title="email"
-  //           placeholder="Email Address"
-  //           onChangeText={text => this.setState({ email: text, error: null })}
-  //           value={this.state.email}
-  //           keyboardType="email-address"
-  //           returnKeyType="next"
-  //         ></TextInput>
-  //         <Text>Display Name</Text>
-  //         <TextInput
-  //           style={styles.input}
-  //           title="email"
-  //           placeholder="Display Name"
-  //           onChangeText={text =>
-  //             this.setState({ displayName: text, error: null })
-  //           }
-  //           value={this.state.displayName}
-  //           returnKeyType="next"
-  //         ></TextInput>
-  //         <Text>Password</Text>
-  //         <TextInput
-  //           style={styles.input}
-  //           title="password"
-  //           placeholder="Password"
-  //           onChangeText={text =>
-  //             this.setState({ password: text, error: null })
-  //           }
-  //           value={this.state.password}
-  //           returnKeyType="next"
-  //           secureTextEntry={true}
-  //           textContentType="newPassword"
-  //         ></TextInput>
-  //         <Text>Repeat Password</Text>
-  //         <TextInput
-  //           style={styles.input}
-  //           title="password"
-  //           placeholder="Repeat Password"
-  //           onChangeText={text =>
-  //             this.setState({ repeatPassword: text, error: null })
-  //           }
-  //           value={this.state.repeatPassword}
-  //           secureTextEntry={true}
-  //         ></TextInput>
-  //         <Button
-  //           title="Sign Up"
-  //           onPress={() => {
-  //             const {
-  //               email,
-  //               displayName,
-  //               password,
-  //               repeatPassword
-  //             } = this.state;
-  //             this.firebaseCreateAccountHandler(
-  //               email,
-  //               displayName,
-  //               password,
-  //               repeatPassword
-  //             );
-  //           }}
-  //         ></Button>
-  //       </SafeAreaView>
-  //     </KeyboardAvoidingView>
-  //   );
-  // }
-
   async firebaseCreateAccountHandler(email, password, repeatPassword) {
     if (password !== repeatPassword) {
       this.setState({
@@ -261,8 +165,6 @@ export default class CreateAccountHandler extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#fff",
-    // alignItems: "center",
     justifyContent: "center"
   },
   input: {

@@ -79,15 +79,6 @@ export default class HistoryScreen extends PureComponent {
     }
   }
 
-  //   componentDidMount() {
-  //     const questionData = questions.filter(question => {
-  //       return question.questionStatus === "past";
-  //     });
-
-  //     this.setState({ questionData, isLoading: false });
-  //   }
-  // }
-
   componentDidMount() {
     Api.getQuestions({ questionStatus: "past" })
       .then(({ questions }) => {

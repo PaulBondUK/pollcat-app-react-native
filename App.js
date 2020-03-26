@@ -13,18 +13,9 @@ import CreateDisplayName from "./src/LoginScreen/CreateDisplayName";
 import HomeScreen from "./src/HomeScreen/HomeScreen";
 import TodaysPoll from "./src/HomeScreen/TodaysPoll/TodaysPoll";
 
-// function Login() {
-//   return (
-//     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-//       <Text>Login Screen</Text>
-//     </View>
-//   );
-// }
 console.disableYellowBox = true;
 const Stack = createStackNavigator();
 const initialRouteName = "Main";
-
-// const UserContext = React.createContext()
 
 export default class App extends React.Component {
   state = {

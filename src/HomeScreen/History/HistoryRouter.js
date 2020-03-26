@@ -9,17 +9,11 @@ const Stack = createStackNavigator();
 const HistoryRouter = () => {
   return (
     <Stack.Navigator initialRouteName="LoginOrCreate">
-      <Stack.Screen
-        name="History"
-        component={History}
-        title={"History"}
-        // options={{ headerShown: false }}
-      />
+      <Stack.Screen name="History" component={History} title={"History"} />
       <Stack.Screen
         name="SinglePollHistory"
         component={SinglePollHistory}
         options={({ route }) => ({ title: route.params.pageTitle })}
-        // options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
